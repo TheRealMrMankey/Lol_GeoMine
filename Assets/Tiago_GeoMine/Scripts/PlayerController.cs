@@ -14,6 +14,8 @@ namespace Tiago_GeoMine
         private Tilemap tilemap;
         private NavMeshSurface surface2D;
 
+        public int healthPoints;
+
         #endregion
 
         void Start()
@@ -49,6 +51,9 @@ namespace Tiago_GeoMine
 
                     if (hit.collider != null)
                     {
+                        // Test
+                        Debug.Log("Hit: " + hit.transform.name);
+
                         // Movement
                         /// Buildings
                         if (hit.transform.tag == "Shop")
@@ -98,6 +103,13 @@ namespace Tiago_GeoMine
             }
 
             #endregion
+        }
+
+        // If the player collides with the enemy, the player takes damage
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.transform.tag == "Enemy")
+                healthPoints -= 10;
         }
     }
 }
