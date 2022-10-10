@@ -9,8 +9,12 @@ namespace Tiago_GeoMine
         #region Variables
 
         private Vector2 direction;
-        private int healthPoints;
 
+        // Enemy Stats
+        [Space(10)]
+        [Header("Stats")]
+
+        public int healthPoints = 50;
         public float moveSpeed;
 
         #endregion
@@ -19,7 +23,6 @@ namespace Tiago_GeoMine
         {
             // Variables Initial Value
             direction = Vector2.right;
-            healthPoints = 50;
         }
 
         void Update()
@@ -30,7 +33,7 @@ namespace Tiago_GeoMine
 
         void OnCollisionStay2D(Collision2D collision)
         {
-            // Get all point of contact
+            // Get all points of contact
             foreach (ContactPoint2D hitPos in collision.contacts)
             {
                 // If the collision is on the right, change direction to left

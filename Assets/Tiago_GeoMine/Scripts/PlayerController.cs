@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 namespace Tiago_GeoMine
 {
@@ -10,16 +11,58 @@ namespace Tiago_GeoMine
     {
         #region Variables
 
+        // UI Variables
+        [Space(10)]
+        [Header("UI")]
+
+        public GameObject inventory;
+
+        public GameObject shop;
+        public GameObject lab;
+
+        // Tilemap and Navigation Variables
+
         private NavMeshAgent agent;
         private Tilemap tilemap;
         private NavMeshSurface surface2D;
 
+        // Player Variables
+        [Space(10)]
+        [Header("Player")]
+
         public int healthPoints;
+
+        // Inventory Variables
+        [Space(10)]
+        [Header("Upgrades")]
+
+        public int money;
+
+        /// Upgradable      
+        public int pickaxeLvl = 1;
+        public int lanternLvl = 1;
+        public int armourLvl = 1;
+
+        [Space(10)]
+        [Header("Rocks and Minerals")]
+
+        /// Rocks and Minerals
+        public int silicon;
+        public int iron;
+        public int aluminium;
+        public int calcium;
+        public int igneous;
+        public int sedimentary;
+        public int volcanic;
+        public int metamorphic;
+        public int gravel;
 
         #endregion
 
         void Start()
         {
+            #region Components and GameObjects
+
             // NavMeshAgent (Player)
             agent = gameObject.GetComponent<NavMeshAgent>();
             agent.updateRotation = false;
@@ -32,6 +75,15 @@ namespace Tiago_GeoMine
             surface2D = GameObject.FindGameObjectWithTag("NavMesh").GetComponent<NavMeshSurface>();
             surface2D.BuildNavMeshAsync();
             surface2D.UpdateNavMesh(surface2D.navMeshData);
+
+            #endregion
+
+            #region UI
+
+            // UI
+            inventory.SetActive(false);
+
+            #endregion
         }
 
         void Update()
@@ -89,10 +141,21 @@ namespace Tiago_GeoMine
                             // Check if it is in range
                             float distance = Vector3.Distance(transform.position, tilemap.WorldToCell(mousePos));
 
-                            if (distance < 1.25f)
+                            if (distance < 1.5f)
                             {
+                                // Get Tile Name
+                                TileBase tileBase = tilemap.GetTile(tilemap.WorldToCell(mousePos));
+                                string tileName = tileBase.ToString();
+
+                                //Test
+                                Debug.Log("Name: " + tileName);
+                                if (tileName.Contains("Rocks"))
+                                {
+                                    silicon++;      
+                                }
+                                
                                 // Destroy Tile
-                                tilemap.SetTile(tilemap.WorldToCell(mousePos), null);
+                                tilemap.SetTile(tilemap.WorldToCell(mousePos), null);                            
 
                                 // Update Walkable Area
                                 surface2D.UpdateNavMesh(surface2D.navMeshData);
@@ -103,7 +166,42 @@ namespace Tiago_GeoMine
             }
 
             #endregion
+
+            #region Death
+
+            // Death
+            if (healthPoints <= 0)
+            {
+                //Teleport to starting position
+                agent.Warp(new Vector2(-2.9f, 0.57f));
+
+                //Regain all health
+                healthPoints = 100;             
+            }
+
+            #endregion
         }
+
+        #region Backpack
+
+        // Open/Close Inventory
+        public void OpenBackpack()
+        {
+            if (inventory.activeSelf == false) // Open
+            {
+                inventory.SetActive(true);
+
+                // Update Backpack
+                GetInventoryValues getInventory = FindObjectOfType<GetInventoryValues>();
+                getInventory.UpdateBackpack();
+            }
+            else // Close
+                inventory.SetActive(false);
+        }
+
+        #endregion
+
+        #region Collisions
 
         // If the player collides with the enemy, the player takes damage
         private void OnCollisionEnter2D(Collision2D collision)
@@ -111,5 +209,7 @@ namespace Tiago_GeoMine
             if (collision.transform.tag == "Enemy")
                 healthPoints -= 10;
         }
+
+        #endregion
     }
 }
