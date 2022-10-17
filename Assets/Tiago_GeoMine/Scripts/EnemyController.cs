@@ -9,6 +9,7 @@ namespace Tiago_GeoMine
         #region Variables
 
         private Vector2 direction;
+        private SpriteRenderer sprite;
 
         // Enemy Stats
         [Space(10)]
@@ -23,12 +24,16 @@ namespace Tiago_GeoMine
         {
             // Variables Initial Value
             direction = Vector2.right;
+            sprite.flipX = true;
+
+            // Get Enemy's sprite
+            sprite = GetComponent<SpriteRenderer>();
         }
 
         void Update()
         {
             // Move enemy left/right
-            transform.Translate(direction * moveSpeed * Time.deltaTime);
+            transform.Translate(direction * moveSpeed * Time.deltaTime);       
         }
 
         void OnCollisionStay2D(Collision2D collision)
@@ -38,10 +43,16 @@ namespace Tiago_GeoMine
             {
                 // If the collision is on the right, change direction to left
                 if (hitPos.normal.x < 0)
+                {
                     direction = Vector2.left;
+                    sprite.flipX = false;
+                }
                 // If the collision is on the left, change direction to right
                 if (hitPos.normal.x > 0)
+                {
                     direction = Vector2.right;
+                    sprite.flipX = true;
+                }
             }
         }
     }
