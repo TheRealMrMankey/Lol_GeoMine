@@ -22,12 +22,12 @@ namespace Tiago_GeoMine
 
         void Start()
         {
+            // Get Enemy's sprite
+            sprite = this.gameObject.GetComponent<SpriteRenderer>();
+
             // Variables Initial Value
             direction = Vector2.right;
             sprite.flipX = true;
-
-            // Get Enemy's sprite
-            sprite = GetComponent<SpriteRenderer>();
         }
 
         void Update()

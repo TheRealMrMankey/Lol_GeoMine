@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Background Tiles
+  m_Name: Igneous
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: cacd1ed7f9d4c284d9641ede1c9e3f6c, type: 3}
-  m_Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+  m_Sprite: {fileID: 21300000, guid: c77ff31d60c5e5f438c96b1f27b6a462, type: 3}
+  m_Color: {r: 0.8679245, g: 0.47899607, b: 0.8600751, a: 1}
   m_Transform:
     e00: 1
     e01: 0

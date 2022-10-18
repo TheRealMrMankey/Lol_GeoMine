@@ -30,9 +30,7 @@ namespace Tiago_GeoMine
         public TextMeshProUGUI calcium;
         public TextMeshProUGUI igneous;
         public TextMeshProUGUI sedimentary;
-        public TextMeshProUGUI volcanic;
         public TextMeshProUGUI metamorphic;
-        public TextMeshProUGUI gravel;
 
         #endregion
 
@@ -59,9 +57,7 @@ namespace Tiago_GeoMine
             calcium.text = playerController.calcium.ToString();
             igneous.text = playerController.igneous.ToString();
             sedimentary.text = playerController.sedimentary.ToString();
-            volcanic.text = playerController.volcanic.ToString();
             metamorphic.text = playerController.metamorphic.ToString();
-            gravel.text = playerController.gravel.ToString();
         }
     }
 }

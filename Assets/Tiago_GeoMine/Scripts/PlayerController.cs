@@ -20,6 +20,8 @@ namespace Tiago_GeoMine
         public GameObject shop;
         public GameObject lab;
 
+        public GameObject[] buttons;
+
         // Tilemap and Navigation Variables
 
         private NavMeshAgent agent;
@@ -53,9 +55,7 @@ namespace Tiago_GeoMine
         public int calcium;
         public int igneous;
         public int sedimentary;
-        public int volcanic;
         public int metamorphic;
-        public int gravel;
 
         #endregion
 
@@ -109,11 +109,11 @@ namespace Tiago_GeoMine
                         // Movement
                         /// Buildings
                         if (hit.transform.tag == "Shop")
-                            agent.SetDestination(new Vector2(1.7f, 0.72f));
+                            GoToShop();
                         if (hit.transform.tag == "Mine")
-                            agent.SetDestination(new Vector2(-6.98f, 0.72f));
+                            GoToEntrance();
                         if (hit.transform.tag == "Research")
-                            agent.SetDestination(new Vector2(6.57f, 0.72f));
+                            GoToResearch();
 
                         /// Underground
                         if (hit.transform.tag == "CanMine")
@@ -141,18 +141,14 @@ namespace Tiago_GeoMine
                             // Check if it is in range
                             float distance = Vector3.Distance(transform.position, tilemap.WorldToCell(mousePos));
 
-                            if (distance < 1.5f)
+                            if (distance < 1.75f)
                             {
                                 // Get Tile Name
                                 TileBase tileBase = tilemap.GetTile(tilemap.WorldToCell(mousePos));
                                 string tileName = tileBase.ToString();
 
-                                //Test
-                                Debug.Log("Name: " + tileName);
-                                if (tileName.Contains("Rocks"))
-                                {
-                                    silicon++;      
-                                }
+                                // Find out which rock was destroyed
+                                Destroy(tileName);
                                 
                                 // Destroy Tile
                                 tilemap.SetTile(tilemap.WorldToCell(mousePos), null);                            
@@ -182,6 +178,47 @@ namespace Tiago_GeoMine
             #endregion
         }
 
+        #region Type of Rock
+
+        private void Destroy(string rockName)
+        {
+            if (rockName.Contains("Silicon"))
+                silicon++;
+            if (rockName.Contains("Iron"))
+                iron++;
+            if (rockName.Contains("Aluminium"))
+                aluminium++;
+            if (rockName.Contains("Calcium"))
+                calcium++;
+            if (rockName.Contains("Igneous"))
+                igneous++;
+            if (rockName.Contains("Sedimentary"))
+                sedimentary++;
+            if (rockName.Contains("Metamorphic"))
+                metamorphic++;
+        }
+
+        #endregion
+
+        #region Quick Travel
+
+        public void GoToEntrance()
+        {
+            agent.SetDestination(new Vector2(-7.83f, 0.34f));
+        }
+
+        public void GoToShop()
+        {
+            agent.SetDestination(new Vector2(-.159f, 0.534f));
+        }
+
+        public void GoToResearch()
+        {
+            agent.SetDestination(new Vector2(3.73f, 0.534f));
+        }
+
+        #endregion
+
         #region Backpack
 
         // Open/Close Inventory
@@ -194,9 +231,23 @@ namespace Tiago_GeoMine
                 // Update Backpack
                 GetInventoryValues getInventory = FindObjectOfType<GetInventoryValues>();
                 getInventory.UpdateBackpack();
+
+                // Disable unwanted buttons
+                for (int i = 0; i < buttons.Length; i++)
+                {
+                    buttons[i].SetActive(false);
+                }
             }
             else // Close
-                inventory.SetActive(false);
+            {
+                // Enable buttons
+                for (int i = 0; i < buttons.Length; i++)
+                {
+                    buttons[i].SetActive(true);
+                }
+
+                inventory.SetActive(false);          
+            }
         }
 
         #endregion

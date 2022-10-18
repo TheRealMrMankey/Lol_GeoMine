@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Background Tiles
+  m_Name: Sedimentary
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: cacd1ed7f9d4c284d9641ede1c9e3f6c, type: 3}
-  m_Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+  m_Sprite: {fileID: 21300000, guid: b73a020a93357be43849e460c008f960, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
     e01: 0
