@@ -98,6 +98,9 @@ namespace Tiago_GeoMine
             inventory.SetActive(false);
             deathScreen.SetActive(false);
 
+            shop.SetActive(false);
+            //lab.SetActive(false);
+
             #endregion
 
             #region Upgrades
@@ -157,11 +160,21 @@ namespace Tiago_GeoMine
 
                         /// Buildings
                         if (hit.transform.tag == "Shop")
+                        {
                             GoToShop();
+
+                            //if(agent.transform.position == hit.transform.position)
+                                shop.SetActive(true);
+                        }
                         if (hit.transform.tag == "Mine")
                             GoToEntrance();
                         if (hit.transform.tag == "Research")
+                        {
                             GoToResearch();
+
+                            /*if (agent.transform.position == hit.transform.position)
+                                lab.SetActive(true);*/
+                        }
 
                         /// Underground
                         if (hit.transform.tag == "CanMine")
