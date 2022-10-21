@@ -26,10 +26,11 @@ namespace Tiago_GeoMine
         public GameObject[] buttons;
 
         public TextMeshProUGUI healthText;
+        public TextMeshProUGUI[] moneyText;
 
         // Tilemap and Navigation Variables
 
-        private NavMeshAgent agent;
+        public NavMeshAgent agent;
         private Tilemap tilemap;
         private NavMeshSurface surface2D;
 
@@ -110,15 +111,13 @@ namespace Tiago_GeoMine
             helmetLight.gameObject.SetActive(false);
 
             // Health
-            if (armourLvl == 1)
-                healthPoints = 100;
-            else if (armourLvl == 2)
-                healthPoints = 150;
-            else if (armourLvl == 3)
-                healthPoints = 200;
+            UpdateMaxHealth();
 
-            maxHp = healthPoints;
-            healthText.text = healthPoints.ToString();
+            // Money
+            for (int i = 0; i < moneyText.Length; i++)
+            {
+                moneyText[i].text = money.ToString();
+            }
 
             #endregion
         }
@@ -163,8 +162,11 @@ namespace Tiago_GeoMine
                         {
                             GoToShop();
 
-                            //if(agent.transform.position == hit.transform.position)
+                            if (Vector2.Distance(agent.transform.position, hit.transform.position) <= 1.5f)
+                            {
                                 shop.SetActive(true);
+                                agent.isStopped = true;
+                            }
                         }
                         if (hit.transform.tag == "Mine")
                             GoToEntrance();
@@ -172,8 +174,13 @@ namespace Tiago_GeoMine
                         {
                             GoToResearch();
 
-                            /*if (agent.transform.position == hit.transform.position)
-                                lab.SetActive(true);*/
+                            /*
+                            if (Vector2.Distance(agent.transform.position, hit.transform.position) <= 1.5f)
+                            {
+                                lab.SetActive(true);
+                                agent.isStopped = true;
+                            }
+                            */
                         }
 
                         /// Underground
@@ -248,12 +255,6 @@ namespace Tiago_GeoMine
 
             #endregion
 
-            #region Lantern Upgrade Switch place to shop later
-
-            helmetLight.pointLightOuterRadius = lanternLvl * 2;
-
-            #endregion
-
             #region Death
 
             // Death
@@ -322,6 +323,23 @@ namespace Tiago_GeoMine
         public void GoToResearch()
         {
             agent.SetDestination(new Vector2(3.73f, 0.534f));
+        }
+
+        #endregion
+
+        #region Update Healthpoints
+
+        public void UpdateMaxHealth()
+        {
+            if (armourLvl == 1)
+                healthPoints = 100;
+            else if (armourLvl == 2)
+                healthPoints = 150;
+            else if (armourLvl == 3)
+                healthPoints = 200;
+
+            maxHp = healthPoints;
+            healthText.text = healthPoints.ToString();
         }
 
         #endregion

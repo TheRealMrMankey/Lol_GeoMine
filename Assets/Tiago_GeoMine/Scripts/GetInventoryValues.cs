@@ -16,21 +16,21 @@ namespace Tiago_GeoMine
         [Space(10)]
         [Header("Upgrades")]
 
-        public TextMeshProUGUI pickaxeLvl;
-        public TextMeshProUGUI lanternLvl;
-        public TextMeshProUGUI armourLvl;
+        public TextMeshProUGUI[] pickaxeLvl;
+        public TextMeshProUGUI[] lanternLvl;
+        public TextMeshProUGUI[] armourLvl;
 
         // Rocks and Minerals
         [Space(10)]
         [Header("Rocks and Minerals")]
 
-        public TextMeshProUGUI silicon;
-        public TextMeshProUGUI iron;
-        public TextMeshProUGUI aluminium;
-        public TextMeshProUGUI calcium;
-        public TextMeshProUGUI igneous;
-        public TextMeshProUGUI sedimentary;
-        public TextMeshProUGUI metamorphic;
+        public TextMeshProUGUI[] silicon;
+        public TextMeshProUGUI[] iron;
+        public TextMeshProUGUI[] aluminium;
+        public TextMeshProUGUI[] calcium;
+        public TextMeshProUGUI[] igneous;
+        public TextMeshProUGUI[] sedimentary;
+        public TextMeshProUGUI[] metamorphic;
 
         #endregion
 
@@ -43,21 +43,24 @@ namespace Tiago_GeoMine
             UpdateBackpack();
         }
 
-        public void UpdateBackpack()
+        public void UpdateBackpack() // And Shop
         {
-            // Upgrades    
-            pickaxeLvl.text = playerController.pickaxeLvl.ToString();
-            lanternLvl.text = playerController.lanternLvl.ToString();
-            armourLvl.text = playerController.armourLvl.ToString();
+            for (int i = 0; i < 2; i++)
+            {
+                // Upgrades    
+                pickaxeLvl[i].text = playerController.pickaxeLvl.ToString();
+                lanternLvl[i].text = playerController.lanternLvl.ToString();
+                armourLvl[i].text = playerController.armourLvl.ToString();
 
-            // Rocks and Minerals
-            silicon.text = playerController.silicon.ToString();
-            iron.text = playerController.iron.ToString();
-            aluminium.text = playerController.aluminium.ToString();
-            calcium.text = playerController.calcium.ToString();
-            igneous.text = playerController.igneous.ToString();
-            sedimentary.text = playerController.sedimentary.ToString();
-            metamorphic.text = playerController.metamorphic.ToString();
+                // Rocks and Minerals
+                silicon[i].text = playerController.silicon.ToString();
+                iron[i].text = playerController.iron.ToString();
+                aluminium[i].text = playerController.aluminium.ToString();
+                calcium[i].text = playerController.calcium.ToString();
+                igneous[i].text = playerController.igneous.ToString();
+                sedimentary[i].text = playerController.sedimentary.ToString();
+                metamorphic[i].text = playerController.metamorphic.ToString();
+            }
         }
     }
 }
