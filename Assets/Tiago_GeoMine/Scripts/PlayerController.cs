@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
-using UnityEngine.Experimental.Rendering.Universal; // Not an error
+using UnityEngine.Experimental.Rendering.Universal;
 using TMPro;
 
 namespace Tiago_GeoMine
@@ -54,13 +54,14 @@ namespace Tiago_GeoMine
         /// Upgradable      
         public int pickaxeLvl = 1;
         public int lanternLvl = 1;
-        public Light2D helmetLight; // Not an error
+        public Light2D helmetLight;
         public int armourLvl = 1;
 
         [Space(10)]
         [Header("Rocks and Minerals")]
 
         /// Rocks and Minerals
+        public int totalRocks;
         public int silicon;
         public int iron;
         public int aluminium;
@@ -100,7 +101,7 @@ namespace Tiago_GeoMine
             deathScreen.SetActive(false);
 
             shop.SetActive(false);
-            //lab.SetActive(false);
+            lab.SetActive(false);
 
             #endregion
 
@@ -173,14 +174,14 @@ namespace Tiago_GeoMine
                         if (hit.transform.tag == "Research")
                         {
                             GoToResearch();
-
-                            /*
-                            if (Vector2.Distance(agent.transform.position, hit.transform.position) <= 1.5f)
+                           
+                            if (Vector2.Distance(agent.transform.position, hit.transform.position) <= 3f)
                             {
                                 lab.SetActive(true);
                                 agent.isStopped = true;
-                            }
-                            */
+
+                                lab.GetComponent<Lab>().scientistSpeech.text = "Great your're here, let's see what you have brought me.";
+                            }                   
                         }
 
                         /// Underground
@@ -290,6 +291,8 @@ namespace Tiago_GeoMine
 
         private void Destroy(string rockName)
         {
+            totalRocks++;
+
             if (rockName.Contains("Silicon"))
                 silicon++;
             if (rockName.Contains("Iron"))

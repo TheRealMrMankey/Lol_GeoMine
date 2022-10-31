@@ -8,6 +8,9 @@ namespace Tiago_GeoMine
     {
         public GameObject shopUI;
 
+        public GameObject lab;
+        private Lab labScript;
+
         private PlayerController player;
         public GetInventoryValues backpack;
 
@@ -15,6 +18,9 @@ namespace Tiago_GeoMine
         {
             // Get Player
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+            // Get Lab Values
+            labScript = lab.GetComponent<Lab>();
 
             shopUI.SetActive(false);
         }
@@ -40,6 +46,7 @@ namespace Tiago_GeoMine
             shopUI.SetActive(false);
             backpack.UpdateBackpack();
             player.agent.isStopped = false;
+            player.agent.SetDestination(player.transform.position);
         }
 
         #endregion
@@ -50,19 +57,21 @@ namespace Tiago_GeoMine
         {
             if (player.calcium > 0)
             {
-
-                // Update Money
-                player.money += 10;
-
-                for (int i = 0; i < player.moneyText.Length; i++)
+                if (labScript.hasDiscoveredCalcium == true)
                 {
-                    player.moneyText[i].text = player.money.ToString();
+                    // Update Money
+                    player.money += 10;
+
+                    for (int i = 0; i < player.moneyText.Length; i++)
+                    {
+                        player.moneyText[i].text = player.money.ToString();
+                    }
+
+                    // Update Backpack
+                    player.calcium--;
+
+                    backpack.UpdateBackpack();
                 }
-
-                // Update Backpack
-                player.calcium --;
-
-                backpack.UpdateBackpack();
             }
         }
 
@@ -70,18 +79,21 @@ namespace Tiago_GeoMine
         {
             if (player.iron > 0)
             {
-                // Update Money
-                player.money += 10;
-
-                for (int i = 0; i < player.moneyText.Length; i++)
+                if (labScript.hasDiscoveredIron == true)
                 {
-                    player.moneyText[i].text = player.money.ToString();
+                    // Update Money
+                    player.money += 10;
+
+                    for (int i = 0; i < player.moneyText.Length; i++)
+                    {
+                        player.moneyText[i].text = player.money.ToString();
+                    }
+
+                    // Update Backpack
+                    player.iron--;
+
+                    backpack.UpdateBackpack();
                 }
-
-                // Update Backpack
-                player.iron--;
-
-                backpack.UpdateBackpack();
             }
         }
 
@@ -89,18 +101,21 @@ namespace Tiago_GeoMine
         {
             if (player.aluminium > 0)
             {
-                // Update Money
-                player.money += 10;
-
-                for (int i = 0; i < player.moneyText.Length; i++)
+                if (labScript.hasDiscoveredAluminium == true)
                 {
-                    player.moneyText[i].text = player.money.ToString();
+                    // Update Money
+                    player.money += 10;
+
+                    for (int i = 0; i < player.moneyText.Length; i++)
+                    {
+                        player.moneyText[i].text = player.money.ToString();
+                    }
+
+                    // Update Backpack
+                    player.aluminium--;
+
+                    backpack.UpdateBackpack();
                 }
-
-                // Update Backpack
-                player.aluminium--;
-
-                backpack.UpdateBackpack();
             }
         }
 
@@ -108,18 +123,21 @@ namespace Tiago_GeoMine
         {
             if (player.silicon > 0)
             {
-                // Update Money
-                player.money += 10;
-
-                for (int i = 0; i < player.moneyText.Length; i++)
+                if (labScript.hasDiscoveredSilicon == true)
                 {
-                    player.moneyText[i].text = player.money.ToString();
+                    // Update Money
+                    player.money += 10;
+
+                    for (int i = 0; i < player.moneyText.Length; i++)
+                    {
+                        player.moneyText[i].text = player.money.ToString();
+                    }
+
+                    // Update Backpack
+                    player.silicon--;
+
+                    backpack.UpdateBackpack();
                 }
-
-                // Update Backpack
-                player.silicon--;
-
-                backpack.UpdateBackpack();
             }
         }
 
@@ -127,18 +145,21 @@ namespace Tiago_GeoMine
         {
             if (player.igneous > 0)
             {
-                // Update Money
-                player.money += 20;
-
-                for (int i = 0; i < player.moneyText.Length; i++)
+                if (labScript.hasDiscoveredIgneous == true)
                 {
-                    player.moneyText[i].text = player.money.ToString();
+                    // Update Money
+                    player.money += 20;
+
+                    for (int i = 0; i < player.moneyText.Length; i++)
+                    {
+                        player.moneyText[i].text = player.money.ToString();
+                    }
+
+                    // Update Backpack
+                    player.igneous--;
+
+                    backpack.UpdateBackpack();
                 }
-
-                // Update Backpack
-                player.igneous--;
-
-                backpack.UpdateBackpack();
             }
         }
 
@@ -146,18 +167,21 @@ namespace Tiago_GeoMine
         {
             if (player.sedimentary > 0)
             {
-                // Update Money
-                player.money += 20;
-
-                for (int i = 0; i < player.moneyText.Length; i++)
+                if (labScript.hasDiscoveredSedimentary == true)
                 {
-                    player.moneyText[i].text = player.money.ToString();
+                    // Update Money
+                    player.money += 20;
+
+                    for (int i = 0; i < player.moneyText.Length; i++)
+                    {
+                        player.moneyText[i].text = player.money.ToString();
+                    }
+
+                    // Update Backpack
+                    player.sedimentary--;
+
+                    backpack.UpdateBackpack();
                 }
-
-                // Update Backpack
-                player.sedimentary--;
-
-                backpack.UpdateBackpack();
             }
         }
 
@@ -165,18 +189,21 @@ namespace Tiago_GeoMine
         {
             if (player.metamorphic > 0)
             {
-                // Update Money
-                player.money += 20;
-
-                for (int i = 0; i < player.moneyText.Length; i++)
+                if (labScript.hasDiscoveredMetamorphic == true)
                 {
-                    player.moneyText[i].text = player.money.ToString();
+                    // Update Money
+                    player.money += 20;
+
+                    for (int i = 0; i < player.moneyText.Length; i++)
+                    {
+                        player.moneyText[i].text = player.money.ToString();
+                    }
+
+                    // Update Backpack
+                    player.metamorphic--;
+
+                    backpack.UpdateBackpack();
                 }
-
-                // Update Backpack
-                player.metamorphic--;
-
-                backpack.UpdateBackpack();
             }
         }
 
