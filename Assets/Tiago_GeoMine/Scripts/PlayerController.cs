@@ -26,13 +26,19 @@ namespace Tiago_GeoMine
         public GameObject[] buttons;
 
         public TextMeshProUGUI healthText;
-        public TextMeshProUGUI[] moneyText;
+        public TextMeshProUGUI[] moneyText; 
 
-        // Tilemap and Navigation Variables
+        // Animation
+        private Animator animator;
 
-        public NavMeshAgent agent;
-        private Tilemap tilemap;
-        private NavMeshSurface surface2D;
+        // Audio
+        [Space(10)]
+        [Header("Audio")]
+      
+        public AudioClip damageSound;
+        public AudioClip miningSound;
+        public AudioClip killSound;
+        private AudioSource audioSource;
 
         // Sprite
         private SpriteRenderer sprite;
@@ -42,8 +48,14 @@ namespace Tiago_GeoMine
         [Space(10)]
         [Header("Player")]
 
-        private int maxHp;
         public int healthPoints;
+        private int maxHp;
+
+        // Tilemap and Navigation Variables
+
+        public NavMeshAgent agent;
+        private Tilemap tilemap;
+        private NavMeshSurface surface2D;
 
         // Inventory Variables
         [Space(10)]
@@ -89,6 +101,12 @@ namespace Tiago_GeoMine
             surface2D.BuildNavMeshAsync();
             surface2D.UpdateNavMesh(surface2D.navMeshData);
 
+            // Animator
+            animator = this.gameObject.GetComponent<Animator>();
+
+            // Audio
+            audioSource = this.gameObject.GetComponent<AudioSource>();
+
             // Sprite
             sprite = this.gameObject.GetComponent<SpriteRenderer>();
 
@@ -125,7 +143,7 @@ namespace Tiago_GeoMine
 
         void Update()
         {
-            #region Movement and Rock Destruction (Mouse)    
+            #region Sprite and Animation    
 
             // Sprite Flip       
             if (agent.velocity.x < 0 && agent.isStopped == false)
@@ -133,7 +151,7 @@ namespace Tiago_GeoMine
                 sprite.flipX = false;
                 lastValue = agent.velocity.x;
             }
-            else if(agent.velocity.x > 0 && agent.isStopped == false)
+            else if (agent.velocity.x > 0 && agent.isStopped == false)
             {
                 sprite.flipX = true;
                 lastValue = agent.velocity.x;
@@ -141,114 +159,251 @@ namespace Tiago_GeoMine
 
             if (agent.isStopped && lastValue < 0)
                 sprite.flipX = true;
-            else if(agent.isStopped && lastValue > 0)
+            else if (agent.isStopped && lastValue > 0)
                 sprite.flipX = false;
+
+            // Animation (Walking)
+            Debug.Log("Velocity " + agent.velocity.x + " " + agent.velocity.y);
+            if (agent.velocity.x != 0)
+                animator.SetBool("isWalking", true);
+            else
+                animator.SetBool("isWalking", false);
+
+            #endregion
+
+            #region Movement and Rock Destruction (Mouse)
 
             if (Input.GetMouseButtonDown(0))
             {
-                if (Input.GetMouseButtonDown(0))
+                // Get mouse position in a 2D environment
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+
+                RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+
+                if (hit.collider != null)
                 {
-                    // Get mouse position in a 2D environment
-                    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+                    // Movement
 
-                    RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-
-                    if (hit.collider != null)
+                    /// Buildings
+                    if (hit.transform.tag == "Shop")
                     {
-                        // Movement
+                        GoToShop();
 
-                        /// Buildings
-                        if (hit.transform.tag == "Shop")
+                        if (Vector2.Distance(agent.transform.position, hit.transform.position) <= 1.5f)
                         {
-                            GoToShop();
-
-                            if (Vector2.Distance(agent.transform.position, hit.transform.position) <= 1.5f)
-                            {
-                                shop.SetActive(true);
-                                agent.isStopped = true;
-                            }
+                            shop.SetActive(true);
+                            agent.isStopped = true;
                         }
-                        if (hit.transform.tag == "Mine")
-                            GoToEntrance();
-                        if (hit.transform.tag == "Research")
-                        {
-                            GoToResearch();
-                           
-                            if (Vector2.Distance(agent.transform.position, hit.transform.position) <= 3f)
-                            {
-                                lab.SetActive(true);
-                                agent.isStopped = true;
+                    }
+                    if (hit.transform.tag == "Mine")
+                        GoToEntrance();
+                    if (hit.transform.tag == "Research")
+                    {
+                        GoToResearch();
 
-                                lab.GetComponent<Lab>().scientistSpeech.text = "Great your're here, let's see what you have brought me.";
-                            }                   
+                        if (Vector2.Distance(agent.transform.position, hit.transform.position) <= 3f)
+                        {
+                            lab.SetActive(true);
+                            agent.isStopped = true;
+
+                            lab.GetComponent<Lab>().scientistSpeech.text = "Great your're here, let's see what you have brought me.";
                         }
+                    }
 
-                        /// Underground
-                        if (hit.transform.tag == "CanMine")
-                        {
-                            Vector3 tilePos = tilemap.WorldToCell(mousePos);
-                            Vector3 offset = new Vector3(.5f, .35f, 0);
+                    /// Underground
+                    if (hit.transform.tag == "CanMine")
+                    {
+                        Vector3 tilePos = tilemap.WorldToCell(mousePos);
+                        Vector3 offset = new Vector3(.5f, .35f, 0);
 
-                            // Check if it is possible for the player to reach
-                            NavMeshPath navPath = new NavMeshPath();                        
+                        // Check if it is possible for the player to reach
+                        NavMeshPath navPath = new NavMeshPath();
 
-                            if (agent.CalculatePath(mousePos2D, navPath) && navPath.status == NavMeshPathStatus.PathComplete)
-                                agent.SetDestination(offset + tilePos);
-                        }
-
-                        if(hit.transform.tag == "Background")
-                        {
-                            Vector3 tilePos = tilemap.WorldToCell(mousePos);
-                            Vector3 offset = new Vector3(.5f, .35f, 0);
+                        if (agent.CalculatePath(mousePos2D, navPath) && navPath.status == NavMeshPathStatus.PathComplete)
                             agent.SetDestination(offset + tilePos);
-                        }
+                    }
 
-                        // Attacking Enemy
-                        if (hit.transform.tag == "Enemy")
+                    if (hit.transform.tag == "Background")
+                    {
+                        Vector3 tilePos = tilemap.WorldToCell(mousePos);
+                        Vector3 offset = new Vector3(.5f, .35f, 0);
+                        agent.SetDestination(offset + tilePos);
+                    }
+
+                    // Attacking Enemy
+                    if (hit.transform.tag == "Enemy")
+                    {
+                        // Check if it is in range
+                        float distance = Vector3.Distance(transform.position, hit.transform.position);
+
+                        // Kill enemy
+                        if (distance < 1.75f)
                         {
-                            // Check if it is in range
-                            float distance = Vector3.Distance(transform.position, hit.transform.position);
+                            // Animation (Mining)
+                            animator.SetTrigger("isMining");
 
-                            // Kill enemy
-                            if (distance < 1.75f)
-                                Destroy(hit.transform.gameObject);
+                            // Enemy kill sound
+                            audioSource.PlayOneShot(killSound);
+
+                            // Destroy enemy Game Object
+                            Destroy(hit.transform.gameObject);
                         }
+                    }
 
-                        // Mining
-                        if (hit.transform.tag == "CanMine")
+                    // Mining
+                    if (hit.transform.tag == "CanMine")
+                    {
+                        // Check if it is in range
+                        float distance = Vector3.Distance(transform.position, tilemap.WorldToCell(mousePos));
+
+                        if (distance < 1.6f)
                         {
-                            // Check if it is in range
-                            float distance = Vector3.Distance(transform.position, tilemap.WorldToCell(mousePos));
+                            // Get Tile Name
+                            TileBase tileBase = tilemap.GetTile(tilemap.WorldToCell(mousePos));
+                            string tileName = tileBase.ToString();
 
-                            if (distance < 1.75f)
+                            // If pickaxe is at least level 1, mine
+                            if (tileName.Contains("Calcium") | tileName.Contains("Silicon") | tileName.Contains("Aluminium") | tileName.Contains("Iron") && pickaxeLvl >= 1)
                             {
-                                // Get Tile Name
-                                TileBase tileBase = tilemap.GetTile(tilemap.WorldToCell(mousePos));
-                                string tileName = tileBase.ToString();
+                                // Find out which rock was destroyed
+                                Destroy(tileName);
 
-                                // If pickaxe is at least level 1, mine
-                                if (tileName.Contains("Calcium") | tileName.Contains("Silicon") | tileName.Contains("Aluminium") | tileName.Contains("Iron") && pickaxeLvl >= 1)
-                                {
-                                    // Find out which rock was destroyed
-                                    Destroy(tileName);
-
-                                    // Destroy Tile
-                                    tilemap.SetTile(tilemap.WorldToCell(mousePos), null);
-                                }
-                                // If pickaxe if level 2, mine
-                                else if(tileName.Contains("Sedimentary") | tileName.Contains("Igneous") | tileName.Contains("Metamorphic") && pickaxeLvl == 2)
-                                {
-                                    // Find out which rock was destroyed
-                                    Destroy(tileName);
-
-                                    // Destroy Tile
-                                    tilemap.SetTile(tilemap.WorldToCell(mousePos), null);
-                                }
-
-                                // Update Walkable Area
-                                surface2D.UpdateNavMesh(surface2D.navMeshData);
+                                // Destroy Tile
+                                tilemap.SetTile(tilemap.WorldToCell(mousePos), null);
                             }
+                            // If pickaxe if level 2, mine
+                            else if (tileName.Contains("Sedimentary") | tileName.Contains("Igneous") | tileName.Contains("Metamorphic") && pickaxeLvl == 2)
+                            {
+                                // Find out which rock was destroyed
+                                Destroy(tileName);
+
+                                // Destroy Tile
+                                tilemap.SetTile(tilemap.WorldToCell(mousePos), null);
+                            }
+
+                            // Update Walkable Area
+                            surface2D.UpdateNavMesh(surface2D.navMeshData);
+                        }
+                    }
+                }
+            }
+
+            #endregion
+
+            #region Movement and Rock Destruction (Touch)
+
+            if (Input.touchCount > 1)
+            {
+                // Get touch position in a 2D environment
+                Vector3 touchPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+                Vector2 touch2D = new Vector2(touchPos.x, touchPos.y);
+
+                RaycastHit2D hit = Physics2D.Raycast(touch2D, Vector2.zero);
+
+                if (hit.collider != null)
+                {
+                    // Movement
+
+                    /// Buildings
+                    if (hit.transform.tag == "Shop")
+                    {
+                        GoToShop();
+
+                        if (Vector2.Distance(agent.transform.position, hit.transform.position) <= 1.5f)
+                        {
+                            shop.SetActive(true);
+                            agent.isStopped = true;
+                        }
+                    }
+                    if (hit.transform.tag == "Mine")
+                        GoToEntrance();
+                    if (hit.transform.tag == "Research")
+                    {
+                        GoToResearch();
+
+                        if (Vector2.Distance(agent.transform.position, hit.transform.position) <= 3f)
+                        {
+                            lab.SetActive(true);
+                            agent.isStopped = true;
+
+                            lab.GetComponent<Lab>().scientistSpeech.text = "Great your're here, let's see what you have brought me.";
+                        }
+                    }
+
+                    /// Underground
+                    if (hit.transform.tag == "CanMine")
+                    {
+                        Vector3 tilePos = tilemap.WorldToCell(touchPos);
+                        Vector3 offset = new Vector3(.5f, .35f, 0);
+
+                        // Check if it is possible for the player to reach
+                        NavMeshPath navPath = new NavMeshPath();
+
+                        if (agent.CalculatePath(touch2D, navPath) && navPath.status == NavMeshPathStatus.PathComplete)
+                            agent.SetDestination(offset + tilePos);
+                    }
+
+                    if (hit.transform.tag == "Background")
+                    {
+                        Vector3 tilePos = tilemap.WorldToCell(touchPos);
+                        Vector3 offset = new Vector3(.5f, .35f, 0);
+                        agent.SetDestination(offset + tilePos);
+                    }
+
+                    // Attacking Enemy
+                    if (hit.transform.tag == "Enemy")
+                    {
+                        // Check if it is in range
+                        float distance = Vector3.Distance(transform.position, hit.transform.position);
+
+                        // Kill enemy
+                        if (distance < 1.75f)
+                        {
+                            // Animation (Mining)
+                            animator.SetTrigger("isMining");
+
+                            // Enemy kill sound
+                            audioSource.PlayOneShot(killSound);
+
+                            // Destroy enemy Game Object
+                            Destroy(hit.transform.gameObject);
+                        }
+                    }
+
+                    // Mining
+                    if (hit.transform.tag == "CanMine")
+                    {
+                        // Check if it is in range
+                        float distance = Vector3.Distance(transform.position, tilemap.WorldToCell(touchPos));
+
+                        if (distance < 1.6f)
+                        {
+                            // Get Tile Name
+                            TileBase tileBase = tilemap.GetTile(tilemap.WorldToCell(touchPos));
+                            string tileName = tileBase.ToString();
+
+                            // If pickaxe is at least level 1, mine
+                            if (tileName.Contains("Calcium") | tileName.Contains("Silicon") | tileName.Contains("Aluminium") | tileName.Contains("Iron") && pickaxeLvl >= 1)
+                            {
+                                // Find out which rock was destroyed
+                                Destroy(tileName);
+
+                                // Destroy Tile
+                                tilemap.SetTile(tilemap.WorldToCell(touchPos), null);
+                            }
+                            // If pickaxe if level 2, mine
+                            else if (tileName.Contains("Sedimentary") | tileName.Contains("Igneous") | tileName.Contains("Metamorphic") && pickaxeLvl == 2)
+                            {
+                                // Find out which rock was destroyed
+                                Destroy(tileName);
+
+                                // Destroy Tile
+                                tilemap.SetTile(tilemap.WorldToCell(touchPos), null);
+                            }
+
+                            // Update Walkable Area
+                            surface2D.UpdateNavMesh(surface2D.navMeshData);
                         }
                     }
                 }
@@ -291,6 +446,12 @@ namespace Tiago_GeoMine
 
         private void Destroy(string rockName)
         {
+            // Animation (Mining)
+            animator.SetTrigger("isMining");
+
+            // Mining Sound
+            audioSource.PlayOneShot(miningSound);
+
             totalRocks++;
 
             if (rockName.Contains("Silicon"))
@@ -393,6 +554,9 @@ namespace Tiago_GeoMine
         {
             if (collision.transform.tag == "Enemy")
             {
+                // Taking Damage Sound
+                audioSource.PlayOneShot(damageSound);
+
                 healthPoints -= 10;
                 healthText.text = healthPoints.ToString();
             }          
@@ -408,7 +572,6 @@ namespace Tiago_GeoMine
                     helmetLight.gameObject.SetActive(true);
                 else
                     helmetLight.gameObject.SetActive(false);
-
             }
         }
 

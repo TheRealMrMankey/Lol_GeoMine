@@ -66,6 +66,16 @@ namespace Tiago_GeoMine
         public string[] otherRocksQuestions;
         private int questionNr;
 
+        // All Questions Text-to-speech
+        [Space(10)]
+        [Header("Questions Audio TTS")]
+
+        public AudioClip[] igneousTTS;
+        public AudioClip[] sedimentaryTTS;
+        public AudioClip[] metamorphicTTS;
+        public AudioClip[] otherRocksTTS;
+        private AudioSource audioSource;
+
         // All Answers
         [Space(10)]
         [Header("Answers")]
@@ -97,22 +107,7 @@ namespace Tiago_GeoMine
 
             // Speech
             scientistSpeech.text = "Great your're here, let's see what you have brought me.";
-
-            // Start all rocks as unknown rocks
-            for (int i = 0; i < silicon.Length; i++)
-                silicon[i].text = "????";
-            for (int i = 0; i < iron.Length; i++)
-                iron[i].text = "????";
-            for (int i = 0; i < aluminium.Length; i++)
-                aluminium[i].text = "????";
-            for (int i = 0; i < calcium.Length; i++)
-                calcium[i].text = "????";
-            for (int i = 0; i < igneous.Length; i++)
-                igneous[i].text = "????";
-            for (int i = 0; i < sedimentary.Length; i++)
-                sedimentary[i].text = "????";
-            for (int i = 0; i < metamorphic.Length; i++)
-                metamorphic[i].text = "????";
+            audioSource = this.gameObject.GetComponent<AudioSource>();
 
             // All GameObjects
             labUI.SetActive(false);
@@ -125,7 +120,11 @@ namespace Tiago_GeoMine
 
         public void OpenLabUI()
         {
-            // If the player still has discovered all the rocks
+            congratsMessage.SetActive(false);
+            failMessage.SetActive(false);
+            playerResponse.text = "";
+
+            // If the player has discovered all the rocks
             if (hasDiscoveredIron == true
             && hasDiscoveredSilicon == true
             && hasDiscoveredAluminium == true
@@ -415,7 +414,7 @@ namespace Tiago_GeoMine
             #endregion
         }
 
-        #region Questions, Answers and Hints
+        #region Questions and Hints
 
         void ChooseQuestion(string rock)
         {          
@@ -427,6 +426,9 @@ namespace Tiago_GeoMine
                 Hint(otherRocksHint[randomNr]);
                 currentRock = "silicon";
                 questionNr = randomNr;
+
+                // Play audio
+                audioSource.PlayOneShot(otherRocksTTS[randomNr]);
             }
             if (rock == "iron")
             {
@@ -436,6 +438,9 @@ namespace Tiago_GeoMine
                 Hint(otherRocksHint[randomNr]);
                 currentRock = "iron";
                 questionNr = randomNr;
+
+                // Play audio
+                audioSource.PlayOneShot(otherRocksTTS[randomNr]);
             }
             if (rock == "aluminium")
             {
@@ -445,6 +450,9 @@ namespace Tiago_GeoMine
                 Hint(otherRocksHint[randomNr]);
                 currentRock = "aluminium";
                 questionNr = randomNr;
+
+                // Play audio
+                audioSource.PlayOneShot(otherRocksTTS[randomNr]);
             }
             if (rock == "calcium")
             {
@@ -454,6 +462,9 @@ namespace Tiago_GeoMine
                 Hint(otherRocksHint[randomNr]);
                 currentRock = "calcium";
                 questionNr = randomNr;
+
+                // Play audio
+                audioSource.PlayOneShot(otherRocksTTS[randomNr]);
             }
             if (rock == "igneous")
             {
@@ -463,6 +474,9 @@ namespace Tiago_GeoMine
                 Hint(igneousHint[randomNr]);
                 currentRock = "igneous";
                 questionNr = randomNr;
+
+                // Play audio
+                audioSource.PlayOneShot(igneousTTS[randomNr]);
             }
             if (rock == "sedimentary")
             {
@@ -472,6 +486,9 @@ namespace Tiago_GeoMine
                 Hint(sedimentaryHint[randomNr]);
                 currentRock = "sedimentary";
                 questionNr = randomNr;
+
+                // Play audio
+                audioSource.PlayOneShot(sedimentaryTTS[randomNr]);
             }
             if (rock == "metamorphic")
             {
@@ -481,6 +498,9 @@ namespace Tiago_GeoMine
                 Hint(metamorphicHint[randomNr]);
                 currentRock = "metamorphic";
                 questionNr = randomNr;
+
+                // Play audio
+                audioSource.PlayOneShot(metamorphicTTS[randomNr]);
             }
         }
 
