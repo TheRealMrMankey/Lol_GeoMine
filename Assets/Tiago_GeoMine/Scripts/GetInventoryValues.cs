@@ -16,7 +16,7 @@ namespace Tiago_GeoMine
         [Space(10)]
         [Header("Upgrades")]
 
-        public TextMeshProUGUI[] pickaxeLvl;
+        public TextMeshProUGUI[] pickaxeLvl; 
         public TextMeshProUGUI[] lanternLvl;
         public TextMeshProUGUI[] armourLvl;
 

@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Tiago_GeoMine
 {
     public class MainMenu : MonoBehaviour
     {
-        void NewGame()
+        public void NewGame()
         {
-
+            SceneManager.LoadScene(1);
         }
 
-        void Continue()
+        public void Continue()
         {
 
         }

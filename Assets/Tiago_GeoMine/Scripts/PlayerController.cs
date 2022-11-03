@@ -48,8 +48,8 @@ namespace Tiago_GeoMine
         [Space(10)]
         [Header("Player")]
 
-        public int healthPoints;
-        private int maxHp;
+        public int healthPoints; // Value to Save
+        private int maxHp; 
 
         // Tilemap and Navigation Variables
 
@@ -61,26 +61,26 @@ namespace Tiago_GeoMine
         [Space(10)]
         [Header("Upgrades")]
 
-        public int money;
+        public int money; // Value to Save
 
         /// Upgradable      
-        public int pickaxeLvl = 1;
-        public int lanternLvl = 1;
-        public Light2D helmetLight;
-        public int armourLvl = 1;
+        public int pickaxeLvl = 1; // Value to Save
+        public int lanternLvl = 1; // Value to Save
+        public Light2D helmetLight; 
+        public int armourLvl = 1; // Value to Save
 
         [Space(10)]
         [Header("Rocks and Minerals")]
 
         /// Rocks and Minerals
-        public int totalRocks;
-        public int silicon;
-        public int iron;
-        public int aluminium;
-        public int calcium;
-        public int igneous;
-        public int sedimentary;
-        public int metamorphic;
+        public int totalRocks; // Value to Save
+        public int silicon; // Value to Save
+        public int iron; // Value to Save
+        public int aluminium; // Value to Save
+        public int calcium; // Value to Save
+        public int igneous; // Value to Save
+        public int sedimentary; // Value to Save
+        public int metamorphic; // Value to Save
 
         #endregion
 

@@ -10,7 +10,7 @@ namespace Tiago_GeoMine
         public GameObject unmuteImg;
 
         private float oldVolumeAmount;
-        private bool isMuted;
+        private bool isMuted; // Value to Save
 
         void Start()
         {         

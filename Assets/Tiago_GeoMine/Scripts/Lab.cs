@@ -17,7 +17,7 @@ namespace Tiago_GeoMine
         private PlayerController player;
         public GetInventoryValues backpack;
        
-        private string currentRock = "";
+        private string currentRock = ""; // Value to Save
 
         //Player Input
         [Space(10)]
@@ -28,13 +28,13 @@ namespace Tiago_GeoMine
         [Space(10)]
         [Header("Discovered Rocks")]
 
-        public bool hasDiscoveredIron = false;
-        public bool hasDiscoveredSilicon = false;
-        public bool hasDiscoveredAluminium = false;
-        public bool hasDiscoveredCalcium = false;
-        public bool hasDiscoveredIgneous = false;
-        public bool hasDiscoveredSedimentary = false;
-        public bool hasDiscoveredMetamorphic = false;
+        public bool hasDiscoveredIron = false; // Value to Save
+        public bool hasDiscoveredSilicon = false; // Value to Save
+        public bool hasDiscoveredAluminium = false; // Value to Save
+        public bool hasDiscoveredCalcium = false; // Value to Save
+        public bool hasDiscoveredIgneous = false; // Value to Save
+        public bool hasDiscoveredSedimentary = false; // Value to Save
+        public bool hasDiscoveredMetamorphic = false; // Value to Save
 
         // Rocks
         [Space(10)]
@@ -60,37 +60,37 @@ namespace Tiago_GeoMine
         [Space(10)]
         [Header("Questions")]
 
-        public string[] igneousQuestions;
-        public string[] sedimentaryQuestions;
-        public string[] metamorphicQuestions;
-        public string[] otherRocksQuestions;
-        private int questionNr;
+        public string[] igneousQuestions; // Value to Save
+        public string[] sedimentaryQuestions; // Value to Save
+        public string[] metamorphicQuestions; // Value to Save
+        public string[] otherRocksQuestions; // Value to Save
+        private int questionNr; 
 
         // All Questions Text-to-speech
         [Space(10)]
         [Header("Questions Audio TTS")]
 
-        public AudioClip[] igneousTTS;
-        public AudioClip[] sedimentaryTTS;
-        public AudioClip[] metamorphicTTS;
-        public AudioClip[] otherRocksTTS;
+        public AudioClip[] igneousTTS; // Value to Save
+        public AudioClip[] sedimentaryTTS; // Value to Save
+        public AudioClip[] metamorphicTTS; // Value to Save
+        public AudioClip[] otherRocksTTS; // Value to Save
         private AudioSource audioSource;
 
         // All Answers
         [Space(10)]
         [Header("Answers")]
-        public string[] igneousAnswers;
-        public string[] sedimentaryAnswers;
-        public string[] metamorphicAnswers;
-        public string[] otherRocksAnswers;
+        public string[] igneousAnswers; // Value to Save
+        public string[] sedimentaryAnswers; // Value to Save
+        public string[] metamorphicAnswers; // Value to Save
+        public string[] otherRocksAnswers; // Value to Save
 
         // All Hints
         [Space(10)]
         [Header("Hints")]
-        public string[] igneousHint;
-        public string[] sedimentaryHint;
-        public string[] metamorphicHint;
-        public string[] otherRocksHint;
+        public string[] igneousHint; // Value to Save
+        public string[] sedimentaryHint; // Value to Save
+        public string[] metamorphicHint; // Value to Save
+        public string[] otherRocksHint; // Value to Save
 
         // Result
         [Space(10)]
