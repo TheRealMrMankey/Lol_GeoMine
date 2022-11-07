@@ -12,6 +12,7 @@ TagManager:
   - Background
   - Enemy
   - Trigger
+  - GameManager
   layers:
   - Default
   - TransparentFX

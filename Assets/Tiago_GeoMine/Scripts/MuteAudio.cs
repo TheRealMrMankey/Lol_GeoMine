@@ -10,10 +10,15 @@ namespace Tiago_GeoMine
         public GameObject unmuteImg;
 
         private float oldVolumeAmount;
-        private bool isMuted; // Value to Save
+        public bool isMuted; // Value to Save
+
+        private CurrentSaveData currentSave;
 
         void Start()
-        {         
+        {
+            currentSave = GameObject.FindGameObjectWithTag("GameManager").GetComponent<CurrentSaveData>();
+            isMuted = currentSave.isMuted;
+
             oldVolumeAmount = AudioListener.volume;
             
             if (isMuted == false)
@@ -25,8 +30,7 @@ namespace Tiago_GeoMine
             {
                 muteImg.SetActive(true);
                 unmuteImg.SetActive(false);
-            }
-            
+            }         
         }
 
         public void Mute()

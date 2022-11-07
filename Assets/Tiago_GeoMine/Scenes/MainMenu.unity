@@ -782,6 +782,173 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1080133722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1080133723}
+  - component: {fileID: 1080133724}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: GameManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1080133723
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080133722}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 516.96454, y: 315.6929, z: -72.30641}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1080133724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080133722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246ec1caae464d0408d0db3167dabbc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultData:
+    isMuted: 0
+    currentRock: 
+    hasDiscoveredIron: 0
+    hasDiscoveredSilicon: 0
+    hasDiscoveredAluminium: 0
+    hasDiscoveredCalcium: 0
+    hasDiscoveredIgneous: 0
+    hasDiscoveredSedimentary: 0
+    hasDiscoveredMetamorphic: 0
+    igneousQuestions:
+    - How are igneous rocks formed?
+    sedimentaryQuestions:
+    - How are sedimentary rocks formed?
+    metamorphicQuestions:
+    - How are metamorphic rocks formed?
+    - From what rock groups can metamorphic rocks form?
+    otherRocksQuestions:
+    - What does the rock cycle involve?
+    - What are the processes of the rock cycle?
+    - What is the rock cycle dependent on?
+    - What is a change of state?
+    - Why are folding, faulting, and breaking geologic processes?
+    igneousAnswers:
+    - cooled magma lava
+    sedimentaryAnswers:
+    - sediments are compressed and cemented together
+    metamorphicAnswers:
+    - heat pressure
+    - all
+    otherRocksAnswers:
+    - cycling of matter and energy
+    - uplift weathering erosion deposition melting crystallization metamorphism
+    - flow of energy from Earth's interior
+    - physical change occur geologic processes
+    - tectonic plate movement cause physical changes in rocks
+    igneousHint:
+    - What was near this rock when you found it?
+    sedimentaryHint:
+    - When two or more materials are interacting with one another.
+    metamorphicHint:
+    - It is formed from other rocks.
+    - It's not just one.
+    otherRocksHint:
+    - What are rocks made of? And what is necessary for something to begin a transformation?
+    - There are 7 processes.
+    - What is in the center of the Earth?
+    - What type of change is it? Why does it occur?
+    - Why are there earthquakes?
+    healthPoints: 100
+    money: 0
+    pickaxeLvl: 1
+    lanternLvl: 1
+    armourLvl: 1
+    totalRocks: 0
+    silicon: 0
+    iron: 0
+    aluminium: 0
+    calcium: 0
+    igneous: 0
+    sedimentary: 0
+    metamorphic: 0
+  saveData:
+    isMuted: 0
+    currentRock: 
+    hasDiscoveredIron: 0
+    hasDiscoveredSilicon: 0
+    hasDiscoveredAluminium: 0
+    hasDiscoveredCalcium: 0
+    hasDiscoveredIgneous: 0
+    hasDiscoveredSedimentary: 0
+    hasDiscoveredMetamorphic: 0
+    igneousQuestions:
+    - How are igneous rocks formed?
+    sedimentaryQuestions:
+    - How are sedimentary rocks formed?
+    metamorphicQuestions:
+    - How are metamorphic rocks formed?
+    - From what rock groups can metamorphic rocks form?
+    otherRocksQuestions:
+    - What does the rock cycle involve?
+    - What are the processes of the rock cycle?
+    - What is the rock cycle dependent on?
+    - What is a change of state?
+    - Why are folding, faulting, and breaking geologic processes?
+    igneousAnswers:
+    - cooled magma lava
+    sedimentaryAnswers:
+    - sediments are compressed and cemented together
+    metamorphicAnswers:
+    - heat pressure
+    - all
+    otherRocksAnswers:
+    - cycling of matter and energy
+    - uplift weathering erosion deposition melting crystallization metamorphism
+    - flow of energy from Earth's interior
+    - physical change occur geologic processes
+    - tectonic plate movement cause physical changes in rocks
+    igneousHint:
+    - What was near this rock when you found it?
+    sedimentaryHint:
+    - When two or more materials are interacting with one another.
+    metamorphicHint:
+    - It is formed from other rocks.
+    - It's not just one.
+    otherRocksHint:
+    - What are rocks made of? And what is necessary for something to begin a transformation?
+    - There are 7 processes.
+    - What is in the center of the Earth?
+    - What type of change is it? Why does it occur?
+    - Why are there earthquakes?
+    healthPoints: 100
+    money: 0
+    pickaxeLvl: 1
+    lanternLvl: 1
+    armourLvl: 1
+    totalRocks: 0
+    silicon: 0
+    iron: 0
+    aluminium: 0
+    calcium: 0
+    igneous: 0
+    sedimentary: 0
+    metamorphic: 0
 --- !u!1 &1123220268
 GameObject:
   m_ObjectHideFlags: 0
