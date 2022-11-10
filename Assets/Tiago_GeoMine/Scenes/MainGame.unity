@@ -4667,6 +4667,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 389696187}
   m_CullTransparentMesh: 1
+--- !u!1 &401182882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 401182884}
+  - component: {fileID: 401182883}
+  m_Layer: 0
+  m_Name: SaveGame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &401182883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401182882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 013919ca55adc4e489a8e8a81aacd5a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lab: {fileID: 1433932799}
+  playerController: {fileID: 434466450}
+--- !u!4 &401182884
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401182882}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 371.05673, y: 335.75204, z: -13.881637}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &403276927
 GameObject:
   m_ObjectHideFlags: 0
@@ -12288,7 +12333,7 @@ GameObject:
   - component: {fileID: 985489128}
   m_Layer: 0
   m_Name: Mute Button
-  m_TagString: Untagged
+  m_TagString: Audio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12422,6 +12467,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muteImg: {fileID: 943226102}
   unmuteImg: {fileID: 781687184}
+  isMuted: 0
 --- !u!1 &990546201
 GameObject:
   m_ObjectHideFlags: 0
@@ -25744,7 +25790,7 @@ GameObject:
   - component: {fileID: 1433932800}
   m_Layer: 5
   m_Name: Lab Screen
-  m_TagString: Untagged
+  m_TagString: Lab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25846,6 +25892,7 @@ MonoBehaviour:
   labUI: {fileID: 76020650}
   scientistSpeech: {fileID: 266979833}
   backpack: {fileID: 10880598}
+  currentRock: 
   playerResponse: {fileID: 892765858}
   hasDiscoveredIron: 0
   hasDiscoveredSilicon: 0

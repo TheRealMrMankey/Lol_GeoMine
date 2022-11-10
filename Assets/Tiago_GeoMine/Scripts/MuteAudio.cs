@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Tiago_GeoMine;
+using System;
 
 namespace Tiago_GeoMine
 {
@@ -10,15 +12,14 @@ namespace Tiago_GeoMine
         public GameObject unmuteImg;
 
         private float oldVolumeAmount;
-        public bool isMuted; // Value to Save
+        public bool isMuted;
 
-        private CurrentSaveData currentSave;
+        private void Awake()
+        {
+        }
 
         void Start()
-        {
-            currentSave = GameObject.FindGameObjectWithTag("GameManager").GetComponent<CurrentSaveData>();
-            isMuted = currentSave.isMuted;
-
+        {          
             oldVolumeAmount = AudioListener.volume;
             
             if (isMuted == false)

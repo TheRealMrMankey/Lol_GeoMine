@@ -84,6 +84,27 @@ namespace Tiago_GeoMine
 
         #endregion
 
+        private GameManager gameManager;
+
+        private void Awake()
+        {
+            gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
+            money = gameManager.saveData.money;
+            pickaxeLvl = gameManager.saveData.pickaxeLvl;
+            lanternLvl = gameManager.saveData.lanternLvl;
+            armourLvl = gameManager.saveData.armourLvl;
+
+            totalRocks = gameManager.saveData.totalRocks;
+            silicon = gameManager.saveData.silicon;
+            iron = gameManager.saveData.iron;
+            aluminium = gameManager.saveData.aluminium;
+            calcium = gameManager.saveData.calcium;
+            igneous = gameManager.saveData.igneous;
+            sedimentary = gameManager.saveData.sedimentary;
+            metamorphic = gameManager.saveData.metamorphic;
+        }
+
         void Start()
         {
             #region Components and GameObjects
@@ -575,6 +596,6 @@ namespace Tiago_GeoMine
             }
         }
 
-        #endregion
+        #endregion      
     }
 }

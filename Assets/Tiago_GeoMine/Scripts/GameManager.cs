@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using LoLSDK;
+//using LoLSDK;
 
 namespace Tiago_GeoMine
 {
@@ -10,9 +10,6 @@ namespace Tiago_GeoMine
     [System.Serializable]
     public class DefaultSaveData
     {
-        // Audio
-        public bool isMuted;
-
         // Lab
         public string currentRock;
         public bool hasDiscoveredIron;
@@ -39,8 +36,6 @@ namespace Tiago_GeoMine
         public string[] otherRocksHint;
 
         // Player
-        public int healthPoints;
-
         public int money;
         public int pickaxeLvl;
         public int lanternLvl;
@@ -59,9 +54,6 @@ namespace Tiago_GeoMine
     [System.Serializable]
     public class CurrentSaveData
     {
-        // Audio
-        public bool isMuted;
-
         // Lab
         public string currentRock;
         public bool hasDiscoveredIron;
@@ -88,8 +80,6 @@ namespace Tiago_GeoMine
         public string[] otherRocksHint;
 
         // Player
-        public int healthPoints;
-
         public int money;
         public int pickaxeLvl;
         public int lanternLvl;
@@ -110,22 +100,26 @@ namespace Tiago_GeoMine
     public class GameManager : MonoBehaviour
     {
         [SerializeField, Header("Initial State Data")] DefaultSaveData defaultData;
-        [SerializeField, Header("Initial State Data")] CurrentSaveData saveData;
-
+        [SerializeField, Header("Initial State Data")] public CurrentSaveData saveData;
 
         void Start()
         {
             DontDestroyOnLoad(this.gameObject);
+
+#if UNITY_EDITOR
+            //ILOLSDK sdk = new LoLSDK.MockWebGL();
+#elif UNITY_WEBGL
+           // ILOLSDK sdk = new LoLSDK.WebGL();
+#endif
+
+            //LOLSDK.Init(sdk, "com.legends-of-learning.unity.sdk.v5.3.example-cooking-game");
         }
 
-        #region Saves
+#region Saves
 
         public void ResetGameData()
         {
-            #region Reset Save Data
-
-            // Audio
-            saveData.isMuted = defaultData.isMuted;
+#region Reset Save Data
 
             // Lab
             saveData.currentRock = defaultData.currentRock;
@@ -153,8 +147,6 @@ namespace Tiago_GeoMine
             saveData.otherRocksHint = defaultData.otherRocksHint;
 
             // Player
-            saveData.healthPoints = defaultData.healthPoints;
-
             saveData.money = defaultData.money;
             saveData.pickaxeLvl = defaultData.pickaxeLvl;
             saveData.lanternLvl = defaultData.lanternLvl;
@@ -171,14 +163,12 @@ namespace Tiago_GeoMine
 
             Debug.Log("Data reverted to default");
 
-            #endregion
+#endregion
         }
 
         public void Save
             ///
             (
-            // Audio
-            bool isMuted,
             // Lab
             string currentRock, 
             bool hasDiscoveredIron, bool hasDiscoveredSilicon, bool hasDiscoveredAluminium, bool hasDiscoveredCalcium,
@@ -188,16 +178,12 @@ namespace Tiago_GeoMine
             string[] metamorphicAnswers, string[] otherRocksAnswers, string[] igneousHint,
             string[] sedimentaryHint, string[] metamorphicHint, string[] otherRocksHint,
             // Player
-            int healthPoints,
             int money, int pickaxeLvl, int lanternLvl, int armourLvl,
             int totalRocks, int silicon, int iron, int aluminium, int calcium, int igneous, int sedimentary,int metamorphic
             )
             ///
         {
-            #region Save Data
-
-            // Audio
-            saveData.isMuted = isMuted;
+#region Save Data
 
             // Lab
             saveData.currentRock = currentRock;
@@ -225,8 +211,6 @@ namespace Tiago_GeoMine
             saveData.otherRocksHint = otherRocksHint;
 
             // Player
-            saveData.healthPoints = healthPoints;
-
             saveData.money = money;
             saveData.pickaxeLvl = pickaxeLvl;
             saveData.lanternLvl = lanternLvl;
@@ -241,11 +225,13 @@ namespace Tiago_GeoMine
             saveData.sedimentary = sedimentary;
             saveData.metamorphic = metamorphic;
 
+            //LoLSDK.
+
             Debug.Log("Data Saved");
 
-            #endregion
+#endregion
         }
-    }
 
-    #endregion
+#endregion
+    }
 }

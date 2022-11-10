@@ -9,9 +9,11 @@ namespace Tiago_GeoMine
     {
         private GameManager gameManager;
 
+ 
+
         void Start()
         {
-            gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+            gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();       
         }
 
         public void NewGame()
@@ -19,11 +21,13 @@ namespace Tiago_GeoMine
             SceneManager.LoadScene(1);
 
             gameManager.ResetGameData();
+            
         }
 
         public void Continue()
         {
             SceneManager.LoadScene(1);
+ 
         }
     }
 }

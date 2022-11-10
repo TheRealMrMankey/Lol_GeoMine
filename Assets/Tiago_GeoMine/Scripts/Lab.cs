@@ -17,7 +17,7 @@ namespace Tiago_GeoMine
         private PlayerController player;
         public GetInventoryValues backpack;
        
-        private string currentRock = ""; // Value to Save
+        public string currentRock = ""; // Value to Save
 
         //Player Input
         [Space(10)]
@@ -100,8 +100,41 @@ namespace Tiago_GeoMine
 
         #endregion
 
+        private GameManager gameManager;
+
+        private void Awake()
+        {
+            gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
+            currentRock = gameManager.saveData.currentRock;
+            hasDiscoveredIron = gameManager.saveData.hasDiscoveredIron;
+            hasDiscoveredSilicon = gameManager.saveData.hasDiscoveredSilicon;
+            hasDiscoveredAluminium = gameManager.saveData.hasDiscoveredAluminium;
+            hasDiscoveredCalcium = gameManager.saveData.hasDiscoveredCalcium;
+            hasDiscoveredIgneous = gameManager.saveData.hasDiscoveredIgneous;
+            hasDiscoveredSedimentary = gameManager.saveData.hasDiscoveredSedimentary;
+            hasDiscoveredMetamorphic = gameManager.saveData.hasDiscoveredMetamorphic;
+
+            igneousQuestions = gameManager.saveData.igneousQuestions;
+            sedimentaryQuestions = gameManager.saveData.sedimentaryQuestions;
+            metamorphicQuestions = gameManager.saveData.metamorphicQuestions;
+            otherRocksQuestions = gameManager.saveData.otherRocksQuestions;
+
+            igneousAnswers = gameManager.saveData.igneousAnswers;
+            sedimentaryAnswers = gameManager.saveData.sedimentaryAnswers;
+            metamorphicAnswers = gameManager.saveData.metamorphicAnswers;
+            otherRocksAnswers = gameManager.saveData.otherRocksAnswers;
+
+            igneousHint = gameManager.saveData.igneousHint;
+            sedimentaryHint = gameManager.saveData.sedimentaryHint;
+            metamorphicHint = gameManager.saveData.metamorphicHint;
+            otherRocksHint = gameManager.saveData.otherRocksHint;
+        }
+
         void Start()
         {
+            
+
             // Get Player
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
