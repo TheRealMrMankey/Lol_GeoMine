@@ -900,6 +900,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 246ec1caae464d0408d0db3167dabbc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  langCode: en
+  currentLanguage:
+    NewGame: 
+    Continue: 
   defaultData:
     currentRock: 
     hasDiscoveredIron: 0
@@ -1140,6 +1144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 742c5e05b92e1a44a82d37f62e787df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newGameBtn: {fileID: 1864113060}
+  continueBtn: {fileID: 509706487}
 --- !u!1 &1434428205
 GameObject:
   m_ObjectHideFlags: 0

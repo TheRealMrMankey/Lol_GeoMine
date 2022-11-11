@@ -35771,6 +35771,120 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1837779861}
   m_CullTransparentMesh: 1
+--- !u!1 &1840171049
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1840171051}
+  - component: {fileID: 1840171050}
+  m_Layer: 0
+  m_Name: SetText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1840171050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840171049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa15791bd0e0c34cb1be842f684ff7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goToEntrance: {fileID: 780098400}
+  goToShop: {fileID: 2013654820}
+  goToLab: {fileID: 320386014}
+  openBackpack: {fileID: 781950962}
+  closeBackpack: {fileID: 1392556988}
+  openTutorial: {fileID: 1554385414}
+  closeTutorial: {fileID: 718242943}
+  buy:
+  - {fileID: 324501192}
+  - {fileID: 1582342247}
+  - {fileID: 2935610}
+  sell:
+  - {fileID: 773516553}
+  - {fileID: 1499761337}
+  - {fileID: 1939689111}
+  - {fileID: 128014905}
+  - {fileID: 216752033}
+  - {fileID: 1463918105}
+  - {fileID: 2142001090}
+  openShop: {fileID: 403276929}
+  closeShop: {fileID: 735114293}
+  leaveShop: {fileID: 1860984082}
+  openQuestions: {fileID: 870094894}
+  closeQuestions: {fileID: 252074736}
+  leaveLab: {fileID: 551751136}
+  submit: {fileID: 1917226287}
+  wakeUp: {fileID: 448310413}
+  tutorialTitle: {fileID: 743461930}
+  tutorialText01: {fileID: 1655836907}
+  tutorialText02: {fileID: 528993413}
+  tutorialText03: {fileID: 965851869}
+  tutorialText04: {fileID: 1221641994}
+  tutorialText05: {fileID: 1546980506}
+  tutorialtext06: {fileID: 1341803908}
+  silicon:
+  - {fileID: 1678765751}
+  - {fileID: 1043944349}
+  iron:
+  - {fileID: 703430680}
+  - {fileID: 426584275}
+  aluminium:
+  - {fileID: 1411033893}
+  - {fileID: 665375721}
+  calcium:
+  - {fileID: 736313092}
+  - {fileID: 645174658}
+  igneous:
+  - {fileID: 386351880}
+  - {fileID: 1652801765}
+  sedimentary:
+  - {fileID: 1374389429}
+  - {fileID: 1360433651}
+  metamorphic:
+  - {fileID: 2003749720}
+  - {fileID: 1775789780}
+  upgrades:
+  - {fileID: 969773686}
+  - {fileID: 306895597}
+  rocksMinerals:
+  - {fileID: 1358811640}
+  - {fileID: 1593303554}
+  shopText: {fileID: 372681465}
+  labText: {fileID: 266979833}
+  playerDown: {fileID: 1066763053}
+  correctMsg: {fileID: 389696189}
+  failMsg: {fileID: 1332979520}
+  questionTitle: {fileID: 912212901}
+  hintTitle: {fileID: 581058051}
+  inputfield: {fileID: 895570588}
+  question: {fileID: 2018433042}
+  hint: {fileID: 922992420}
+--- !u!4 &1840171051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840171049}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 517.1485, y: 316.10107, z: -31.092096}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1844248348
 GameObject:
   m_ObjectHideFlags: 0

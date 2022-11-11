@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 namespace Tiago_GeoMine
 {
@@ -9,11 +10,16 @@ namespace Tiago_GeoMine
     {
         private GameManager gameManager;
 
- 
+        public TextMeshProUGUI newGameBtn;
+        public TextMeshProUGUI continueBtn;
 
-        void Start()
+        void Awake()
         {
-            gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();       
+            gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
+            // Set text based on current selected language
+            newGameBtn.text = gameManager.currentLanguage.NewGame;
+            continueBtn.text = gameManager.currentLanguage.Continue;
         }
 
         public void NewGame()

@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.IO;
+using SimpleJSON;
 //using LoLSDK;
 
 namespace Tiago_GeoMine
@@ -99,12 +102,42 @@ namespace Tiago_GeoMine
 
     public class GameManager : MonoBehaviour
     {
+        #region Language variables
+
+        [Serializable]
+        public class Language
+        {
+            public string NewGame;
+            public string Continue;
+        }
+        public string langCode;
+
+        public Language currentLanguage = new Language();
+       
+        private string languageFile;
+        private string fileText;
+
+        #endregion
+
         [SerializeField, Header("Initial State Data")] DefaultSaveData defaultData;
         [SerializeField, Header("Initial State Data")] public CurrentSaveData saveData;
+
+        private void Awake()
+        {
+            // Get Language file path
+            languageFile = Application.dataPath + "/Tiago_GeoMine/Language/language_Menu.json";
+            ReadFile();
+
+            // Get json values from file and set them as variables values of the class
+            JSONNode startGamePlayload = JSON.Parse(fileText);
+            currentLanguage = JsonUtility.FromJson<Language>(startGamePlayload[langCode].ToString());
+        }
 
         void Start()
         {
             DontDestroyOnLoad(this.gameObject);
+
+            #region LOL SDK
 
 #if UNITY_EDITOR
             //ILOLSDK sdk = new LoLSDK.MockWebGL();
@@ -113,13 +146,31 @@ namespace Tiago_GeoMine
 #endif
 
             //LOLSDK.Init(sdk, "com.legends-of-learning.unity.sdk.v5.3.example-cooking-game");
+
+            #endregion
         }
 
-#region Saves
+        #region Read File
+
+        public void ReadFile()
+        {
+            if (File.Exists(languageFile))
+            {
+                Debug.Log("File located");
+
+                fileText = File.ReadAllText(languageFile);
+            }
+            else
+                Debug.Log("File not located");
+        }
+
+        #endregion
+
+        #region Saves
 
         public void ResetGameData()
         {
-#region Reset Save Data
+            #region Reset Save Data
 
             // Lab
             saveData.currentRock = defaultData.currentRock;
