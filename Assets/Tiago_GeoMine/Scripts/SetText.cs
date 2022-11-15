@@ -69,7 +69,9 @@ namespace Tiago_GeoMine
 
         [Space(5), Header("Text Bubbles")]
         public TextMeshProUGUI shopText;
-        public TextMeshProUGUI labText;
+        public string labText;
+        public string labText02;
+        public string labText03;
 
         [Space(5), Header("Death")]
         public TextMeshProUGUI playerDown;
@@ -84,10 +86,37 @@ namespace Tiago_GeoMine
         public TextMeshProUGUI inputfield;
 
         [Space(3)]
-        public TextMeshProUGUI question;
+        public string Igneous_Question;
+        public string Sedimentary_Question;
+        public string Metamorphic_Question_01;
+        public string Metamorphic_Question_02;
+        public string Other_Question_01;
+        public string Other_Question_02;
+        public string Other_Question_03;
+        public string Other_Question_04;
+        public string Other_Question_05;
 
         [Space(3)]
-        public TextMeshProUGUI hint;
+        public string Igneous_Hint;
+        public string Sedimentary_Hint;
+        public string Metamorphic_Hint_01;
+        public string Metamorphic_Hint_02;
+        public string Other_Hint_01;
+        public string Other_Hint_02;
+        public string Other_Hint_03;
+        public string Other_Hint_04;
+        public string Other_Hint_05;
+
+        [Space(3)]
+        public string Igneous_Answer;
+        public string Sedimentary_Answer;
+        public string Metamorphic_Answer_01;
+        public string Metamorphic_Answer_02;
+        public string Other_Answer_01;
+        public string Other_Answer_02;
+        public string Other_Answer_03;
+        public string Other_Answer_04;
+        public string Other_Answer_05;
 
         #endregion
 
@@ -166,9 +195,17 @@ namespace Tiago_GeoMine
             public string Other_Hint_03;
             public string Other_Hint_04;
             public string Other_Hint_05;
-        }
 
-        public string langCode;
+            public string Igneous_Answer;
+            public string Sedimentary_Answer;
+            public string Metamorphic_Answer_01;
+            public string Metamorphic_Answer_02;
+            public string Other_Answer_01;
+            public string Other_Answer_02;
+            public string Other_Answer_03;
+            public string Other_Answer_04;
+            public string Other_Answer_05;
+        }
 
         public GameText currentLanguage = new GameText();
 
@@ -177,8 +214,10 @@ namespace Tiago_GeoMine
 
         #endregion
 
+        public Lab labScript;
+
         void Awake()
-        {
+        {         
             gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
             // Get Language file path
@@ -187,7 +226,138 @@ namespace Tiago_GeoMine
 
             // Get json values from file and set them as variables values of the class
             JSONNode startGamePlayload = JSON.Parse(fileText);
-            currentLanguage = JsonUtility.FromJson<GameText>(startGamePlayload[langCode].ToString());
+            currentLanguage = JsonUtility.FromJson<GameText>(startGamePlayload[gameManager.langCode].ToString());
+
+            labText = labScript.Speech01;
+            labText02 = labScript.Speech02;
+            labText03 = labScript.Speech03;
+
+            Igneous_Question = labScript.igneousQuestions[0];
+            Sedimentary_Question = labScript.sedimentaryQuestions[0];
+            Metamorphic_Question_01 = labScript.metamorphicQuestions[0];
+            Metamorphic_Question_02 = labScript.metamorphicQuestions[1];
+            Other_Question_01 = labScript.otherRocksQuestions[0];
+            Other_Question_02 = labScript.otherRocksQuestions[1];
+            Other_Question_03 = labScript.otherRocksQuestions[2];
+            Other_Question_04 = labScript.otherRocksQuestions[3];
+            Other_Question_05 = labScript.otherRocksQuestions[4];
+
+            Igneous_Hint = labScript.igneousHint[0];
+            Sedimentary_Hint = labScript.sedimentaryHint[0]; 
+            Metamorphic_Hint_01 = labScript.metamorphicHint[0]; 
+            Metamorphic_Hint_02 = labScript.metamorphicHint[1]; 
+            Other_Hint_01 = labScript.otherRocksHint[0]; 
+            Other_Hint_02 = labScript.otherRocksHint[1]; 
+            Other_Hint_03 = labScript.otherRocksHint[2]; 
+            Other_Hint_04 = labScript.otherRocksHint[3]; 
+            Other_Hint_05 = labScript.otherRocksHint[4];
+
+            Igneous_Answer = labScript.igneousAnswers[0];
+            Sedimentary_Answer = labScript.sedimentaryAnswers[0];
+            Metamorphic_Answer_01 = labScript.metamorphicAnswers[0];
+            Metamorphic_Answer_02 = labScript.metamorphicAnswers[1];
+            Other_Answer_01 = labScript.otherRocksAnswers[0];
+            Other_Answer_02 = labScript.otherRocksAnswers[1];
+            Other_Answer_03 = labScript.otherRocksAnswers[2];
+            Other_Answer_04 = labScript.otherRocksAnswers[3];
+            Other_Answer_05 = labScript.otherRocksAnswers[4];
+    }
+
+        void Start()
+        {
+            #region Set Text
+
+            goToEntrance.text = currentLanguage.Button_Entrance;
+            goToShop.text = currentLanguage.Button_Shop;
+            goToLab.text = currentLanguage.Button_Lab;
+
+
+            openBackpack.text = currentLanguage.Button_Backpack;
+            closeBackpack.text = currentLanguage.Button_CloseBackpack;
+
+            openTutorial.text = currentLanguage.Button_Tutorial;
+            closeTutorial.text = currentLanguage.Button_CloseTutorial;
+
+            for (int i = 0; i < buy.Length; i++)
+            {
+                buy[i].text = currentLanguage.Button_Buy;
+            }
+
+            for (int i = 0; i < sell.Length; i++)
+            {
+                sell[i].text = currentLanguage.Button_Sell;
+            }
+
+            openShop.text = currentLanguage.Button_OpenShop;
+            closeShop.text = currentLanguage.Button_CloseShop;
+            leaveShop.text = currentLanguage.Button_LeaveShop;
+
+            openQuestions.text = currentLanguage.Button_OpenQuestions;
+            closeQuestions.text = currentLanguage.Button_CloseQuestions;
+            leaveLab.text = currentLanguage.Button_LeaveLab;
+            submit.text = currentLanguage.Button_Submit;
+
+            wakeUp.text = currentLanguage.Button_WakeUp;
+
+            tutorialTitle.text = currentLanguage.Tutorial_Title;
+            tutorialText01.text = currentLanguage.Tutorial_Text01;
+            tutorialText02.text = currentLanguage.Tutorial_Text02;
+            tutorialText03.text = currentLanguage.Tutorial_Text03;
+            tutorialText04.text = currentLanguage.Tutorial_Text04;
+            tutorialText05.text = currentLanguage.Tutorial_Text05;
+            tutorialtext06.text = currentLanguage.Tutorial_Text06;
+
+            for (int i = 0; i < 2; i++)
+            {              
+                upgrades[i].text = currentLanguage.Upgrades;
+                rocksMinerals[i].text = currentLanguage.RocksAndMinerals;
+            }
+
+            shopText.text = currentLanguage.Shop_TextBubble;
+            labScript.Speech01 = currentLanguage.Lab_TextBubble_01;
+            labScript.Speech02 = currentLanguage.Lab_TextBubble_02;
+            labScript.Speech03 = currentLanguage.Lab_TextBubble_03;
+
+            playerDown.text = currentLanguage.Player_Down;
+
+            correctMsg.text = currentLanguage.Correct_Message;
+            failMsg.text = currentLanguage.Failed_Message;
+
+            questionTitle.text = currentLanguage.Question_Title;
+            hintTitle.text = currentLanguage.Hint_Title;
+            inputfield.text = currentLanguage.InputField_Text;
+
+            labScript.igneousQuestions[0] = currentLanguage.Igneous_Question;
+            labScript.sedimentaryQuestions[0] = currentLanguage.Sedimentary_Question;
+            labScript.metamorphicQuestions[0] = currentLanguage.Metamorphic_Question_01;
+            labScript.metamorphicQuestions[1] = currentLanguage.Metamorphic_Question_02;
+            labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_01;
+            labScript.otherRocksQuestions[1] = currentLanguage.Other_Question_02;
+            labScript.otherRocksQuestions[2] = currentLanguage.Other_Question_03;
+            labScript.otherRocksQuestions[3] = currentLanguage.Other_Question_04;
+            labScript.otherRocksQuestions[4] = currentLanguage.Other_Question_05;
+
+            labScript.igneousHint[0] = currentLanguage.Igneous_Hint;
+            labScript.sedimentaryHint[0] = currentLanguage.Sedimentary_Hint;
+            labScript.metamorphicHint[0] = currentLanguage.Metamorphic_Hint_01;
+            labScript.metamorphicHint[1] = currentLanguage.Metamorphic_Hint_02;
+            labScript.otherRocksHint[0] = currentLanguage.Other_Hint_01;
+            labScript.otherRocksHint[1] = currentLanguage.Other_Hint_02;
+            labScript.otherRocksHint[2] = currentLanguage.Other_Hint_03;
+            labScript.otherRocksHint[3] = currentLanguage.Other_Hint_04;
+            labScript.otherRocksHint[4] = currentLanguage.Other_Hint_05;
+
+            labScript.igneousAnswers[0] = currentLanguage.Igneous_Answer;
+            labScript.sedimentaryAnswers[0] = currentLanguage.Sedimentary_Answer;
+            labScript.metamorphicAnswers[0] = currentLanguage.Metamorphic_Answer_01;
+            labScript.metamorphicAnswers[1] = currentLanguage.Metamorphic_Answer_02;
+            labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_01;
+            labScript.otherRocksAnswers[1] = currentLanguage.Other_Answer_02;
+            labScript.otherRocksAnswers[2] = currentLanguage.Other_Answer_03;
+            labScript.otherRocksAnswers[3] = currentLanguage.Other_Answer_04;
+            labScript.otherRocksAnswers[4] = currentLanguage.Other_Answer_05;
+
+            #endregion
         }
 
         #region Read File

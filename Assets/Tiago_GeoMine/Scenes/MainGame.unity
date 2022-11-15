@@ -2924,8 +2924,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20.4
-  m_fontSizeBase: 20.4
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2960,7 +2960,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -22.455078, y: -21.134277, z: -26.417786, w: -31.70129}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3581,8 +3581,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -11}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -1.7}
+  m_SizeDelta: {x: 0, y: -8.8975}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &320386014
 MonoBehaviour:
@@ -3670,7 +3670,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 4.1831665, y: -6.17511, z: 4.7807617, w: -0.68609613}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -6181,7 +6181,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -268.8684, y: -83}
+  m_AnchoredPosition: {x: -268.8684, y: -66}
   m_SizeDelta: {x: 488.2539, y: 47.6776}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &528993413
@@ -9265,7 +9265,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 4.780731, y: 0, z: 4.183197, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -12502,7 +12502,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -403, y: 33}
+  m_AnchoredPosition: {x: -403, y: 65}
   m_SizeDelta: {x: 214.4507, y: 157.745}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &990546203
@@ -25893,6 +25893,9 @@ MonoBehaviour:
   scientistSpeech: {fileID: 266979833}
   backpack: {fileID: 10880598}
   currentRock: 
+  Speech01: Great your're here, let's see what you have brought me.
+  Speech02: You have no rocks for me to analyze, come back later when you do.
+  Speech03: Good job! You have discovered all the rocks in the mine.
   playerResponse: {fileID: 892765858}
   hasDiscoveredIron: 0
   hasDiscoveredSilicon: 0
@@ -25938,19 +25941,6 @@ MonoBehaviour:
   - What is the rock cycle dependent on?
   - What is a change of state?
   - Why are folding, faulting, and breaking geologic processes?
-  igneousTTS:
-  - {fileID: 8300000, guid: 37af38cccc8bedb498192476419bdf64, type: 3}
-  sedimentaryTTS:
-  - {fileID: 8300000, guid: b3c492b9e0569d74cac33987a88c0729, type: 3}
-  metamorphicTTS:
-  - {fileID: 8300000, guid: 180c2f71d86e10e4196672a9ecdeb6b6, type: 3}
-  - {fileID: 8300000, guid: 997d1929ed9e4a448acdb7b7e198f141, type: 3}
-  otherRocksTTS:
-  - {fileID: 8300000, guid: 4ae2334213521d8458b5aef365fc133d, type: 3}
-  - {fileID: 8300000, guid: 36881bd416efd424ea29d30aa21a89a1, type: 3}
-  - {fileID: 8300000, guid: 2c8f405791e8215419099743c94519fe, type: 3}
-  - {fileID: 8300000, guid: 60b9920a4908fb84b85fbada38599c17, type: 3}
-  - {fileID: 8300000, guid: d3d247b88f2c7504a8a64b2a4de66947, type: 3}
   igneousAnswers:
   - cooled magma lava
   sedimentaryAnswers:
@@ -25979,6 +25969,7 @@ MonoBehaviour:
   - Why are there earthquakes?
   congratsMessage: {fileID: 389696187}
   failMessage: {fileID: 1332979518}
+  setText: {fileID: 1840171050}
 --- !u!82 &1433932800
 AudioSource:
   m_ObjectHideFlags: 0
@@ -28259,7 +28250,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -340.00458, y: 142.56119}
+  m_AnchoredPosition: {x: -340.00458, y: 171}
   m_SizeDelta: {x: 343.9908, y: 47.6776}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1655836907
@@ -35862,15 +35853,96 @@ MonoBehaviour:
   - {fileID: 1358811640}
   - {fileID: 1593303554}
   shopText: {fileID: 372681465}
-  labText: {fileID: 266979833}
+  labText: 
+  labText02: 
+  labText03: 
   playerDown: {fileID: 1066763053}
   correctMsg: {fileID: 389696189}
   failMsg: {fileID: 1332979520}
   questionTitle: {fileID: 912212901}
   hintTitle: {fileID: 581058051}
   inputfield: {fileID: 895570588}
-  question: {fileID: 2018433042}
-  hint: {fileID: 922992420}
+  Igneous_Question: 
+  Sedimentary_Question: 
+  Metamorphic_Question_01: 
+  Metamorphic_Question_02: 
+  Other_Question_01: 
+  Other_Question_02: 
+  Other_Question_03: 
+  Other_Question_04: 
+  Other_Question_05: 
+  Igneous_Hint: 
+  Sedimentary_Hint: 
+  Metamorphic_Hint_01: 
+  Metamorphic_Hint_02: 
+  Other_Hint_01: 
+  Other_Hint_02: 
+  Other_Hint_03: 
+  Other_Hint_04: 
+  Other_Hint_05: 
+  currentLanguage:
+    Button_Entrance: 
+    Button_Shop: 
+    Button_Lab: 
+    Button_Backpack: 
+    Button_CloseBackpack: 
+    Button_Tutorial: 
+    Button_CloseTutorial: 
+    Button_Buy: 
+    Button_Sell: 
+    Button_OpenShop: 
+    Button_CloseShop: 
+    Button_LeaveShop: 
+    Button_OpenQuestions: 
+    Button_CloseQuestions: 
+    Button_LeaveLab: 
+    Button_Submit: 
+    Button_WakeUp: 
+    Tutorial_Title: 
+    Tutorial_Text01: 
+    Tutorial_Text02: 
+    Tutorial_Text03: 
+    Tutorial_Text04: 
+    Tutorial_Text05: 
+    Tutorial_Text06: 
+    Silicon: 
+    Iron: 
+    Aluminium: 
+    Calcium: 
+    Igneous: 
+    Sedimentary: 
+    Metamorphic: 
+    Upgrades: 
+    RocksAndMinerals: 
+    Shop_TextBubble: 
+    Lab_TextBubble_01: 
+    Lab_TextBubble_02: 
+    Lab_TextBubble_03: 
+    Player_Down: 
+    Correct_Message: 
+    Failed_Message: 
+    Question_Title: 
+    Hint_Title: 
+    InputField_Text: 
+    Igneous_Question: 
+    Sedimentary_Question: 
+    Metamorphic_Question_01: 
+    Metamorphic_Question_02: 
+    Other_Question_01: 
+    Other_Question_02: 
+    Other_Question_03: 
+    Other_Question_04: 
+    Other_Question_05: 
+    Igneous_Hint: 
+    Sedimentary_Hint: 
+    Metamorphic_Hint_01: 
+    Metamorphic_Hint_02: 
+    Other_Hint_01: 
+    Other_Hint_02: 
+    Other_Hint_03: 
+    Other_Hint_04: 
+    Other_Hint_05: 
+  labScript: {fileID: 1433932799}
 --- !u!4 &1840171051
 Transform:
   m_ObjectHideFlags: 0
@@ -37483,7 +37555,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -10.5}
+  m_AnchoredPosition: {x: 0, y: -0.19999886}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2013654820
@@ -37572,7 +37644,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 4.7807617, y: 0, z: 4.7807617, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

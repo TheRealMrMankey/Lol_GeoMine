@@ -18,6 +18,9 @@ namespace Tiago_GeoMine
         public GetInventoryValues backpack;
        
         public string currentRock = ""; // Value to Save
+        public string Speech01;
+        public string Speech02;
+        public string Speech03;
 
         //Player Input
         [Space(10)]
@@ -66,16 +69,6 @@ namespace Tiago_GeoMine
         public string[] otherRocksQuestions; // Value to Save
         private int questionNr; 
 
-        // All Questions Text-to-speech
-        [Space(10)]
-        [Header("Questions Audio TTS")]
-
-        public AudioClip[] igneousTTS; // Value to Save
-        public AudioClip[] sedimentaryTTS; // Value to Save
-        public AudioClip[] metamorphicTTS; // Value to Save
-        public AudioClip[] otherRocksTTS; // Value to Save
-        private AudioSource audioSource;
-
         // All Answers
         [Space(10)]
         [Header("Answers")]
@@ -101,11 +94,23 @@ namespace Tiago_GeoMine
         #endregion
 
         private GameManager gameManager;
+        public SetText setText;
 
         private void Awake()
         {
             gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
+            for (int i = 0; i < 2; i++)
+            {
+                silicon[i].text = "????";
+                iron[i].text = "????";
+                aluminium[i].text = "????";
+                calcium[i].text = "????";
+                igneous[i].text = "????";
+                sedimentary[i].text = "????";
+                metamorphic[i].text = "????";
+            }
+           
             currentRock = gameManager.saveData.currentRock;
             hasDiscoveredIron = gameManager.saveData.hasDiscoveredIron;
             hasDiscoveredSilicon = gameManager.saveData.hasDiscoveredSilicon;
@@ -133,14 +138,11 @@ namespace Tiago_GeoMine
 
         void Start()
         {
-            
-
             // Get Player
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
             // Speech
-            scientistSpeech.text = "Great your're here, let's see what you have brought me.";
-            audioSource = this.gameObject.GetComponent<AudioSource>();
+            scientistSpeech.text = Speech01;
 
             // All GameObjects
             labUI.SetActive(false);
@@ -166,7 +168,7 @@ namespace Tiago_GeoMine
             && hasDiscoveredSedimentary == true
             && hasDiscoveredMetamorphic == true)
             {
-                scientistSpeech.text = "Good job! You have discovered all the rocks in the mine.";
+                scientistSpeech.text = Speech03;
             }
             else 
             {
@@ -212,12 +214,12 @@ namespace Tiago_GeoMine
                         ChooseQuestion("metamorphic");
                     }
                     else
-                        scientistSpeech.text = "You have no rocks for me to analyze, come back later when you do.";
+                        scientistSpeech.text = Speech02;
 
                     #endregion
                 }
                 else
-                    scientistSpeech.text = "You have no rocks for me to analyze, come back later when you do.";
+                    scientistSpeech.text = Speech02;
             }
         }
 
@@ -250,28 +252,28 @@ namespace Tiago_GeoMine
                         hasDiscoveredSilicon = true;
 
                         for (int i = 0; i < silicon.Length; i++)
-                            silicon[i].text = "Silicon";
+                            silicon[i].text = setText.currentLanguage.Silicon;
                     }
                     if (currentRock == "iron")
                     {
                         hasDiscoveredIron = true;
 
                         for (int i = 0; i < iron.Length; i++)
-                            iron[i].text = "Iron";
+                            iron[i].text = setText.currentLanguage.Iron;
                     }
                     if (currentRock == "aluminium")
                     {
                         hasDiscoveredAluminium = true;
 
                         for (int i = 0; i < aluminium.Length; i++)
-                            aluminium[i].text = "Aluminium";
+                            aluminium[i].text = setText.currentLanguage.Aluminium;
                     }
                     if (currentRock == "calcium")
                     {
                         hasDiscoveredCalcium = true;
 
                         for (int i = 0; i < calcium.Length; i++)
-                            calcium[i].text = "Calcium";
+                            calcium[i].text = setText.currentLanguage.Calcium;
                     }
 
                     // Remove solved question from the pool
@@ -318,7 +320,7 @@ namespace Tiago_GeoMine
                     hasDiscoveredIgneous = true;
 
                     for (int i = 0; i < igneous.Length; i++)
-                        igneous[i].text = "Igneous";
+                        igneous[i].text = setText.currentLanguage.Igneous;
 
                     // Remove solved question from the pool
                     List<string> q = new List<string>(igneousQuestions);
@@ -364,7 +366,7 @@ namespace Tiago_GeoMine
                     hasDiscoveredSedimentary = true;
 
                     for (int i = 0; i < sedimentary.Length; i++)
-                        sedimentary[i].text = "Sedimentary";
+                        sedimentary[i].text = setText.currentLanguage.Sedimentary;
 
                     // Remove solved question from the pool
                     List<string> q = new List<string>(sedimentaryQuestions);
@@ -410,7 +412,7 @@ namespace Tiago_GeoMine
                     hasDiscoveredMetamorphic = true;
 
                     for (int i = 0; i < metamorphic.Length; i++)
-                        metamorphic[i].text = "Metamorphic";
+                        metamorphic[i].text = setText.currentLanguage.Metamorphic;
 
                     // Remove solved question from the pool
                     List<string> q = new List<string>(metamorphicQuestions);
@@ -459,9 +461,6 @@ namespace Tiago_GeoMine
                 Hint(otherRocksHint[randomNr]);
                 currentRock = "silicon";
                 questionNr = randomNr;
-
-                // Play audio
-                audioSource.PlayOneShot(otherRocksTTS[randomNr]);
             }
             if (rock == "iron")
             {
@@ -471,9 +470,6 @@ namespace Tiago_GeoMine
                 Hint(otherRocksHint[randomNr]);
                 currentRock = "iron";
                 questionNr = randomNr;
-
-                // Play audio
-                audioSource.PlayOneShot(otherRocksTTS[randomNr]);
             }
             if (rock == "aluminium")
             {
@@ -483,9 +479,6 @@ namespace Tiago_GeoMine
                 Hint(otherRocksHint[randomNr]);
                 currentRock = "aluminium";
                 questionNr = randomNr;
-
-                // Play audio
-                audioSource.PlayOneShot(otherRocksTTS[randomNr]);
             }
             if (rock == "calcium")
             {
@@ -495,9 +488,6 @@ namespace Tiago_GeoMine
                 Hint(otherRocksHint[randomNr]);
                 currentRock = "calcium";
                 questionNr = randomNr;
-
-                // Play audio
-                audioSource.PlayOneShot(otherRocksTTS[randomNr]);
             }
             if (rock == "igneous")
             {
@@ -508,8 +498,6 @@ namespace Tiago_GeoMine
                 currentRock = "igneous";
                 questionNr = randomNr;
 
-                // Play audio
-                audioSource.PlayOneShot(igneousTTS[randomNr]);
             }
             if (rock == "sedimentary")
             {
@@ -520,8 +508,6 @@ namespace Tiago_GeoMine
                 currentRock = "sedimentary";
                 questionNr = randomNr;
 
-                // Play audio
-                audioSource.PlayOneShot(sedimentaryTTS[randomNr]);
             }
             if (rock == "metamorphic")
             {
@@ -531,9 +517,6 @@ namespace Tiago_GeoMine
                 Hint(metamorphicHint[randomNr]);
                 currentRock = "metamorphic";
                 questionNr = randomNr;
-
-                // Play audio
-                audioSource.PlayOneShot(metamorphicTTS[randomNr]);
             }
         }
 

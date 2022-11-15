@@ -70,7 +70,17 @@
         "Other_Hint_02": "There are 7 processes.",
         "Other_Hint_03": "What is in the center of the Earth?",
         "Other_Hint_04": "What type of change is it? Why does it occur?",
-        "Other_Hint_05": "Why are there earthquakes?"
+        "Other_Hint_05": "Why are there earthquakes?",
+
+        "Igneous_Answer": "cooled magma lava",
+        "Sedimentary_Answer": "sediments are compressed and cemented together",
+        "Metamorphic_Answer_01": "heat pressure",
+        "Metamorphic_Answer_02": "all",
+        "Other_Answer_01": "cycling of matter and energy",
+        "Other_Answer_02": "uplift weathering erosion deposition melting crystallization metamorphism",
+        "Other_Answer_03": "flow of energy from Earth's interior",
+        "Other_Answer_04": "physical change occur geologic processes",
+        "Other_Answer_05": "tectonic plate movement cause physical changes in rocks"
     },
     "es":
     {
@@ -143,6 +153,16 @@
         "Other_Hint_02": "Hay 7 procesos",
         "Other_Hint_03": "¿Qué hay en el centro de la Tierra?",
         "Other_Hint_04": "¿Qué tipo de cambio es? ¿Por qué se produce?",
-        "Other_Hint_05": "¿Por qué hay terremotos?"
+        "Other_Hint_05": "¿Por qué hay terremotos?",
+
+        "Igneous_Answer": "lava magmática enfriada",
+        "Sedimentary_Answer": "los sedimentos se comprimen y cementan entre sí",
+        "Metamorphic_Answer_01": "la presión del calor",
+        "Metamorphic_Answer_02": "todo",
+        "Other_Answer_01": "ciclo de materia y energía",
+        "Other_Answer_02": "elevación meteorización erosión deposición fusión cristalización metamorfismo",
+        "Other_Answer_03": "flujo de energía desde el interior de la Tierra",
+        "Other_Answer_04": "cambio físico ocurren procesos geológicos",
+        "Other_Answer_05": "el movimiento de las placas tectónicas provoca cambios físicos en las rocas"
     }
 }
