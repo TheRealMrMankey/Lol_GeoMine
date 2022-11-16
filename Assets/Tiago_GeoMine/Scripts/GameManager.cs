@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.IO;
 using SimpleJSON;
-//using LoLSDK;
+using LoLSDK;
 
 namespace Tiago_GeoMine
 {
@@ -140,12 +140,12 @@ namespace Tiago_GeoMine
             #region LOL SDK
 
 #if UNITY_EDITOR
-            //ILOLSDK sdk = new LoLSDK.MockWebGL();
+            ILOLSDK sdk = new LoLSDK.MockWebGL();
 #elif UNITY_WEBGL
-           // ILOLSDK sdk = new LoLSDK.WebGL();
+            ILOLSDK sdk = new LoLSDK.WebGL();
 #endif
 
-            //LOLSDK.Init(sdk, "com.legends-of-learning.unity.sdk.v5.3.example-cooking-game");
+            LOLSDK.Init(sdk, "file:///C:/Users/A038955/Documents/GitHub/Builds/index.html");
 
             #endregion
         }
