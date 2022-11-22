@@ -209,7 +209,7 @@ namespace Tiago_GeoMine
 
         public GameText currentLanguage = new GameText();
 
-        private string languageFile;
+        private string languageFile = Path.Combine(Application.streamingAssetsPath, "language_Game.json");
         private string fileText;
 
         #endregion
@@ -220,8 +220,6 @@ namespace Tiago_GeoMine
         {         
             gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
-            // Get Language file path
-            languageFile = Application.dataPath + "/Tiago_GeoMine/Language/language_Game.json";
             ReadFile();
 
             // Get json values from file and set them as variables values of the class

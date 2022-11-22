@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using SimpleJSON;
 using LoLSDK;
+using UnityEngine.SceneManagement;
 
 namespace Tiago_GeoMine
 {
@@ -110,35 +111,33 @@ namespace Tiago_GeoMine
             public string NewGame;
             public string Continue;
         }
+
         public string langCode;
 
         public Language currentLanguage = new Language();
        
-        private string languageFile;
-        private string fileText;
+        private string languageFile = Path.Combine(Application.streamingAssetsPath, "language_Menu.json");
 
-        #endregion
+        #endregion      
+
+        LoLDataType _receivedData;
+        LoLDataType _expectedData = LoLDataType.START;
+
+        enum LoLDataType
+        {
+            START = 0
+        }
 
         [SerializeField, Header("Initial State Data")] DefaultSaveData defaultData;
         [SerializeField, Header("Initial State Data")] public CurrentSaveData saveData;
 
         private void Awake()
         {
-            // Get Language file path
-            languageFile = Application.dataPath + "/Tiago_GeoMine/Language/language_Menu.json";
-            ReadFile();
-
-            // Get json values from file and set them as variables values of the class
-            JSONNode startGamePlayload = JSON.Parse(fileText);
-            currentLanguage = JsonUtility.FromJson<Language>(startGamePlayload[langCode].ToString());
-        }
-
-        void Start()
-        {
-            DontDestroyOnLoad(this.gameObject);
+            langCode = "es";
 
             #region LOL SDK
-
+            
+            
 #if UNITY_EDITOR
             ILOLSDK sdk = new LoLSDK.MockWebGL();
 #elif UNITY_WEBGL
@@ -146,25 +145,52 @@ namespace Tiago_GeoMine
 #endif
 
             LOLSDK.Init(sdk, "file:///C:/Users/A038955/Documents/GitHub/Builds/index.html");
+            
+            // Register event handlers
+            LOLSDK.Instance.StartGameReceived += new StartGameReceivedHandler(StartGame);
+
+            LoadMockData();
+
+            LOLSDK.Instance.GameIsReady();
+            StartCoroutine(WaitForData());
 
             #endregion
         }
 
-        #region Read File
-
-        public void ReadFile()
+        void Start()
         {
-            if (File.Exists(languageFile))
-            {
-                Debug.Log("File located");
-
-                fileText = File.ReadAllText(languageFile);
-            }
-            else
-                Debug.Log("File not located");
+            DontDestroyOnLoad(this.gameObject);          
         }
 
-        #endregion
+        IEnumerator WaitForData()
+        {
+            yield return new WaitUntil(() => (_receivedData & _expectedData) != 0);
+            SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        }
+
+        void StartGame(string startGameJSON)
+        {
+            SharedState.StartGameData = JSON.Parse(startGameJSON);
+
+            _receivedData |= LoLDataType.START;     
+        }
+
+        private void LoadMockData()
+        {
+            Debug.Log(File.Exists(languageFile));
+
+            if (File.Exists(languageFile))
+            {
+                string startDataAsJSON = File.ReadAllText(languageFile);
+
+                JSONNode startGamePlayload = JSON.Parse(startDataAsJSON);
+                currentLanguage = JsonUtility.FromJson<Language>(startGamePlayload[langCode].ToString());
+
+                SharedState.LanguageDefs = startDataAsJSON;
+
+                StartGame(startDataAsJSON);
+            }
+        }      
 
         #region Saves
 
