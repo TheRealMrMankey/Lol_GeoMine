@@ -15,11 +15,18 @@ namespace Tiago_GeoMine
 
         void Awake()
         {
+            
+        }
+
+        void Start()
+        {
             gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
             // Set text based on current selected language
             newGameBtn.text = gameManager.currentLanguage.NewGame;
             continueBtn.text = gameManager.currentLanguage.Continue;
+
+            Debug.Log("Button Text: " + gameManager.currentLanguage.NewGame);
         }
 
         public void NewGame()
