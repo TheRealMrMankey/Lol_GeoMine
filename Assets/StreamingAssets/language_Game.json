@@ -1,6 +1,9 @@
 {
     "en":
     {
+        "NewGame": "New Game",
+        "Continue": "Continue",
+
         "Button_Entrance": "Go to Entrance",
         "Button_Shop": "Go to Shop",
         "Button_Lab": "Go to Research",
@@ -84,6 +87,9 @@
     },
     "es":
     {
+        "NewGame": "Nuevo juego",   
+        "Continue": "Continuar",
+
         "Button_Entrance": "Ir a la entrada",
         "Button_Shop": "Ir a la tienda",
         "Button_Lab": "Ir a la investigación",

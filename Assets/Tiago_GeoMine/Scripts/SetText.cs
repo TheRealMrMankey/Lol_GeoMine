@@ -5,13 +5,12 @@ using TMPro;
 using System.IO;
 using SimpleJSON;
 using System;
+using LoLSDK;
 
 namespace Tiago_GeoMine
 {
     public class SetText : MonoBehaviour
-    {
-        private GameManager gameManager;
-
+    {      
         #region Buttons
 
         [Space(5), Header("Fast Travel")]
@@ -122,6 +121,7 @@ namespace Tiago_GeoMine
 
         #region Language variables
 
+        #region Game Text
         [Serializable]
         public class GameText
         {
@@ -206,25 +206,28 @@ namespace Tiago_GeoMine
             public string Other_Answer_04;
             public string Other_Answer_05;
         }
+        #endregion
 
         public GameText currentLanguage = new GameText();
 
-        private string languageFile = Path.Combine(Application.streamingAssetsPath, "language_Game.json");
-        private string fileText;
+        [System.Flags]
+        enum LoLDataType
+        {
+            LANGUAGE = 1 << 0
+        }
 
         #endregion
 
+        private GameManager gameManager;
         public Lab labScript;
 
         void Awake()
-        {         
+        {
             gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
-            ReadFile();
+            ChangeLanguage();
 
-            // Get json values from file and set them as variables values of the class
-            JSONNode startGamePlayload = JSON.Parse(fileText);
-            currentLanguage = JsonUtility.FromJson<GameText>(startGamePlayload[gameManager.langCode].ToString());
+            #region Get Text for variables
 
             labText = labScript.Speech01;
             labText02 = labScript.Speech02;
@@ -259,7 +262,9 @@ namespace Tiago_GeoMine
             Other_Answer_03 = labScript.otherRocksAnswers[2];
             Other_Answer_04 = labScript.otherRocksAnswers[3];
             Other_Answer_05 = labScript.otherRocksAnswers[4];
-    }
+
+            #endregion
+        }
 
         void Start()
         {
@@ -358,20 +363,178 @@ namespace Tiago_GeoMine
             #endregion
         }
 
-        #region Read File
-
-        public void ReadFile()
+        // Use language to populate UI
+        void ChangeLanguage()
         {
-            if (File.Exists(languageFile))
-            {
-                Debug.Log("File located");
+            #region Set Text
+#if UNITY_EDITOR
+            //currentLanguage = JsonUtility.FromJson<GameText>(langDefs[langCode].ToString());
 
-                fileText = File.ReadAllText(languageFile);
-            }
-            else
-                Debug.Log("File not located");
-        }
+            currentLanguage.Button_Entrance = gameManager.langDefs[gameManager.langCode]["Button_Entrance"];
+            currentLanguage.Button_Shop = gameManager.langDefs[gameManager.langCode]["Button_Shop"]; 
+            currentLanguage.Button_Lab = gameManager.langDefs[gameManager.langCode]["Button_Lab"];
+            currentLanguage.Button_Backpack = gameManager.langDefs[gameManager.langCode]["Button_Backpack"];
+            currentLanguage.Button_CloseBackpack = gameManager.langDefs[gameManager.langCode]["Button_CloseBackpack"];
+            currentLanguage.Button_Tutorial = gameManager.langDefs[gameManager.langCode]["Button_Tutorial"];
+            currentLanguage.Button_CloseTutorial = gameManager.langDefs[gameManager.langCode]["Button_CloseTutorial"];
+            currentLanguage.Button_Buy = gameManager.langDefs[gameManager.langCode]["Button_Buy"];
+            currentLanguage.Button_Sell = gameManager.langDefs[gameManager.langCode]["Button_Sell"];
+            currentLanguage.Button_OpenShop = gameManager.langDefs[gameManager.langCode]["Button_OpenShop"];
+            currentLanguage.Button_CloseShop = gameManager.langDefs[gameManager.langCode]["Button_CloseShop"];
+            currentLanguage.Button_LeaveShop = gameManager.langDefs[gameManager.langCode]["Button_LeaveShop"];
+            currentLanguage.Button_OpenQuestions = gameManager.langDefs[gameManager.langCode]["Button_OpenQuestions"];
+            currentLanguage.Button_CloseQuestions = gameManager.langDefs[gameManager.langCode]["Button_CloseQuestions"];
+            currentLanguage.Button_LeaveLab = gameManager.langDefs[gameManager.langCode]["Button_LeaveLab"];
+            currentLanguage.Button_Submit = gameManager.langDefs[gameManager.langCode]["Button_Submit"];
+            currentLanguage.Button_WakeUp = gameManager.langDefs[gameManager.langCode]["Button_WakeUp"];
 
-        #endregion
+            currentLanguage.Tutorial_Title = gameManager.langDefs[gameManager.langCode]["Tutorial_Title"];
+            currentLanguage.Tutorial_Text01 = gameManager.langDefs[gameManager.langCode]["Tutorial_Text01"];
+            currentLanguage.Tutorial_Text02 = gameManager.langDefs[gameManager.langCode]["Tutorial_Text02"];
+            currentLanguage.Tutorial_Text03 = gameManager.langDefs[gameManager.langCode]["Tutorial_Text03"];
+            currentLanguage.Tutorial_Text04 = gameManager.langDefs[gameManager.langCode]["Tutorial_Text04"];
+            currentLanguage.Tutorial_Text05 = gameManager.langDefs[gameManager.langCode]["Tutorial_Text05"];
+            currentLanguage.Tutorial_Text06 = gameManager.langDefs[gameManager.langCode]["Tutorial_Text06"];
+
+            currentLanguage.Silicon = gameManager.langDefs[gameManager.langCode]["Silicon"];
+            currentLanguage.Iron = gameManager.langDefs[gameManager.langCode]["Iron"];
+            currentLanguage.Aluminium = gameManager.langDefs[gameManager.langCode]["Aluminium"];
+            currentLanguage.Calcium = gameManager.langDefs[gameManager.langCode]["Calcium"];
+            currentLanguage.Igneous = gameManager.langDefs[gameManager.langCode]["Igneous"];
+            currentLanguage.Sedimentary = gameManager.langDefs[gameManager.langCode]["Sedimentary"];
+            currentLanguage.Metamorphic = gameManager.langDefs[gameManager.langCode]["Metamorphic"];
+
+            currentLanguage.Upgrades = gameManager.langDefs[gameManager.langCode]["Upgrades"];
+            currentLanguage.RocksAndMinerals = gameManager.langDefs[gameManager.langCode]["RocksAndMinerals"];
+
+            currentLanguage.Shop_TextBubble = gameManager.langDefs[gameManager.langCode]["Shop_TextBubble"];
+            currentLanguage.Lab_TextBubble_01 = gameManager.langDefs[gameManager.langCode]["Lab_TextBubble_01"];
+            currentLanguage.Lab_TextBubble_02 = gameManager.langDefs[gameManager.langCode]["Lab_TextBubble_02"];
+            currentLanguage.Lab_TextBubble_03 = gameManager.langDefs[gameManager.langCode]["Lab_TextBubble_03"];
+
+            currentLanguage.Player_Down = gameManager.langDefs[gameManager.langCode]["Player_Down"];
+
+            currentLanguage.Correct_Message = gameManager.langDefs[gameManager.langCode]["Correct_Message"];
+            currentLanguage.Failed_Message = gameManager.langDefs[gameManager.langCode]["Failed_Message"];
+
+            currentLanguage.Question_Title = gameManager.langDefs[gameManager.langCode]["Question_Title"];
+            currentLanguage.Hint_Title = gameManager.langDefs[gameManager.langCode]["Hint_Title"];
+            currentLanguage.InputField_Text = gameManager.langDefs[gameManager.langCode]["InputField_Text"];
+
+            currentLanguage.Igneous_Question = gameManager.langDefs[gameManager.langCode]["Igneous_Question"];
+            currentLanguage.Sedimentary_Question = gameManager.langDefs[gameManager.langCode]["Sedimentary_Question"];
+            currentLanguage.Metamorphic_Question_01 = gameManager.langDefs[gameManager.langCode]["Metamorphic_Question_01"];
+            currentLanguage.Metamorphic_Question_02 = gameManager.langDefs[gameManager.langCode]["Metamorphic_Question_02"];
+            currentLanguage.Other_Question_01 = gameManager.langDefs[gameManager.langCode][" Other_Question_01"];
+            currentLanguage.Other_Question_02 = gameManager.langDefs[gameManager.langCode]["Other_Question_02"];
+            currentLanguage.Other_Question_03 = gameManager.langDefs[gameManager.langCode]["Other_Question_03"];
+            currentLanguage.Other_Question_04 = gameManager.langDefs[gameManager.langCode]["Other_Question_04"];
+            currentLanguage.Other_Question_05 = gameManager.langDefs[gameManager.langCode]["Other_Question_05"];
+
+            currentLanguage.Igneous_Hint = gameManager.langDefs[gameManager.langCode]["Igneous_Hint"];
+            currentLanguage.Sedimentary_Hint = gameManager.langDefs[gameManager.langCode]["Sedimentary_Hint"];
+            currentLanguage.Metamorphic_Hint_01 = gameManager.langDefs[gameManager.langCode]["Metamorphic_Hint_01"];
+            currentLanguage.Metamorphic_Hint_02 = gameManager.langDefs[gameManager.langCode]["Metamorphic_Hint_02"];
+            currentLanguage.Other_Hint_01 = gameManager.langDefs[gameManager.langCode]["Other_Hint_01"];
+            currentLanguage.Other_Hint_02 = gameManager.langDefs[gameManager.langCode]["Other_Hint_02"];
+            currentLanguage.Other_Hint_03 = gameManager.langDefs[gameManager.langCode]["Other_Hint_03"];
+            currentLanguage.Other_Hint_04 = gameManager.langDefs[gameManager.langCode]["Other_Hint_04"];
+            currentLanguage.Other_Hint_05 = gameManager.langDefs[gameManager.langCode]["Other_Hint_05"];
+
+            currentLanguage.Igneous_Answer = gameManager.langDefs[gameManager.langCode]["Igneous_Answer"];
+            currentLanguage.Sedimentary_Answer = gameManager.langDefs[gameManager.langCode]["Sedimentary_Answer"];
+            currentLanguage.Metamorphic_Answer_01 = gameManager.langDefs[gameManager.langCode]["Metamorphic_Answer_01"];
+            currentLanguage.Metamorphic_Answer_02 = gameManager.langDefs[gameManager.langCode]["Metamorphic_Answer_02"];
+            currentLanguage.Other_Answer_01 = gameManager.langDefs[gameManager.langCode]["Other_Answer_01"];
+            currentLanguage.Other_Answer_02 = gameManager.langDefs[gameManager.langCode]["Other_Answer_02"];
+            currentLanguage.Other_Answer_03 = gameManager.langDefs[gameManager.langCode]["Other_Answer_03"];
+            currentLanguage.Other_Answer_04 = gameManager.langDefs[gameManager.langCode]["Other_Answer_04"];
+            currentLanguage.Other_Answer_05 = gameManager.langDefs[gameManager.langCode]["Other_Answer_05"];
+#elif UNITY_WEBGL
+            //currentLanguage = JsonUtility.FromJson<GameText>(langDefs.ToString());
+
+            currentLanguage.Button_Entrance = gameManager.langDefs["Button_Entrance"];
+            currentLanguage.Button_Shop = gameManager.langDefs["Button_Shop"]; 
+            currentLanguage.Button_Lab = gameManager.langDefs["Button_Lab"];
+            currentLanguage.Button_Backpack = gameManager.langDefs["Button_Backpack"];
+            currentLanguage.Button_CloseBackpack = gameManager.langDefs["Button_CloseBackpack"];
+            currentLanguage.Button_Tutorial = gameManager.langDefs["Button_Tutorial"];
+            currentLanguage.Button_CloseTutorial = gameManager.langDefs["Button_CloseTutorial"];
+            currentLanguage.Button_Buy = gameManager.langDefs["Button_Buy"];
+            currentLanguage.Button_Sell = gameManager.langDefs["Button_Sell"];
+            currentLanguage.Button_OpenShop = gameManager.langDefs["Button_OpenShop"];
+            currentLanguage.Button_CloseShop = gameManager.langDefs["Button_CloseShop"];
+            currentLanguage.Button_LeaveShop = gameManager.langDefs["Button_LeaveShop"];
+            currentLanguage.Button_OpenQuestions = gameManager.langDefs["Button_OpenQuestions"];
+            currentLanguage.Button_CloseQuestions = gameManager.langDefs["Button_CloseQuestions"];
+            currentLanguage.Button_LeaveLab = gameManager.langDefs["Button_LeaveLab"];
+            currentLanguage.Button_Submit = gameManager.langDefs["Button_Submit"];
+            currentLanguage.Button_WakeUp = gameManager.langDefs["Button_WakeUp"];
+
+            currentLanguage.Tutorial_Title = gameManager.langDefs["Tutorial_Title"];
+            currentLanguage.Tutorial_Text01 = gameManager.langDefs["Tutorial_Text01"];
+            currentLanguage.Tutorial_Text02 = gameManager.langDefs["Tutorial_Text02"];
+            currentLanguage.Tutorial_Text03 = gameManager.langDefs["Tutorial_Text03"];
+            currentLanguage.Tutorial_Text04 = gameManager.langDefs["Tutorial_Text04"];
+            currentLanguage.Tutorial_Text05 = gameManager.langDefs["Tutorial_Text05"];
+            currentLanguage.Tutorial_Text06 = gameManager.langDefs["Tutorial_Text06"];
+
+            currentLanguage.Silicon = gameManager.langDefs["Silicon"];
+            currentLanguage.Iron = gameManager.langDefs["Iron"];
+            currentLanguage.Aluminium = gameManager.langDefs["Aluminium"];
+            currentLanguage.Calcium = gameManager.langDefs["Calcium"];
+            currentLanguage.Igneous = gameManager.langDefs["Igneous"];
+            currentLanguage.Sedimentary = gameManager.langDefs["Sedimentary"];
+            currentLanguage.Metamorphic = gameManager.langDefs["Metamorphic"];
+
+            currentLanguage.Upgrades = gameManager.langDefs["Upgrades"];
+            currentLanguage.RocksAndMinerals = gameManager.langDefs["RocksAndMinerals"];
+
+            currentLanguage.Shop_TextBubble = gameManager.langDefs["Shop_TextBubble"];
+            currentLanguage.Lab_TextBubble_01 = gameManager.langDefs["Lab_TextBubble_01"];
+            currentLanguage.Lab_TextBubble_02 = gameManager.langDefs["Lab_TextBubble_02"];
+            currentLanguage.Lab_TextBubble_03 = gameManager.langDefs["Lab_TextBubble_03"];
+
+            currentLanguage.Player_Down = gameManager.langDefs["Player_Down"];
+
+            currentLanguage.Correct_Message = gameManager.langDefs["Correct_Message"];
+            currentLanguage.Failed_Message = gameManager.langDefs["Failed_Message"];
+
+            currentLanguage.Question_Title = gameManager.langDefs["Question_Title"];
+            currentLanguage.Hint_Title = gameManager.langDefs["Hint_Title"];
+            currentLanguage.InputField_Text = gameManager.langDefs["InputField_Text"];
+
+            currentLanguage.Igneous_Question = gameManager.langDefs["Igneous_Question"];
+            currentLanguage.Sedimentary_Question = gameManager.langDefs["Sedimentary_Question"];
+            currentLanguage.Metamorphic_Question_01 = gameManager.langDefs["Metamorphic_Question_01"];
+            currentLanguage.Metamorphic_Question_02 = gameManager.langDefs["Metamorphic_Question_02"];
+            currentLanguage.Other_Question_01 = gameManager.langDefs[" Other_Question_01"];
+            currentLanguage.Other_Question_02 = gameManager.langDefs["Other_Question_02"];
+            currentLanguage.Other_Question_03 = gameManager.langDefs["Other_Question_03"];
+            currentLanguage.Other_Question_04 = gameManager.langDefs["Other_Question_04"];
+            currentLanguage.Other_Question_05 = gameManager.langDefs["Other_Question_05"];
+
+            currentLanguage.Igneous_Hint = gameManager.langDefs["Igneous_Hint"];
+            currentLanguage.Sedimentary_Hint = gameManager.langDefs["Sedimentary_Hint"];
+            currentLanguage.Metamorphic_Hint_01 = gameManager.langDefs["Metamorphic_Hint_01"];
+            currentLanguage.Metamorphic_Hint_02 = gameManager.langDefs["Metamorphic_Hint_02"];
+            currentLanguage.Other_Hint_01 = gameManager.langDefs["Other_Hint_01"];
+            currentLanguage.Other_Hint_02 = gameManager.langDefs["Other_Hint_02"];
+            currentLanguage.Other_Hint_03 = gameManager.langDefs["Other_Hint_03"];
+            currentLanguage.Other_Hint_04 = gameManager.langDefs["Other_Hint_04"];
+            currentLanguage.Other_Hint_05 = gameManager.langDefs["Other_Hint_05"];
+
+            currentLanguage.Igneous_Answer = gameManager.langDefs["Igneous_Answer"];
+            currentLanguage.Sedimentary_Answer = gameManager.langDefs["Sedimentary_Answer"];
+            currentLanguage.Metamorphic_Answer_01 = gameManager.langDefs["Metamorphic_Answer_01"];
+            currentLanguage.Metamorphic_Answer_02 = gameManager.langDefs["Metamorphic_Answer_02"];
+            currentLanguage.Other_Answer_01 = gameManager.langDefs["Other_Answer_01"];
+            currentLanguage.Other_Answer_02 = gameManager.langDefs["Other_Answer_02"];
+            currentLanguage.Other_Answer_03 = gameManager.langDefs["Other_Answer_03"];
+            currentLanguage.Other_Answer_04 = gameManager.langDefs["Other_Answer_04"];
+            currentLanguage.Other_Answer_05 = gameManager.langDefs["Other_Answer_05"];
+#endif
+            #endregion
+        }        
     }
 }

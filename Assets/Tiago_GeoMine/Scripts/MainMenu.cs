@@ -13,11 +13,6 @@ namespace Tiago_GeoMine
         public TextMeshProUGUI newGameBtn;
         public TextMeshProUGUI continueBtn;
 
-        void Awake()
-        {
-            
-        }
-
         void Start()
         {
             gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -25,8 +20,6 @@ namespace Tiago_GeoMine
             // Set text based on current selected language
             newGameBtn.text = gameManager.currentLanguage.NewGame;
             continueBtn.text = gameManager.currentLanguage.Continue;
-
-            Debug.Log("Button Text: " + gameManager.currentLanguage.NewGame);
         }
 
         public void NewGame()
