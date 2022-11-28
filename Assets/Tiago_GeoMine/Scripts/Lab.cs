@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using LoLSDK;
 
 namespace Tiago_GeoMine
 {
@@ -93,13 +94,10 @@ namespace Tiago_GeoMine
 
         #endregion
 
-        private GameManager gameManager;
         public SetText setText;
 
         private void Awake()
         {
-            gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-
             for (int i = 0; i < 2; i++)
             {
                 silicon[i].text = "????";
@@ -109,31 +107,7 @@ namespace Tiago_GeoMine
                 igneous[i].text = "????";
                 sedimentary[i].text = "????";
                 metamorphic[i].text = "????";
-            }
-           
-            currentRock = gameManager.saveData.currentRock;
-            hasDiscoveredIron = gameManager.saveData.hasDiscoveredIron;
-            hasDiscoveredSilicon = gameManager.saveData.hasDiscoveredSilicon;
-            hasDiscoveredAluminium = gameManager.saveData.hasDiscoveredAluminium;
-            hasDiscoveredCalcium = gameManager.saveData.hasDiscoveredCalcium;
-            hasDiscoveredIgneous = gameManager.saveData.hasDiscoveredIgneous;
-            hasDiscoveredSedimentary = gameManager.saveData.hasDiscoveredSedimentary;
-            hasDiscoveredMetamorphic = gameManager.saveData.hasDiscoveredMetamorphic;
-
-            igneousQuestions = gameManager.saveData.igneousQuestions;
-            sedimentaryQuestions = gameManager.saveData.sedimentaryQuestions;
-            metamorphicQuestions = gameManager.saveData.metamorphicQuestions;
-            otherRocksQuestions = gameManager.saveData.otherRocksQuestions;
-
-            igneousAnswers = gameManager.saveData.igneousAnswers;
-            sedimentaryAnswers = gameManager.saveData.sedimentaryAnswers;
-            metamorphicAnswers = gameManager.saveData.metamorphicAnswers;
-            otherRocksAnswers = gameManager.saveData.otherRocksAnswers;
-
-            igneousHint = gameManager.saveData.igneousHint;
-            sedimentaryHint = gameManager.saveData.sedimentaryHint;
-            metamorphicHint = gameManager.saveData.metamorphicHint;
-            otherRocksHint = gameManager.saveData.otherRocksHint;
+            }         
         }
 
         void Start()
@@ -142,7 +116,7 @@ namespace Tiago_GeoMine
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
             // Speech
-            scientistSpeech.text = Speech01;
+            scientistSpeech.text = Speech01;        
 
             // All GameObjects
             labUI.SetActive(false);
@@ -169,16 +143,17 @@ namespace Tiago_GeoMine
             && hasDiscoveredMetamorphic == true)
             {
                 scientistSpeech.text = Speech03;
+                LOLSDK.Instance.SpeakText("Lab_TextBubble_03");
             }
             else 
             {
                 // If the player has mined
                 if (player.totalRocks > 0)
-                {              
+                {
                     #region Choose Questions
 
                     // Determine what rocks you have and what question to get
-                    if (player.silicon > 0 && silicon[0].text == "????" )
+                    if (player.silicon > 0 && silicon[0].text == "????")
                     {
                         labUI.SetActive(true);
                         ChooseQuestion("silicon");
@@ -188,38 +163,44 @@ namespace Tiago_GeoMine
                         labUI.SetActive(true);
                         ChooseQuestion("iron");
                     }
-                    else if(player.aluminium > 0 && aluminium[0].text == "????")
+                    else if (player.aluminium > 0 && aluminium[0].text == "????")
                     {
                         labUI.SetActive(true);
                         ChooseQuestion("aluminium");
                     }
-                    else if(player.calcium > 0 && calcium[0].text == "????")
+                    else if (player.calcium > 0 && calcium[0].text == "????")
                     {
                         labUI.SetActive(true);
                         ChooseQuestion("calcium");
                     }
-                    else if(player.igneous > 0 && igneous[0].text == "????")
+                    else if (player.igneous > 0 && igneous[0].text == "????")
                     {
                         labUI.SetActive(true);
                         ChooseQuestion("igneous");
                     }
-                    else if(player.sedimentary > 0 && sedimentary[0].text == "????")
+                    else if (player.sedimentary > 0 && sedimentary[0].text == "????")
                     {
                         labUI.SetActive(true);
                         ChooseQuestion("sedimentary");
                     }
-                    else if(player.metamorphic > 0 && metamorphic[0].text == "????")
+                    else if (player.metamorphic > 0 && metamorphic[0].text == "????")
                     {
                         labUI.SetActive(true);
                         ChooseQuestion("metamorphic");
                     }
                     else
-                        scientistSpeech.text = Speech02;
+                    {
+                        scientistSpeech.text = Speech01;
+                        LOLSDK.Instance.SpeakText("Lab_TextBubble_01");
+                    }
 
-                    #endregion
+                        #endregion
                 }
                 else
+                {
                     scientistSpeech.text = Speech02;
+                    LOLSDK.Instance.SpeakText("Lab_TextBubble_02");
+                }
             }
         }
 
@@ -300,7 +281,7 @@ namespace Tiago_GeoMine
                     playerResponse.text = "";
 
                     // Enable the hint
-                    hintGO.SetActive(true);
+                    ShowHint();
 
                     // Display Message
                     congratsMessage.SetActive(false);
@@ -346,7 +327,7 @@ namespace Tiago_GeoMine
                     playerResponse.text = "";
 
                     // Enable the hint
-                    hintGO.SetActive(true);
+                    ShowHint();
 
                     // Display Message
                     congratsMessage.SetActive(false);
@@ -392,7 +373,7 @@ namespace Tiago_GeoMine
                     playerResponse.text = "";
 
                     // Enable the hint
-                    hintGO.SetActive(true);
+                    ShowHint();
 
                     // Display Message
                     congratsMessage.SetActive(false);
@@ -438,7 +419,7 @@ namespace Tiago_GeoMine
                     playerResponse.text = "";
 
                     // Enable the hint
-                    hintGO.SetActive(true);
+                    ShowHint();
 
                     // Display Message
                     congratsMessage.SetActive(false);
@@ -518,11 +499,57 @@ namespace Tiago_GeoMine
                 currentRock = "metamorphic";
                 questionNr = randomNr;
             }
+
+            // Text-to-speech
+            if(question.text == otherRocksQuestions[0])
+                LOLSDK.Instance.SpeakText("Other_Question_01");
+            if (question.text == otherRocksQuestions[1])
+                LOLSDK.Instance.SpeakText("Other_Question_02");
+            if (question.text == otherRocksQuestions[2])
+                LOLSDK.Instance.SpeakText("Other_Question_03");
+            if (question.text == otherRocksQuestions[3])
+                LOLSDK.Instance.SpeakText("Other_Question_04");
+            if (question.text == otherRocksQuestions[4])
+                LOLSDK.Instance.SpeakText("Other_Question_05");
+            if (question.text == igneousQuestions[0])
+                LOLSDK.Instance.SpeakText("Igneous_Question");
+            if (question.text == sedimentaryQuestions[0])
+                LOLSDK.Instance.SpeakText("Sedimentary_Question");
+            if (question.text == metamorphicQuestions[0])
+                LOLSDK.Instance.SpeakText("Metamorphic_Question_01");
+            if (question.text == metamorphicQuestions[1])
+                LOLSDK.Instance.SpeakText("Metamorphic_Question_02");
         }
 
         void Hint(string hint_)
         {
             hint.text = hint_;
+        }
+
+        void ShowHint()
+        {
+            // Enable the hint
+            hintGO.SetActive(true);
+
+            // Text-to-speech
+            if (hint.text == otherRocksHint[0])
+                LOLSDK.Instance.SpeakText("Other_Hint_01");
+            if (hint.text == otherRocksHint[1])
+                LOLSDK.Instance.SpeakText("Other_Hint_02");
+            if (hint.text == otherRocksHint[2])
+                LOLSDK.Instance.SpeakText("Other_Hint_03");
+            if (hint.text == otherRocksHint[3])
+                LOLSDK.Instance.SpeakText("Other_Hint_04");
+            if (hint.text == otherRocksHint[4])
+                LOLSDK.Instance.SpeakText("Other_Hint_05");
+            if (hint.text == igneousHint[0])
+                LOLSDK.Instance.SpeakText("Igneous_Hint");
+            if (hint.text == sedimentaryHint[0])
+                LOLSDK.Instance.SpeakText("Sedimentary_Hint");
+            if (hint.text == metamorphicHint[0])
+                LOLSDK.Instance.SpeakText("Metamorphic_Hint_01");
+            if (hint.text == metamorphicHint[1])
+                LOLSDK.Instance.SpeakText("Metamorphic_Hint_02");
         }
 
         #endregion

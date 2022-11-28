@@ -33,7 +33,8 @@ namespace Tiago_GeoMine
         public void Continue()
         {
             SceneManager.LoadScene(1);
- 
+
+            gameManager.StartLoading();
         }
     }
 }

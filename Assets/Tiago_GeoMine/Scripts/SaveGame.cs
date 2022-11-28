@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace Tiago_GeoMine
 {
     public class SaveGame : MonoBehaviour
@@ -10,7 +9,6 @@ namespace Tiago_GeoMine
         private GameManager gameManager;
         public Lab lab;
         public PlayerController playerController;
-
         void Start()
         {
             gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -22,7 +20,7 @@ namespace Tiago_GeoMine
         {
             while (true)
             {
-                yield return new WaitForSeconds(60);
+                yield return new WaitForSeconds(30);
                 gameManager.Save(
                 // Lab
                     lab.currentRock,
@@ -34,8 +32,11 @@ namespace Tiago_GeoMine
                     lab.sedimentaryHint, lab.metamorphicHint, lab.otherRocksHint,
                 // Player
                     playerController.money, playerController.pickaxeLvl, playerController.lanternLvl, playerController.armourLvl,
-                    playerController.totalRocks, playerController.silicon, playerController.iron, playerController.aluminium, 
-                    playerController.calcium, playerController.igneous, playerController.sedimentary, playerController.metamorphic);
+                    playerController.totalRocks, playerController.silicon, playerController.iron, playerController.aluminium,
+                    playerController.calcium, playerController.igneous, playerController.sedimentary, playerController.metamorphic,
+                // Tilemap              
+                    playerController.tilemap.GetTilesBlock(playerController.tilemap.cellBounds)
+                );          
             }
         }
     }

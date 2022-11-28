@@ -6,9 +6,7 @@ using System.IO;
 using SimpleJSON;
 using LoLSDK;
 using UnityEngine.SceneManagement;
-using UnityEngine.Networking;
-
-using TMPro;
+using UnityEngine.Tilemaps;
 
 namespace Tiago_GeoMine
 {
@@ -56,6 +54,9 @@ namespace Tiago_GeoMine
         public int igneous;
         public int sedimentary;
         public int metamorphic;
+
+        // Tilemap
+        public TileBase[] tiles;
     }
 
     [System.Serializable]
@@ -100,14 +101,19 @@ namespace Tiago_GeoMine
         public int igneous;
         public int sedimentary;
         public int metamorphic;
+
+        // Tilemap
+        public TileBase[] tiles;
     }
 
 #endregion
 
     public class GameManager : MonoBehaviour
     {
-        [SerializeField, Header("Initial State Data")] DefaultSaveData defaultData;
+        [SerializeField, Header("Default State Data")] DefaultSaveData defaultData;
         [SerializeField, Header("Initial State Data")] public CurrentSaveData saveData;
+
+        #region Language
 
         [Serializable]
         public class Language
@@ -124,11 +130,27 @@ namespace Tiago_GeoMine
         // Relative to Assets /StreamingAssets/
         private const string languageJSONFilePath = "language_Game.json";
 
+        #endregion
+
         [System.Flags]
         enum LoLDataType
         {
             START = 0,
             LANGUAGE = 1 << 0
+        }
+
+        public PlayerController player;
+        public Lab lab;
+
+        private void OnLevelWasLoaded(int level)
+        {
+            if(level == 1)
+            {
+                player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+                lab = GameObject.FindGameObjectWithTag("Lab").GetComponent<Lab>();
+
+                player.tilemap.SetTilesBlock(player.tilemap.cellBounds, saveData.tiles);
+            }
         }
 
         void Awake()
@@ -152,7 +174,7 @@ namespace Tiago_GeoMine
 #endif
 
             // Then, tell the platform the game is ready.
-            LOLSDK.Instance.GameIsReady();
+            LOLSDK.Instance.GameIsReady();  
         }
 
         void Start()
@@ -176,7 +198,7 @@ namespace Tiago_GeoMine
             currentLanguage.Continue = langDefs[langCode]["Continue"];
 #elif UNITY_WEBGL          
             currentLanguage.NewGame = langDefs["NewGame"];
-            currentLanguage.Continue = langDefs["Continue"];
+            currentLanguage.Continue = langDefs["Continue"];      
 #endif
             SharedState.LanguageDefs = langDefs;
         }
@@ -185,43 +207,21 @@ namespace Tiago_GeoMine
         {
 #if UNITY_EDITOR
             // Load Dev Language File from StreamingAssets
-
-            //string startDataFilePath = Path.Combine(Application.streamingAssetsPath, startGameJSONFilePath);          
-
-            /*
-            Debug.Log(File.Exists(startDataFilePath));
-
-            
-            if (File.Exists(startDataFilePath))
-            {
-                string startDataAsJSON = File.ReadAllText(startDataFilePath);
-                JSONNode startGamePayload = JSON.Parse(startDataAsJSON);
-                // Capture the language code from the start payload. Use this to switch fonts
-                langCode = startGamePayload["languageCode"];
-                HandleStartGame(startDataAsJSON);
-            }
-            */
-
-            // Load Dev Language File from StreamingAssets
             string langFilePath = Path.Combine(Application.streamingAssetsPath, languageJSONFilePath);
             if (File.Exists(langFilePath))
             {
                 string langDataAsJson = File.ReadAllText(langFilePath);
-                // The dev payload in language.json includes all languages.
-                // Parse this file as JSON, encode, and stringify to mock
-                // the platform payload, which includes only a single language.
-                //JSONNode langDefs = JSON.Parse(langDataAsJson);
-                // use the languageCode from startGame.json captured above
+                
                 HandleLanguageDefs(langDataAsJson);
             }
 #endif
         }
 
-#region Saves
+        #region Saves
 
         public void ResetGameData()
         {
-#region Reset Save Data
+            #region Reset Save Data
 
             // Lab
             saveData.currentRock = defaultData.currentRock;
@@ -263,10 +263,79 @@ namespace Tiago_GeoMine
             saveData.sedimentary = defaultData.sedimentary;
             saveData.metamorphic = defaultData.metamorphic;
 
+            // Tilemap
+            saveData.tiles = defaultData.tiles;
+
             Debug.Log("Data reverted to default");
 
 #endregion
         }
+
+        #region Loading saves
+
+        public void StartLoading()
+        {
+            LoadLastSave<CurrentSaveData>(GetLastSave);
+        }
+
+        public void GetLastSave(CurrentSaveData lastSave)
+        {      
+            saveData = lastSave;
+
+            // Lab
+            lab.currentRock = saveData.currentRock;
+            lab.hasDiscoveredIron = saveData.hasDiscoveredIron;
+            lab.hasDiscoveredSilicon = saveData.hasDiscoveredSilicon;
+            lab.hasDiscoveredAluminium = saveData.hasDiscoveredAluminium;
+            lab.hasDiscoveredCalcium = saveData.hasDiscoveredCalcium;
+            lab.hasDiscoveredIgneous = saveData.hasDiscoveredIgneous;
+            lab.hasDiscoveredSedimentary = saveData.hasDiscoveredSedimentary;
+            lab.hasDiscoveredMetamorphic = saveData.hasDiscoveredMetamorphic;
+            lab.igneousQuestions = saveData.igneousQuestions;
+            lab.sedimentaryQuestions = saveData.sedimentaryQuestions;
+            lab.metamorphicQuestions = saveData.metamorphicQuestions;
+            lab.otherRocksQuestions = saveData.otherRocksQuestions;
+            lab.igneousAnswers = saveData.igneousAnswers;
+            lab.sedimentaryAnswers = saveData.sedimentaryAnswers;
+            lab.metamorphicAnswers = saveData.metamorphicAnswers;
+            lab.otherRocksAnswers = saveData.otherRocksAnswers;
+            lab.igneousHint = saveData.igneousHint;
+            lab.sedimentaryHint = saveData.sedimentaryHint;
+            lab.metamorphicHint = saveData.metamorphicHint;
+            lab.otherRocksHint = saveData.otherRocksHint;
+
+            // Player
+            player.money = saveData.money;
+            player.pickaxeLvl = saveData.pickaxeLvl;
+            player.lanternLvl = saveData.lanternLvl;
+            player.armourLvl = saveData.armourLvl;
+            player.totalRocks = saveData.totalRocks;
+            player.silicon = saveData.silicon;
+            player.iron = saveData.iron;
+            player.aluminium = saveData.aluminium;
+            player.calcium = saveData.calcium;
+            player.igneous = saveData.igneous;
+            player.sedimentary = saveData.sedimentary;
+            player.metamorphic = saveData.metamorphic;
+
+            // Tilemap
+            player.tilemap.SetTilesBlock(player.tilemap.cellBounds, saveData.tiles);
+        }
+
+        public static void LoadLastSave<T>(System.Action<T> callback)
+        {
+            LOLSDK.Instance.LoadState<T>(state =>
+            {
+                callback(state.data);
+                
+                // Broadcast saved progress back to the teacher app.
+                //LOLSDK.Instance.SubmitProgress(state.score, state.currentProgress, state.maximumProgress);
+            });
+        }
+
+        #endregion
+
+        #region Save Data
 
         public void Save
             ///
@@ -281,12 +350,12 @@ namespace Tiago_GeoMine
             string[] sedimentaryHint, string[] metamorphicHint, string[] otherRocksHint,
             // Player
             int money, int pickaxeLvl, int lanternLvl, int armourLvl,
-            int totalRocks, int silicon, int iron, int aluminium, int calcium, int igneous, int sedimentary, int metamorphic
+            int totalRocks, int silicon, int iron, int aluminium, int calcium, int igneous, int sedimentary, int metamorphic,
+            // Tilemap
+            TileBase[] tiles
             )
         ///
-        {
-#region Save Data
-
+        {          
             // Lab
             saveData.currentRock = currentRock;
             saveData.hasDiscoveredIron = hasDiscoveredIron;
@@ -327,11 +396,19 @@ namespace Tiago_GeoMine
             saveData.sedimentary = sedimentary;
             saveData.metamorphic = metamorphic;
 
-            //LoLSDK.
+            // Tilemap
+            saveData.tiles = tiles;
 
-            Debug.Log("Data Saved");
+            MakeSave();
 
-#endregion
+            Debug.Log("Data Saved");         
+        }
+
+        #endregion
+
+        public void MakeSave()
+        {
+            LOLSDK.Instance.SaveState(saveData);
         }
 
 #endregion

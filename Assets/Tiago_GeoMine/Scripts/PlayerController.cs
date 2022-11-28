@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using UnityEngine.Experimental.Rendering.Universal;
 using TMPro;
+using LoLSDK;
 
 namespace Tiago_GeoMine
 {
@@ -51,10 +52,10 @@ namespace Tiago_GeoMine
         public int healthPoints; // Value to Save
         private int maxHp; 
 
-        // Tilemap and Navigation Variables
-
+        // Tilemap and Navigation Variables     
         public NavMeshAgent agent;
-        private Tilemap tilemap;
+        public Tilemap tilemap;
+        [HideInInspector] public TileBase[] tiles;
         private NavMeshSurface surface2D;
 
         // Inventory Variables
@@ -84,29 +85,8 @@ namespace Tiago_GeoMine
 
         #endregion
 
-        private GameManager gameManager;
-
-        private void Awake()
-        {
-            gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-
-            money = gameManager.saveData.money;
-            pickaxeLvl = gameManager.saveData.pickaxeLvl;
-            lanternLvl = gameManager.saveData.lanternLvl;
-            armourLvl = gameManager.saveData.armourLvl;
-
-            totalRocks = gameManager.saveData.totalRocks;
-            silicon = gameManager.saveData.silicon;
-            iron = gameManager.saveData.iron;
-            aluminium = gameManager.saveData.aluminium;
-            calcium = gameManager.saveData.calcium;
-            igneous = gameManager.saveData.igneous;
-            sedimentary = gameManager.saveData.sedimentary;
-            metamorphic = gameManager.saveData.metamorphic;
-        }
-
         void Start()
-        {
+        {           
             #region Components and GameObjects
 
             // NavMeshAgent (Player)
@@ -159,11 +139,11 @@ namespace Tiago_GeoMine
                 moneyText[i].text = money.ToString();
             }
 
-            #endregion
+            #endregion      
         }
 
         void Update()
-        {
+        {         
             #region Sprite and Animation    
 
             // Sprite Flip       
@@ -215,6 +195,8 @@ namespace Tiago_GeoMine
                         {
                             shop.SetActive(true);
                             agent.isStopped = true;
+
+                            LOLSDK.Instance.SpeakText("Shop_TextBubble");
                         }
                     }
                     if (hit.transform.tag == "Mine")
@@ -228,7 +210,7 @@ namespace Tiago_GeoMine
                             lab.SetActive(true);
                             agent.isStopped = true;
 
-                            lab.GetComponent<Lab>().scientistSpeech.text = "Great your're here, let's see what you have brought me.";
+                            LOLSDK.Instance.SpeakText("Lab_TextBubble_01");
                         }
                     }
 
@@ -277,8 +259,8 @@ namespace Tiago_GeoMine
                     {
                         // Check if it is in range
                         float distance = Vector3.Distance(transform.position, tilemap.WorldToCell(mousePos));
-
-                        if (distance < 1.6f)
+                       
+                        if (distance < 1.8f)
                         {
                             // Get Tile Name
                             TileBase tileBase = tilemap.GetTile(tilemap.WorldToCell(mousePos));
@@ -335,6 +317,8 @@ namespace Tiago_GeoMine
                         {
                             shop.SetActive(true);
                             agent.isStopped = true;
+
+                            LOLSDK.Instance.SpeakText("Shop_TextBubble");
                         }
                     }
                     if (hit.transform.tag == "Mine")
@@ -348,7 +332,7 @@ namespace Tiago_GeoMine
                             lab.SetActive(true);
                             agent.isStopped = true;
 
-                            lab.GetComponent<Lab>().scientistSpeech.text = "Great your're here, let's see what you have brought me.";
+                            LOLSDK.Instance.SpeakText("Lab_TextBubble_01");
                         }
                     }
 
@@ -398,7 +382,7 @@ namespace Tiago_GeoMine
                         // Check if it is in range
                         float distance = Vector3.Distance(transform.position, tilemap.WorldToCell(touchPos));
 
-                        if (distance < 1.6f)
+                        if (distance < 1.8f)
                         {
                             // Get Tile Name
                             TileBase tileBase = tilemap.GetTile(tilemap.WorldToCell(touchPos));
