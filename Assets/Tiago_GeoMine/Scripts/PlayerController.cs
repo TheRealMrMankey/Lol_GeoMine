@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Tilemaps;
@@ -27,7 +28,7 @@ namespace Tiago_GeoMine
         public GameObject[] buttons;
 
         public TextMeshProUGUI healthText;
-        public TextMeshProUGUI[] moneyText; 
+        public TextMeshProUGUI[] moneyText;
 
         // Animation
         private Animator animator;
@@ -35,7 +36,7 @@ namespace Tiago_GeoMine
         // Audio
         [Space(10)]
         [Header("Audio")]
-      
+
         public AudioClip damageSound;
         public AudioClip miningSound;
         public AudioClip killSound;
@@ -50,11 +51,11 @@ namespace Tiago_GeoMine
         [Header("Player")]
 
         public int healthPoints; // Value to Save
-        private int maxHp; 
+        private int maxHp;
 
         // Tilemap and Navigation Variables     
         public NavMeshAgent agent;
-        public Tilemap tilemap;
+        [HideInInspector] public Tilemap tilemap;
         [HideInInspector] public TileBase[] tiles;
         private NavMeshSurface surface2D;
 
@@ -67,7 +68,7 @@ namespace Tiago_GeoMine
         /// Upgradable      
         public int pickaxeLvl = 1; // Value to Save
         public int lanternLvl = 1; // Value to Save
-        public Light2D helmetLight; 
+        public Light2D helmetLight;
         public int armourLvl = 1; // Value to Save
 
         [Space(10)]
@@ -85,9 +86,22 @@ namespace Tiago_GeoMine
 
         #endregion
 
+        private List<Vector3Int> tileWorldLocations;
+        private List<TileBase> tileBases;
+
+        public Vector3Int[] tilesLoc;
+        public TileBase[] tilesType;
+        public BoundsInt tileBounds;
+
+        private SaveGame saveScript;
+        private List<string> tilesNames;
+        public string[] tilesNames_;
+
         void Start()
-        {           
+        {
             #region Components and GameObjects
+
+            saveScript = GameObject.FindGameObjectWithTag("Save").GetComponent<SaveGame>();
 
             // NavMeshAgent (Player)
             agent = gameObject.GetComponent<NavMeshAgent>();
@@ -95,7 +109,7 @@ namespace Tiago_GeoMine
             agent.updateUpAxis = false;
 
             // Tilemap
-            tilemap = GameObject.FindGameObjectWithTag("CanMine").GetComponent<Tilemap>();
+            //tilemap = GameObject.FindGameObjectWithTag("CanMine").GetComponent<Tilemap>();
 
             // NavMeshSurface (Walkable Area)
             surface2D = GameObject.FindGameObjectWithTag("NavMesh").GetComponent<NavMeshSurface>();
@@ -109,7 +123,7 @@ namespace Tiago_GeoMine
             audioSource = this.gameObject.GetComponent<AudioSource>();
 
             // Sprite
-            sprite = this.gameObject.GetComponent<SpriteRenderer>();
+            sprite = this.gameObject.GetComponent<SpriteRenderer>();      
 
             #endregion
 
@@ -139,11 +153,15 @@ namespace Tiago_GeoMine
                 moneyText[i].text = money.ToString();
             }
 
-            #endregion      
+            #endregion                
+
+            // Grab tiles
+            GetTiles();
+            StartCoroutine(SaveTile());
         }
 
         void Update()
-        {         
+        {
             #region Sprite and Animation    
 
             // Sprite Flip       
@@ -259,7 +277,7 @@ namespace Tiago_GeoMine
                     {
                         // Check if it is in range
                         float distance = Vector3.Distance(transform.position, tilemap.WorldToCell(mousePos));
-                       
+
                         if (distance < 1.8f)
                         {
                             // Get Tile Name
@@ -436,6 +454,111 @@ namespace Tiago_GeoMine
             #endregion
         }
 
+        #region Get Tiles
+
+        private IEnumerator SaveTile()
+        {
+            while(true)
+            {
+                yield return new WaitForSeconds(30);
+                GetTiles();
+
+                GameManager gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+                Lab labScript = lab.GetComponent<Lab>();
+
+                gameManager.Save(
+
+                labScript.currentRock,
+                labScript.hasDiscoveredIron,
+                labScript.hasDiscoveredSilicon,
+                labScript.hasDiscoveredAluminium,
+                labScript.hasDiscoveredCalcium,
+                labScript.hasDiscoveredIgneous,
+                labScript.hasDiscoveredSedimentary,
+                labScript.hasDiscoveredMetamorphic,
+                labScript.igneousQuestions,
+                labScript.sedimentaryQuestions,
+                labScript.metamorphicQuestions,
+                labScript.otherRocksQuestions,
+                labScript.igneousAnswers,
+                labScript.sedimentaryAnswers,
+                labScript.metamorphicAnswers,
+                labScript.otherRocksAnswers,
+                labScript.igneousHint,
+                labScript.sedimentaryHint,
+                labScript.metamorphicHint,
+                labScript.otherRocksHint,
+
+                money,
+                pickaxeLvl,
+                lanternLvl,
+                armourLvl,
+                totalRocks,
+                silicon,
+                iron,
+                aluminium,
+                calcium,
+                igneous,
+                sedimentary,
+                metamorphic,
+                tilesLoc,
+                tilesNames_
+
+                );
+
+                    /*
+                saveScript.money = money;
+                saveScript.pickaxeLvl = pickaxeLvl;
+                saveScript.lanternLvl = lanternLvl;
+                saveScript.armourLvl = armourLvl;
+                saveScript.totalRocks = totalRocks;
+                saveScript.silicon = silicon;
+                saveScript.iron = iron;
+                saveScript.aluminium = aluminium;
+                saveScript.calcium = calcium;
+                saveScript.igneous = igneous;
+                saveScript.sedimentary = sedimentary;
+                saveScript.metamorphic = metamorphic;
+
+                saveScript.tilesLoc = null;
+                saveScript.tilesType = null;
+
+                saveScript.tilesLoc = tilesLoc;
+                saveScript.tilesType = tilesType;
+                    */
+            }
+        }
+
+
+        public void GetTiles()
+        {
+            tilesNames = new List<string>();
+
+            tileWorldLocations = new List<Vector3Int>();
+            tileBases = new List<TileBase>();
+
+            foreach (var pos in tileBounds.allPositionsWithin)
+            {
+                Vector3Int localPlace = new Vector3Int(pos.x, pos.y, pos.z);
+                if (tilemap.HasTile(localPlace))
+                {
+                    tileWorldLocations.Add(localPlace);
+                    tileBases.Add(tilemap.GetTile(localPlace));
+                    tilesNames.Add(tilemap.GetTile(localPlace).name.ToString());
+                }
+            }
+
+            //tilesNames = null;
+            tilesLoc = null;
+            tilesType = null;
+
+            tilesLoc = tileWorldLocations.ToArray();
+            tilesType = tileBases.ToArray();
+            tilesNames_ = tilesNames.ToArray();
+        }
+
+        #endregion
+
         #region Death Screen
 
         public void CloseDeathScreen()
@@ -546,7 +669,7 @@ namespace Tiago_GeoMine
                     buttons[i].SetActive(true);
                 }
 
-                inventory.SetActive(false);          
+                inventory.SetActive(false);
             }
         }
 
@@ -564,7 +687,7 @@ namespace Tiago_GeoMine
 
                 healthPoints -= 10;
                 healthText.text = healthPoints.ToString();
-            }          
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -573,7 +696,7 @@ namespace Tiago_GeoMine
             {
                 Debug.Log("trigger");
 
-                if(helmetLight.gameObject.activeSelf == false)
+                if (helmetLight.gameObject.activeSelf == false)
                     helmetLight.gameObject.SetActive(true);
                 else
                     helmetLight.gameObject.SetActive(false);

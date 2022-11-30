@@ -56,7 +56,9 @@ namespace Tiago_GeoMine
         public int metamorphic;
 
         // Tilemap
-        public TileBase[] tiles;
+        //public TileBase[] tiles;
+        public Vector3Int[] tilesLoc;
+        public string[] tilesType;
     }
 
     [System.Serializable]
@@ -103,7 +105,9 @@ namespace Tiago_GeoMine
         public int metamorphic;
 
         // Tilemap
-        public TileBase[] tiles;
+        //public TileBase[] tiles;
+        public Vector3Int[] tilesLoc;
+        public string[] tilesType;
     }
 
 #endregion
@@ -112,6 +116,8 @@ namespace Tiago_GeoMine
     {
         [SerializeField, Header("Default State Data")] DefaultSaveData defaultData;
         [SerializeField, Header("Initial State Data")] public CurrentSaveData saveData;
+
+        public TileBase[] tiles_;
 
         #region Language
 
@@ -132,6 +138,8 @@ namespace Tiago_GeoMine
 
         #endregion
 
+        public TileBase[] allTiles;
+
         [System.Flags]
         enum LoLDataType
         {
@@ -139,8 +147,8 @@ namespace Tiago_GeoMine
             LANGUAGE = 1 << 0
         }
 
-        public PlayerController player;
-        public Lab lab;
+        private PlayerController player;
+        private Lab lab;
 
         private void OnLevelWasLoaded(int level)
         {
@@ -149,12 +157,16 @@ namespace Tiago_GeoMine
                 player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
                 lab = GameObject.FindGameObjectWithTag("Lab").GetComponent<Lab>();
 
-                player.tilemap.SetTilesBlock(player.tilemap.cellBounds, saveData.tiles);
+                // Tilemap
+                //player.tilemap.SetTilesBlock(player.tilemap.cellBounds, saveData.tiles);
+                UpdateTiles();
+                player.tilemap.SetTiles(saveData.tilesLoc, tiles_);
+                player.GetTiles();
             }
         }
 
         void Awake()
-        {
+        {          
             // Create the WebGL (or mock) object
 #if UNITY_EDITOR
             ILOLSDK webGL = new LoLSDK.MockWebGL();
@@ -172,14 +184,59 @@ namespace Tiago_GeoMine
 #if UNITY_EDITOR
             LoadMockData();
 #endif
+            
 
             // Then, tell the platform the game is ready.
             LOLSDK.Instance.GameIsReady();  
+
+
         }
 
         void Start()
-        {
+        {         
             DontDestroyOnLoad(this.gameObject);
+        }
+
+        public void UpdateTiles()
+        {
+            for (int i = 0; i < saveData.tilesType.Length; i++)
+            {
+                if (saveData.tilesType[i] == "Silicon")
+                {
+                    tiles_[i] = allTiles[6];
+                    Debug.Log("Silicon");
+                }
+                if (saveData.tilesType[i] == "Iron")
+                {
+                    tiles_[i] = allTiles[3];
+                    Debug.Log("Iron");
+                }
+                if (saveData.tilesType[i] == "Aluminium")
+                {
+                    tiles_[i] = allTiles[0];
+                    Debug.Log("Aluminium");
+                }
+                if (saveData.tilesType[i] == "Calcium")
+                {
+                    tiles_[i] = allTiles[1];
+                    Debug.Log("Calcium");
+                }
+                if (saveData.tilesType[i] == "Igneous")
+                {
+                    tiles_[i] = allTiles[2];
+                    Debug.Log("Igneous");
+                }
+                if (saveData.tilesType[i] == "Sedimentary")
+                {
+                    tiles_[i] = allTiles[5];
+                    Debug.Log("Sedimentary");
+                }
+                if (saveData.tilesType[i] == "Metamorphic")
+                {
+                    tiles_[i] = allTiles[4];
+                    Debug.Log("Metamorphic");
+                }
+            }
         }
 
         // Start the game here
@@ -264,7 +321,9 @@ namespace Tiago_GeoMine
             saveData.metamorphic = defaultData.metamorphic;
 
             // Tilemap
-            saveData.tiles = defaultData.tiles;
+            //saveData.tiles = defaultData.tiles;
+            saveData.tilesLoc = defaultData.tilesLoc;
+            saveData.tilesType = defaultData.tilesType;
 
             Debug.Log("Data reverted to default");
 
@@ -319,7 +378,8 @@ namespace Tiago_GeoMine
             player.metamorphic = saveData.metamorphic;
 
             // Tilemap
-            player.tilemap.SetTilesBlock(player.tilemap.cellBounds, saveData.tiles);
+            //player.tilemap.SetTilesBlock(player.tilemap.cellBounds, saveData.tiles);
+            player.tilemap.SetTiles(saveData.tilesLoc, tiles_);
         }
 
         public static void LoadLastSave<T>(System.Action<T> callback)
@@ -352,7 +412,7 @@ namespace Tiago_GeoMine
             int money, int pickaxeLvl, int lanternLvl, int armourLvl,
             int totalRocks, int silicon, int iron, int aluminium, int calcium, int igneous, int sedimentary, int metamorphic,
             // Tilemap
-            TileBase[] tiles
+            /*TileBase[] tiles*/ Vector3Int[] tilesLoc, string[] tilesType
             )
         ///
         {          
@@ -397,12 +457,21 @@ namespace Tiago_GeoMine
             saveData.metamorphic = metamorphic;
 
             // Tilemap
-            saveData.tiles = tiles;
+            //saveData.tiles = tiles;
+
+            saveData.tilesLoc = null;
+            saveData.tilesType = null;
+
+            saveData.tilesLoc = tilesLoc;
+            saveData.tilesType = tilesType;
+
+            //UpdateTiles();
 
             MakeSave();
 
             Debug.Log("Data Saved");         
         }
+
 
         #endregion
 

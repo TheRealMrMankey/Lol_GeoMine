@@ -15,6 +15,7 @@ TagManager:
   - GameManager
   - Audio
   - Lab
+  - Save
   layers:
   - Default
   - TransparentFX

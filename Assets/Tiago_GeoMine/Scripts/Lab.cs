@@ -96,6 +96,8 @@ namespace Tiago_GeoMine
 
         public SetText setText;
 
+        private SaveGame saveScript;
+
         private void Awake()
         {
             for (int i = 0; i < 2; i++)
@@ -112,6 +114,9 @@ namespace Tiago_GeoMine
 
         void Start()
         {
+            saveScript = GameObject.FindGameObjectWithTag("Save").GetComponent<SaveGame>();
+            //StartCoroutine(SaveProgress());
+
             // Get Player
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
@@ -215,6 +220,39 @@ namespace Tiago_GeoMine
             labUI.SetActive(false);
             player.agent.isStopped = false;
             player.agent.SetDestination(player.transform.position);
+        }
+
+        #endregion
+
+        #region Save
+
+        private IEnumerator SaveProgress()
+        {
+            while(true)
+            {
+                yield return new WaitForSeconds(30);
+
+                saveScript.currentRock = currentRock;
+                saveScript.hasDiscoveredIron = hasDiscoveredIron;
+                saveScript.hasDiscoveredSilicon = hasDiscoveredSilicon;
+                saveScript.hasDiscoveredAluminium = hasDiscoveredAluminium;
+                saveScript.hasDiscoveredCalcium = hasDiscoveredCalcium;
+                saveScript.hasDiscoveredIgneous = hasDiscoveredIgneous;
+                saveScript.hasDiscoveredSedimentary = hasDiscoveredSedimentary;
+                saveScript.hasDiscoveredMetamorphic = hasDiscoveredMetamorphic;
+                saveScript.igneousQuestions = igneousQuestions;
+                saveScript.sedimentaryQuestions = sedimentaryQuestions;
+                saveScript.metamorphicQuestions = metamorphicQuestions;
+                saveScript.otherRocksQuestions = otherRocksQuestions;
+                saveScript.igneousAnswers = igneousAnswers;
+                saveScript.sedimentaryAnswers = sedimentaryAnswers;
+                saveScript.metamorphicAnswers = metamorphicAnswers;
+                saveScript.otherRocksAnswers = otherRocksAnswers;
+                saveScript.igneousHint = igneousHint;
+                saveScript.sedimentaryHint = sedimentaryHint;
+                saveScript.metamorphicHint = metamorphicHint;
+                saveScript.otherRocksHint = otherRocksHint;
+            }
         }
 
         #endregion
