@@ -218,11 +218,12 @@ namespace Tiago_GeoMine
 
         #endregion
 
-        private GameManager gameManager;
+        public GameManager gameManager;
         public Lab labScript;
 
         void Awake()
-        {
+        {        
+            labScript = GameObject.FindGameObjectWithTag("Lab").GetComponent<Lab>();
             gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
             ChangeLanguage();
@@ -263,17 +264,16 @@ namespace Tiago_GeoMine
             Other_Answer_04 = labScript.otherRocksAnswers[3];
             Other_Answer_05 = labScript.otherRocksAnswers[4];
 
-            #endregion
+            #endregion                
         }
 
-        void Start()
-        {
+        private void Start()
+        {          
             #region Set Text
 
             goToEntrance.text = currentLanguage.Button_Entrance;
             goToShop.text = currentLanguage.Button_Shop;
             goToLab.text = currentLanguage.Button_Lab;
-
 
             openBackpack.text = currentLanguage.Button_Backpack;
             closeBackpack.text = currentLanguage.Button_CloseBackpack;
@@ -291,6 +291,7 @@ namespace Tiago_GeoMine
                 sell[i].text = currentLanguage.Button_Sell;
             }
 
+            
             openShop.text = currentLanguage.Button_OpenShop;
             closeShop.text = currentLanguage.Button_CloseShop;
             leaveShop.text = currentLanguage.Button_LeaveShop;
@@ -311,7 +312,7 @@ namespace Tiago_GeoMine
             tutorialtext06.text = currentLanguage.Tutorial_Text06;
 
             for (int i = 0; i < 2; i++)
-            {              
+            {
                 upgrades[i].text = currentLanguage.Upgrades;
                 rocksMinerals[i].text = currentLanguage.RocksAndMinerals;
             }
@@ -330,35 +331,431 @@ namespace Tiago_GeoMine
             hintTitle.text = currentLanguage.Hint_Title;
             inputfield.text = currentLanguage.InputField_Text;
 
-            labScript.igneousQuestions[0] = currentLanguage.Igneous_Question;
-            labScript.sedimentaryQuestions[0] = currentLanguage.Sedimentary_Question;
-            labScript.metamorphicQuestions[0] = currentLanguage.Metamorphic_Question_01;
-            labScript.metamorphicQuestions[1] = currentLanguage.Metamorphic_Question_02;
-            labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_01;
-            labScript.otherRocksQuestions[1] = currentLanguage.Other_Question_02;
-            labScript.otherRocksQuestions[2] = currentLanguage.Other_Question_03;
-            labScript.otherRocksQuestions[3] = currentLanguage.Other_Question_04;
-            labScript.otherRocksQuestions[4] = currentLanguage.Other_Question_05;
+            #region Questions, Answers and Hints Verification
 
-            labScript.igneousHint[0] = currentLanguage.Igneous_Hint;
-            labScript.sedimentaryHint[0] = currentLanguage.Sedimentary_Hint;
-            labScript.metamorphicHint[0] = currentLanguage.Metamorphic_Hint_01;
-            labScript.metamorphicHint[1] = currentLanguage.Metamorphic_Hint_02;
-            labScript.otherRocksHint[0] = currentLanguage.Other_Hint_01;
-            labScript.otherRocksHint[1] = currentLanguage.Other_Hint_02;
-            labScript.otherRocksHint[2] = currentLanguage.Other_Hint_03;
-            labScript.otherRocksHint[3] = currentLanguage.Other_Hint_04;
-            labScript.otherRocksHint[4] = currentLanguage.Other_Hint_05;
+            #region Igneous
 
-            labScript.igneousAnswers[0] = currentLanguage.Igneous_Answer;
-            labScript.sedimentaryAnswers[0] = currentLanguage.Sedimentary_Answer;
-            labScript.metamorphicAnswers[0] = currentLanguage.Metamorphic_Answer_01;
-            labScript.metamorphicAnswers[1] = currentLanguage.Metamorphic_Answer_02;
-            labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_01;
-            labScript.otherRocksAnswers[1] = currentLanguage.Other_Answer_02;
-            labScript.otherRocksAnswers[2] = currentLanguage.Other_Answer_03;
-            labScript.otherRocksAnswers[3] = currentLanguage.Other_Answer_04;
-            labScript.otherRocksAnswers[4] = currentLanguage.Other_Answer_05;
+            if (labScript.igneousQuestions.Length == 1)
+            {
+                labScript.igneousQuestions[0] = currentLanguage.Igneous_Question;
+                labScript.igneousHint[0] = currentLanguage.Igneous_Hint;
+                labScript.igneousAnswers[0] = currentLanguage.Igneous_Answer;
+            }
+
+            #endregion
+
+            #region Sedimentary
+
+            if (labScript.sedimentaryQuestions.Length == 1)
+            {
+                labScript.sedimentaryQuestions[0] = currentLanguage.Sedimentary_Question;
+                labScript.sedimentaryHint[0] = currentLanguage.Sedimentary_Hint;
+                labScript.sedimentaryAnswers[0] = currentLanguage.Sedimentary_Answer;
+            }
+
+            #endregion
+
+            #region Metamorphic
+
+            if (labScript.metamorphicQuestions.Length == 2)
+            {
+                labScript.metamorphicQuestions[0] = currentLanguage.Metamorphic_Question_01;
+                labScript.metamorphicHint[0] = currentLanguage.Metamorphic_Hint_01;
+                labScript.metamorphicAnswers[0] = currentLanguage.Metamorphic_Answer_01;
+
+                labScript.metamorphicQuestions[1] = currentLanguage.Metamorphic_Question_02;
+                labScript.metamorphicHint[1] = currentLanguage.Metamorphic_Hint_02;
+                labScript.metamorphicAnswers[1] = currentLanguage.Metamorphic_Answer_02;
+            }
+            else if (labScript.metamorphicQuestions.Length == 1)
+            {
+                if (labScript.metamorphicQuestions[0].Equals("How are metamorphic rocks formed?") || labScript.metamorphicQuestions[0].Equals("¿Cómo se forman las rocas metamórficas?"))
+                {
+                    labScript.metamorphicQuestions[0] = currentLanguage.Metamorphic_Question_01;
+                    labScript.metamorphicHint[0] = currentLanguage.Metamorphic_Hint_01;
+                    labScript.metamorphicAnswers[0] = currentLanguage.Metamorphic_Answer_01;
+                }
+                else if (labScript.metamorphicQuestions[0].Equals("From what rock groups can metamorphic rocks form?") || labScript.metamorphicQuestions[0].Equals("¿A partir de qué grupos de rocas pueden formarse rocas metamórficas?"))
+                {
+                    labScript.metamorphicQuestions[0] = currentLanguage.Metamorphic_Question_02;
+                    labScript.metamorphicHint[0] = currentLanguage.Metamorphic_Hint_02;
+                    labScript.metamorphicAnswers[0] = currentLanguage.Metamorphic_Answer_02;
+                }
+            }
+
+            #endregion
+
+            #region Other Rocks
+
+            #region 5 questions
+
+            if (labScript.otherRocksQuestions.Length == 5)
+            {
+                labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_01;
+                labScript.otherRocksHint[0] = currentLanguage.Other_Hint_01;
+                labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_01;
+
+                labScript.otherRocksQuestions[1] = currentLanguage.Other_Question_02;
+                labScript.otherRocksHint[1] = currentLanguage.Other_Hint_02;
+                labScript.otherRocksAnswers[1] = currentLanguage.Other_Answer_02;
+
+                labScript.otherRocksQuestions[2] = currentLanguage.Other_Question_03;
+                labScript.otherRocksHint[2] = currentLanguage.Other_Hint_03;
+                labScript.otherRocksAnswers[2] = currentLanguage.Other_Answer_03;
+
+                labScript.otherRocksQuestions[3] = currentLanguage.Other_Question_04;
+                labScript.otherRocksHint[3] = currentLanguage.Other_Hint_04;
+                labScript.otherRocksAnswers[3] = currentLanguage.Other_Answer_04;
+
+                labScript.otherRocksQuestions[4] = currentLanguage.Other_Question_05;
+                labScript.otherRocksHint[4] = currentLanguage.Other_Hint_05;
+                labScript.otherRocksAnswers[4] = currentLanguage.Other_Answer_05;
+
+            }
+
+            #endregion
+
+            #region 4 questions
+
+            else if (labScript.otherRocksQuestions.Length == 4)
+            {
+                if (labScript.otherRocksQuestions[0].Equals("What does the rock cycle involve?") || labScript.otherRocksQuestions[0].Equals("¿En qué consiste el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_01;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_01;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_01;
+                }
+                else if (labScript.otherRocksQuestions[0].Equals("What are the processes of the rock cycle?") || labScript.otherRocksQuestions[0].Equals("¿Cuáles son los procesos del ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_02;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_02;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_02;
+                }
+                else if (labScript.otherRocksQuestions[0].Equals("What is the rock cycle dependent on?") || labScript.otherRocksQuestions[0].Equals("¿De qué depende el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_03;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_03;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_03;
+                }
+                else if (labScript.otherRocksQuestions[0].Equals("What is a change of state?") || labScript.otherRocksQuestions[0].Equals("¿Qué es un cambio de estado?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_04;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_04;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_04;
+                }
+                else if (labScript.otherRocksQuestions[0].Equals("Why are folding, faulting, and breaking geologic processes?") || labScript.otherRocksQuestions[0].Equals("¿Por qué son procesos geológicos el plegamiento, la falla y la rotura?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_05;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_05;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_05;
+                }
+                //
+                if (labScript.otherRocksQuestions[1].Equals("What does the rock cycle involve?") || labScript.otherRocksQuestions[1].Equals("¿En qué consiste el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[1] = currentLanguage.Other_Question_01;
+                    labScript.otherRocksHint[1] = currentLanguage.Other_Hint_01;
+                    labScript.otherRocksAnswers[1] = currentLanguage.Other_Answer_01;
+                }
+                else if (labScript.otherRocksQuestions[1].Equals("What are the processes of the rock cycle?") || labScript.otherRocksQuestions[1].Equals("¿Cuáles son los procesos del ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[1] = currentLanguage.Other_Question_02;
+                    labScript.otherRocksHint[1] = currentLanguage.Other_Hint_02;
+                    labScript.otherRocksAnswers[1] = currentLanguage.Other_Answer_02;
+                }
+                else if (labScript.otherRocksQuestions[1].Equals("What is the rock cycle dependent on?") || labScript.otherRocksQuestions[1].Equals("¿De qué depende el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[1] = currentLanguage.Other_Question_03;
+                    labScript.otherRocksHint[1] = currentLanguage.Other_Hint_03;
+                    labScript.otherRocksAnswers[1] = currentLanguage.Other_Answer_03;
+                }
+                else if (labScript.otherRocksQuestions[1].Equals("What is a change of state?") || labScript.otherRocksQuestions[1].Equals("¿Qué es un cambio de estado?"))
+                {
+                    labScript.otherRocksQuestions[1] = currentLanguage.Other_Question_04;
+                    labScript.otherRocksHint[1] = currentLanguage.Other_Hint_04;
+                    labScript.otherRocksAnswers[1] = currentLanguage.Other_Answer_04;
+                }
+                else if (labScript.otherRocksQuestions[1].Equals("Why are folding, faulting, and breaking geologic processes?") || labScript.otherRocksQuestions[1].Equals("¿Por qué son procesos geológicos el plegamiento, la falla y la rotura?"))
+                {
+                    labScript.otherRocksQuestions[1] = currentLanguage.Other_Question_05;
+                    labScript.otherRocksHint[1] = currentLanguage.Other_Hint_05;
+                    labScript.otherRocksAnswers[1] = currentLanguage.Other_Answer_05;
+                }
+                //
+                if (labScript.otherRocksQuestions[2].Equals("What does the rock cycle involve?") || labScript.otherRocksQuestions[2].Equals("¿En qué consiste el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[2] = currentLanguage.Other_Question_01;
+                    labScript.otherRocksHint[2] = currentLanguage.Other_Hint_01;
+                    labScript.otherRocksAnswers[2] = currentLanguage.Other_Answer_01;
+                }
+                else if (labScript.otherRocksQuestions[2].Equals("What are the processes of the rock cycle?") || labScript.otherRocksQuestions[2].Equals("¿Cuáles son los procesos del ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[2] = currentLanguage.Other_Question_02;
+                    labScript.otherRocksHint[2] = currentLanguage.Other_Hint_02;
+                    labScript.otherRocksAnswers[2] = currentLanguage.Other_Answer_02;
+                }
+                else if (labScript.otherRocksQuestions[2].Equals("What is the rock cycle dependent on?") || labScript.otherRocksQuestions[2].Equals("¿De qué depende el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[2] = currentLanguage.Other_Question_03;
+                    labScript.otherRocksHint[2] = currentLanguage.Other_Hint_03;
+                    labScript.otherRocksAnswers[2] = currentLanguage.Other_Answer_03;
+                }
+                else if (labScript.otherRocksQuestions[2].Equals("What is a change of state?") || labScript.otherRocksQuestions[2].Equals("¿Qué es un cambio de estado?"))
+                {
+                    labScript.otherRocksQuestions[2] = currentLanguage.Other_Question_04;
+                    labScript.otherRocksHint[2] = currentLanguage.Other_Hint_04;
+                    labScript.otherRocksAnswers[2] = currentLanguage.Other_Answer_04;
+                }
+                else if (labScript.otherRocksQuestions[2].Equals("Why are folding, faulting, and breaking geologic processes?") || labScript.otherRocksQuestions[2].Equals("¿Por qué son procesos geológicos el plegamiento, la falla y la rotura?"))
+                {
+                    labScript.otherRocksQuestions[2] = currentLanguage.Other_Question_05;
+                    labScript.otherRocksHint[2] = currentLanguage.Other_Hint_05;
+                    labScript.otherRocksAnswers[2] = currentLanguage.Other_Answer_05;
+                }
+                //
+                if (labScript.otherRocksQuestions[3].Equals("What does the rock cycle involve?") || labScript.otherRocksQuestions[3].Equals("¿En qué consiste el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[3] = currentLanguage.Other_Question_01;
+                    labScript.otherRocksHint[3] = currentLanguage.Other_Hint_01;
+                    labScript.otherRocksAnswers[3] = currentLanguage.Other_Answer_01;
+                }
+                else if (labScript.otherRocksQuestions[3].Equals("What are the processes of the rock cycle?") || labScript.otherRocksQuestions[3].Equals("¿Cuáles son los procesos del ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[3] = currentLanguage.Other_Question_02;
+                    labScript.otherRocksHint[3] = currentLanguage.Other_Hint_02;
+                    labScript.otherRocksAnswers[3] = currentLanguage.Other_Answer_02;
+                }
+                else if (labScript.otherRocksQuestions[3].Equals("What is the rock cycle dependent on?") || labScript.otherRocksQuestions[3].Equals("¿De qué depende el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[3] = currentLanguage.Other_Question_03;
+                    labScript.otherRocksHint[3] = currentLanguage.Other_Hint_03;
+                    labScript.otherRocksAnswers[3] = currentLanguage.Other_Answer_03;
+                }
+                else if (labScript.otherRocksQuestions[3].Equals("What is a change of state?") || labScript.otherRocksQuestions[3].Equals("¿Qué es un cambio de estado?"))
+                {
+                    labScript.otherRocksQuestions[3] = currentLanguage.Other_Question_04;
+                    labScript.otherRocksHint[3] = currentLanguage.Other_Hint_04;
+                    labScript.otherRocksAnswers[3] = currentLanguage.Other_Answer_04;
+                }
+                else if (labScript.otherRocksQuestions[3].Equals("Why are folding, faulting, and breaking geologic processes?") || labScript.otherRocksQuestions[3].Equals("¿Por qué son procesos geológicos el plegamiento, la falla y la rotura?"))
+                {
+                    labScript.otherRocksQuestions[3] = currentLanguage.Other_Question_05;
+                    labScript.otherRocksHint[3] = currentLanguage.Other_Hint_05;
+                    labScript.otherRocksAnswers[3] = currentLanguage.Other_Answer_05;
+                }
+            }
+
+            #endregion
+
+            #region 3 questions
+
+            else if (labScript.otherRocksQuestions.Length == 3)
+            {
+                if (labScript.otherRocksQuestions[0].Equals("What does the rock cycle involve?") || labScript.otherRocksQuestions[0].Equals("¿En qué consiste el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_01;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_01;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_01;
+                }
+                else if (labScript.otherRocksQuestions[0].Equals("What are the processes of the rock cycle?") || labScript.otherRocksQuestions[0].Equals("¿Cuáles son los procesos del ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_02;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_02;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_02;
+                }
+                else if (labScript.otherRocksQuestions[0].Equals("What is the rock cycle dependent on?") || labScript.otherRocksQuestions[0].Equals("¿De qué depende el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_03;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_03;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_03;
+                }
+                else if (labScript.otherRocksQuestions[0].Equals("What is a change of state?") || labScript.otherRocksQuestions[0].Equals("¿Qué es un cambio de estado?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_04;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_04;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_04;
+                }
+                else if (labScript.otherRocksQuestions[0].Equals("Why are folding, faulting, and breaking geologic processes?") || labScript.otherRocksQuestions[0].Equals("¿Por qué son procesos geológicos el plegamiento, la falla y la rotura?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_05;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_05;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_05;
+                }
+                //
+                if (labScript.otherRocksQuestions[1].Equals("What does the rock cycle involve?") || labScript.otherRocksQuestions[1].Equals("¿En qué consiste el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[1] = currentLanguage.Other_Question_01;
+                    labScript.otherRocksHint[1] = currentLanguage.Other_Hint_01;
+                    labScript.otherRocksAnswers[1] = currentLanguage.Other_Answer_01;
+                }
+                else if (labScript.otherRocksQuestions[1].Equals("What are the processes of the rock cycle?") || labScript.otherRocksQuestions[1].Equals("¿Cuáles son los procesos del ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[1] = currentLanguage.Other_Question_02;
+                    labScript.otherRocksHint[1] = currentLanguage.Other_Hint_02;
+                    labScript.otherRocksAnswers[1] = currentLanguage.Other_Answer_02;
+                }
+                else if (labScript.otherRocksQuestions[1].Equals("What is the rock cycle dependent on?") || labScript.otherRocksQuestions[1].Equals("¿De qué depende el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[1] = currentLanguage.Other_Question_03;
+                    labScript.otherRocksHint[1] = currentLanguage.Other_Hint_03;
+                    labScript.otherRocksAnswers[1] = currentLanguage.Other_Answer_03;
+                }
+                else if (labScript.otherRocksQuestions[1].Equals("What is a change of state?") || labScript.otherRocksQuestions[1].Equals("¿Qué es un cambio de estado?"))
+                {
+                    labScript.otherRocksQuestions[1] = currentLanguage.Other_Question_04;
+                    labScript.otherRocksHint[1] = currentLanguage.Other_Hint_04;
+                    labScript.otherRocksAnswers[1] = currentLanguage.Other_Answer_04;
+                }
+                else if (labScript.otherRocksQuestions[1].Equals("Why are folding, faulting, and breaking geologic processes?") || labScript.otherRocksQuestions[1].Equals("¿Por qué son procesos geológicos el plegamiento, la falla y la rotura?"))
+                {
+                    labScript.otherRocksQuestions[1] = currentLanguage.Other_Question_05;
+                    labScript.otherRocksHint[1] = currentLanguage.Other_Hint_05;
+                    labScript.otherRocksAnswers[1] = currentLanguage.Other_Answer_05;
+                }
+                //
+                if (labScript.otherRocksQuestions[2].Equals("What does the rock cycle involve?") || labScript.otherRocksQuestions[2].Equals("¿En qué consiste el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[2] = currentLanguage.Other_Question_01;
+                    labScript.otherRocksHint[2] = currentLanguage.Other_Hint_01;
+                    labScript.otherRocksAnswers[2] = currentLanguage.Other_Answer_01;
+                }
+                else if (labScript.otherRocksQuestions[2].Equals("What are the processes of the rock cycle?") || labScript.otherRocksQuestions[2].Equals("¿Cuáles son los procesos del ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[2] = currentLanguage.Other_Question_02;
+                    labScript.otherRocksHint[2] = currentLanguage.Other_Hint_02;
+                    labScript.otherRocksAnswers[2] = currentLanguage.Other_Answer_02;
+                }
+                else if (labScript.otherRocksQuestions[2].Equals("What is the rock cycle dependent on?") || labScript.otherRocksQuestions[2].Equals("¿De qué depende el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[2] = currentLanguage.Other_Question_03;
+                    labScript.otherRocksHint[2] = currentLanguage.Other_Hint_03;
+                    labScript.otherRocksAnswers[2] = currentLanguage.Other_Answer_03;
+                }
+                else if (labScript.otherRocksQuestions[2].Equals("What is a change of state?") || labScript.otherRocksQuestions[2].Equals("¿Qué es un cambio de estado?"))
+                {
+                    labScript.otherRocksQuestions[2] = currentLanguage.Other_Question_04;
+                    labScript.otherRocksHint[2] = currentLanguage.Other_Hint_04;
+                    labScript.otherRocksAnswers[2] = currentLanguage.Other_Answer_04;
+                }
+                else if (labScript.otherRocksQuestions[2].Equals("Why are folding, faulting, and breaking geologic processes?") || labScript.otherRocksQuestions[2].Equals("¿Por qué son procesos geológicos el plegamiento, la falla y la rotura?"))
+                {
+                    labScript.otherRocksQuestions[2] = currentLanguage.Other_Question_05;
+                    labScript.otherRocksHint[2] = currentLanguage.Other_Hint_05;
+                    labScript.otherRocksAnswers[2] = currentLanguage.Other_Answer_05;
+                }
+            }
+
+            #endregion
+
+            #region 2 questions
+
+            else if (labScript.otherRocksQuestions.Length == 2)
+            {
+                if (labScript.otherRocksQuestions[0].Equals("What does the rock cycle involve?") || labScript.otherRocksQuestions[0].Equals("¿En qué consiste el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_01;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_01;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_01;
+                }
+                else if (labScript.otherRocksQuestions[0].Equals("What are the processes of the rock cycle?") || labScript.otherRocksQuestions[0].Equals("¿Cuáles son los procesos del ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_02;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_02;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_02;
+                }
+                else if (labScript.otherRocksQuestions[0].Equals("What is the rock cycle dependent on?") || labScript.otherRocksQuestions[0].Equals("¿De qué depende el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_03;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_03;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_03;
+                }
+                else if (labScript.otherRocksQuestions[0].Equals("What is a change of state?") || labScript.otherRocksQuestions[0].Equals("¿Qué es un cambio de estado?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_04;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_04;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_04;
+                }
+                else if (labScript.otherRocksQuestions[0].Equals("Why are folding, faulting, and breaking geologic processes?") || labScript.otherRocksQuestions[0].Equals("¿Por qué son procesos geológicos el plegamiento, la falla y la rotura?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_05;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_05;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_05;
+                }
+                //
+                if (labScript.otherRocksQuestions[1].Equals("What does the rock cycle involve?") || labScript.otherRocksQuestions[1].Equals("¿En qué consiste el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[1] = currentLanguage.Other_Question_01;
+                    labScript.otherRocksHint[1] = currentLanguage.Other_Hint_01;
+                    labScript.otherRocksAnswers[1] = currentLanguage.Other_Answer_01;
+                }
+                else if (labScript.otherRocksQuestions[1].Equals("What are the processes of the rock cycle?") || labScript.otherRocksQuestions[1].Equals("¿Cuáles son los procesos del ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[1] = currentLanguage.Other_Question_02;
+                    labScript.otherRocksHint[1] = currentLanguage.Other_Hint_02;
+                    labScript.otherRocksAnswers[1] = currentLanguage.Other_Answer_02;
+                }
+                else if (labScript.otherRocksQuestions[1].Equals("What is the rock cycle dependent on?") || labScript.otherRocksQuestions[1].Equals("¿De qué depende el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[1] = currentLanguage.Other_Question_03;
+                    labScript.otherRocksHint[1] = currentLanguage.Other_Hint_03;
+                    labScript.otherRocksAnswers[1] = currentLanguage.Other_Answer_03;
+                }
+                else if (labScript.otherRocksQuestions[1].Equals("What is a change of state?") || labScript.otherRocksQuestions[1].Equals("¿Qué es un cambio de estado?"))
+                {
+                    labScript.otherRocksQuestions[1] = currentLanguage.Other_Question_04;
+                    labScript.otherRocksHint[1] = currentLanguage.Other_Hint_04;
+                    labScript.otherRocksAnswers[1] = currentLanguage.Other_Answer_04;
+                }
+                else if (labScript.otherRocksQuestions[1].Equals("Why are folding, faulting, and breaking geologic processes?") || labScript.otherRocksQuestions[1].Equals("¿Por qué son procesos geológicos el plegamiento, la falla y la rotura?"))
+                {
+                    labScript.otherRocksQuestions[1] = currentLanguage.Other_Question_05;
+                    labScript.otherRocksHint[1] = currentLanguage.Other_Hint_05;
+                    labScript.otherRocksAnswers[1] = currentLanguage.Other_Answer_05;
+                }
+            }
+
+            #endregion
+
+            #region 1 questions
+
+            else if (labScript.otherRocksQuestions.Length == 1)
+            {
+                if (labScript.otherRocksQuestions[0].Equals("What does the rock cycle involve?") || labScript.otherRocksQuestions[0].Equals("¿En qué consiste el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_01;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_01;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_01;
+                }
+                else if (labScript.otherRocksQuestions[0].Equals("What are the processes of the rock cycle?") || labScript.otherRocksQuestions[0].Equals("¿Cuáles son los procesos del ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_02;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_02;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_02;
+                }
+                else if (labScript.otherRocksQuestions[0].Equals("What is the rock cycle dependent on?") || labScript.otherRocksQuestions[0].Equals("¿De qué depende el ciclo de las rocas?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_03;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_03;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_03;
+                }
+                else if (labScript.otherRocksQuestions[0].Equals("What is a change of state?") || labScript.otherRocksQuestions[0].Equals("¿Qué es un cambio de estado?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_04;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_04;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_04;
+                }
+                else if (labScript.otherRocksQuestions[0].Equals("Why are folding, faulting, and breaking geologic processes?") || labScript.otherRocksQuestions[0].Equals("¿Por qué son procesos geológicos el plegamiento, la falla y la rotura?"))
+                {
+                    labScript.otherRocksQuestions[0] = currentLanguage.Other_Question_05;
+                    labScript.otherRocksHint[0] = currentLanguage.Other_Hint_05;
+                    labScript.otherRocksAnswers[0] = currentLanguage.Other_Answer_05;
+                }
+            }
+
+            #endregion
+
+            #endregion
+
+            #endregion
 
             #endregion
         }
@@ -425,7 +822,7 @@ namespace Tiago_GeoMine
             currentLanguage.Sedimentary_Question = gameManager.langDefs[gameManager.langCode]["Sedimentary_Question"];
             currentLanguage.Metamorphic_Question_01 = gameManager.langDefs[gameManager.langCode]["Metamorphic_Question_01"];
             currentLanguage.Metamorphic_Question_02 = gameManager.langDefs[gameManager.langCode]["Metamorphic_Question_02"];
-            currentLanguage.Other_Question_01 = gameManager.langDefs[gameManager.langCode][" Other_Question_01"];
+            currentLanguage.Other_Question_01 = gameManager.langDefs[gameManager.langCode]["Other_Question_01"];
             currentLanguage.Other_Question_02 = gameManager.langDefs[gameManager.langCode]["Other_Question_02"];
             currentLanguage.Other_Question_03 = gameManager.langDefs[gameManager.langCode]["Other_Question_03"];
             currentLanguage.Other_Question_04 = gameManager.langDefs[gameManager.langCode]["Other_Question_04"];
@@ -508,7 +905,7 @@ namespace Tiago_GeoMine
             currentLanguage.Sedimentary_Question = gameManager.langDefs["Sedimentary_Question"];
             currentLanguage.Metamorphic_Question_01 = gameManager.langDefs["Metamorphic_Question_01"];
             currentLanguage.Metamorphic_Question_02 = gameManager.langDefs["Metamorphic_Question_02"];
-            currentLanguage.Other_Question_01 = gameManager.langDefs[" Other_Question_01"];
+            currentLanguage.Other_Question_01 = gameManager.langDefs["Other_Question_01"];
             currentLanguage.Other_Question_02 = gameManager.langDefs["Other_Question_02"];
             currentLanguage.Other_Question_03 = gameManager.langDefs["Other_Question_03"];
             currentLanguage.Other_Question_04 = gameManager.langDefs["Other_Question_04"];

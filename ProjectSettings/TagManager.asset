@@ -16,6 +16,7 @@ TagManager:
   - Audio
   - Lab
   - Save
+  - Text
   layers:
   - Default
   - TransparentFX

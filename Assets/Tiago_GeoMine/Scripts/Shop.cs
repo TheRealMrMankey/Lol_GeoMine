@@ -10,12 +10,15 @@ namespace Tiago_GeoMine
 
         public GameObject lab;
         private Lab labScript;
-
+        private SaveGame save;
         private PlayerController player;
         public GetInventoryValues backpack;
 
         void Start()
         {
+            // Save
+            save = GameObject.FindGameObjectWithTag("Save").GetComponent<SaveGame>();
+
             // Get Player
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
@@ -47,6 +50,7 @@ namespace Tiago_GeoMine
             backpack.UpdateBackpack();
             player.agent.isStopped = false;
             player.agent.SetDestination(player.transform.position);
+            player.hasTalked = false;
         }
 
         #endregion
@@ -71,6 +75,7 @@ namespace Tiago_GeoMine
                     player.calcium--;
 
                     backpack.UpdateBackpack();
+                    save.ForceSave();
                 }
             }
         }
@@ -93,6 +98,7 @@ namespace Tiago_GeoMine
                     player.iron--;
 
                     backpack.UpdateBackpack();
+                    save.ForceSave();
                 }
             }
         }
@@ -115,6 +121,7 @@ namespace Tiago_GeoMine
                     player.aluminium--;
 
                     backpack.UpdateBackpack();
+                    save.ForceSave();
                 }
             }
         }
@@ -137,6 +144,7 @@ namespace Tiago_GeoMine
                     player.silicon--;
 
                     backpack.UpdateBackpack();
+                    save.ForceSave();
                 }
             }
         }
@@ -159,6 +167,7 @@ namespace Tiago_GeoMine
                     player.igneous--;
 
                     backpack.UpdateBackpack();
+                    save.ForceSave();
                 }
             }
         }
@@ -181,6 +190,7 @@ namespace Tiago_GeoMine
                     player.sedimentary--;
 
                     backpack.UpdateBackpack();
+                    save.ForceSave();
                 }
             }
         }
@@ -203,6 +213,7 @@ namespace Tiago_GeoMine
                     player.metamorphic--;
 
                     backpack.UpdateBackpack();
+                    save.ForceSave();
                 }
             }
         }
@@ -229,6 +240,7 @@ namespace Tiago_GeoMine
 
                     // Update Backpack
                     backpack.UpdateBackpack();
+                    save.ForceSave();
                 }             
             }
         }
@@ -252,6 +264,7 @@ namespace Tiago_GeoMine
 
                     // Update Backpack
                     backpack.UpdateBackpack();
+                    save.ForceSave();
                 }
             }
         }
@@ -276,6 +289,7 @@ namespace Tiago_GeoMine
                     // Update Backpack
 
                     backpack.UpdateBackpack();
+                    save.ForceSave();
                 }
             }         
         }

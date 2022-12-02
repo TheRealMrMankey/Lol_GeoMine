@@ -27,7 +27,6 @@ namespace Tiago_GeoMine
             SceneManager.LoadScene(1);
 
             gameManager.ResetGameData();
-            
         }
 
         public void Continue()

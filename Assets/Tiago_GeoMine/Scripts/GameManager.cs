@@ -6,7 +6,6 @@ using System.IO;
 using SimpleJSON;
 using LoLSDK;
 using UnityEngine.SceneManagement;
-using UnityEngine.Tilemaps;
 
 namespace Tiago_GeoMine
 {
@@ -54,11 +53,6 @@ namespace Tiago_GeoMine
         public int igneous;
         public int sedimentary;
         public int metamorphic;
-
-        // Tilemap
-        //public TileBase[] tiles;
-        public Vector3Int[] tilesLoc;
-        public string[] tilesType;
     }
 
     [System.Serializable]
@@ -103,11 +97,6 @@ namespace Tiago_GeoMine
         public int igneous;
         public int sedimentary;
         public int metamorphic;
-
-        // Tilemap
-        //public TileBase[] tiles;
-        public Vector3Int[] tilesLoc;
-        public string[] tilesType;
     }
 
 #endregion
@@ -116,8 +105,6 @@ namespace Tiago_GeoMine
     {
         [SerializeField, Header("Default State Data")] DefaultSaveData defaultData;
         [SerializeField, Header("Initial State Data")] public CurrentSaveData saveData;
-
-        public TileBase[] tiles_;
 
         #region Language
 
@@ -138,8 +125,6 @@ namespace Tiago_GeoMine
 
         #endregion
 
-        public TileBase[] allTiles;
-
         [System.Flags]
         enum LoLDataType
         {
@@ -149,24 +134,25 @@ namespace Tiago_GeoMine
 
         private PlayerController player;
         private Lab lab;
+        private SetText text;
+
+        public int maxProgress;
+        public int currentProgress;
 
         private void OnLevelWasLoaded(int level)
         {
-            if(level == 1)
+            if (level == 1)
             {
                 player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
                 lab = GameObject.FindGameObjectWithTag("Lab").GetComponent<Lab>();
-
-                // Tilemap
-                //player.tilemap.SetTilesBlock(player.tilemap.cellBounds, saveData.tiles);
-                UpdateTiles();
-                player.tilemap.SetTiles(saveData.tilesLoc, tiles_);
-                player.GetTiles();
+                text = GameObject.FindGameObjectWithTag("Text").GetComponent<SetText>();     
+                
+                SetValues();
             }
         }
 
         void Awake()
-        {          
+        {
             // Create the WebGL (or mock) object
 #if UNITY_EDITOR
             ILOLSDK webGL = new LoLSDK.MockWebGL();
@@ -185,11 +171,8 @@ namespace Tiago_GeoMine
             LoadMockData();
 #endif
             
-
             // Then, tell the platform the game is ready.
             LOLSDK.Instance.GameIsReady();  
-
-
         }
 
         void Start()
@@ -197,46 +180,13 @@ namespace Tiago_GeoMine
             DontDestroyOnLoad(this.gameObject);
         }
 
-        public void UpdateTiles()
+        public void UpdateProgress()
         {
-            for (int i = 0; i < saveData.tilesType.Length; i++)
-            {
-                if (saveData.tilesType[i] == "Silicon")
-                {
-                    tiles_[i] = allTiles[6];
-                    Debug.Log("Silicon");
-                }
-                if (saveData.tilesType[i] == "Iron")
-                {
-                    tiles_[i] = allTiles[3];
-                    Debug.Log("Iron");
-                }
-                if (saveData.tilesType[i] == "Aluminium")
-                {
-                    tiles_[i] = allTiles[0];
-                    Debug.Log("Aluminium");
-                }
-                if (saveData.tilesType[i] == "Calcium")
-                {
-                    tiles_[i] = allTiles[1];
-                    Debug.Log("Calcium");
-                }
-                if (saveData.tilesType[i] == "Igneous")
-                {
-                    tiles_[i] = allTiles[2];
-                    Debug.Log("Igneous");
-                }
-                if (saveData.tilesType[i] == "Sedimentary")
-                {
-                    tiles_[i] = allTiles[5];
-                    Debug.Log("Sedimentary");
-                }
-                if (saveData.tilesType[i] == "Metamorphic")
-                {
-                    tiles_[i] = allTiles[4];
-                    Debug.Log("Metamorphic");
-                }
-            }
+            LOLSDK.Instance.SubmitProgress(currentProgress, currentProgress, maxProgress);
+
+            // Complete the game
+            if (currentProgress >= maxProgress)
+                LOLSDK.Instance.CompleteGame();
         }
 
         // Start the game here
@@ -319,27 +269,61 @@ namespace Tiago_GeoMine
             saveData.igneous = defaultData.igneous;
             saveData.sedimentary = defaultData.sedimentary;
             saveData.metamorphic = defaultData.metamorphic;
-
-            // Tilemap
-            //saveData.tiles = defaultData.tiles;
-            saveData.tilesLoc = defaultData.tilesLoc;
-            saveData.tilesType = defaultData.tilesType;
+            
+            currentProgress = 0;
+            UpdateProgress();
 
             Debug.Log("Data reverted to default");
 
 #endregion
         }
 
-        #region Loading saves
-
-        public void StartLoading()
+        public void SetValues()
         {
-            LoadLastSave<CurrentSaveData>(GetLastSave);
-        }
+            #region Set Values
 
-        public void GetLastSave(CurrentSaveData lastSave)
-        {      
-            saveData = lastSave;
+            if (saveData.hasDiscoveredSilicon == true)
+                for (int i = 0; i < text.silicon.Length; i++)
+                {
+                    text.silicon[i].text = text.currentLanguage.Silicon;
+                }
+            //
+            if (saveData.hasDiscoveredIron == true)
+                for (int i = 0; i < text.iron.Length; i++)
+                {
+                    text.iron[i].text = text.currentLanguage.Iron;
+                }
+            //
+            if (saveData.hasDiscoveredAluminium == true)
+                for (int i = 0; i < text.aluminium.Length; i++)
+                {
+                    text.aluminium[i].text = text.currentLanguage.Aluminium;
+                }
+            //
+            if (saveData.hasDiscoveredCalcium == true)
+                for (int i = 0; i < text.calcium.Length; i++)
+                {
+                    text.calcium[i].text = text.currentLanguage.Calcium;
+                }
+
+            //
+            if (saveData.hasDiscoveredIgneous == true)
+                for (int i = 0; i < text.igneous.Length; i++)
+                {
+                    text.igneous[i].text = text.currentLanguage.Igneous;
+                }
+            //
+            if (saveData.hasDiscoveredSedimentary == true)
+                for (int i = 0; i < text.sedimentary.Length; i++)
+                {
+                    text.sedimentary[i].text = text.currentLanguage.Sedimentary;
+                }
+            //
+            if (saveData.hasDiscoveredMetamorphic == true)
+                for (int i = 0; i < text.metamorphic.Length; i++)
+                {
+                    text.metamorphic[i].text = text.currentLanguage.Metamorphic;
+                }
 
             // Lab
             lab.currentRock = saveData.currentRock;
@@ -377,9 +361,21 @@ namespace Tiago_GeoMine
             player.sedimentary = saveData.sedimentary;
             player.metamorphic = saveData.metamorphic;
 
-            // Tilemap
-            //player.tilemap.SetTilesBlock(player.tilemap.cellBounds, saveData.tiles);
-            player.tilemap.SetTiles(saveData.tilesLoc, tiles_);
+            #endregion
+        }
+
+        #region Loading saves
+
+        public void StartLoading()
+        {
+            LoadLastSave<CurrentSaveData>(GetLastSave);
+        }
+
+        public void GetLastSave(CurrentSaveData lastSave)
+        {      
+            saveData = lastSave;
+
+            SetValues();
         }
 
         public static void LoadLastSave<T>(System.Action<T> callback)
@@ -387,10 +383,7 @@ namespace Tiago_GeoMine
             LOLSDK.Instance.LoadState<T>(state =>
             {
                 callback(state.data);
-                
-                // Broadcast saved progress back to the teacher app.
-                //LOLSDK.Instance.SubmitProgress(state.score, state.currentProgress, state.maximumProgress);
-            });
+            });         
         }
 
         #endregion
@@ -410,11 +403,9 @@ namespace Tiago_GeoMine
             string[] sedimentaryHint, string[] metamorphicHint, string[] otherRocksHint,
             // Player
             int money, int pickaxeLvl, int lanternLvl, int armourLvl,
-            int totalRocks, int silicon, int iron, int aluminium, int calcium, int igneous, int sedimentary, int metamorphic,
-            // Tilemap
-            /*TileBase[] tiles*/ Vector3Int[] tilesLoc, string[] tilesType
+            int totalRocks, int silicon, int iron, int aluminium, int calcium, int igneous, int sedimentary, int metamorphic
             )
-        ///
+            ///
         {          
             // Lab
             saveData.currentRock = currentRock;
@@ -456,17 +447,6 @@ namespace Tiago_GeoMine
             saveData.sedimentary = sedimentary;
             saveData.metamorphic = metamorphic;
 
-            // Tilemap
-            //saveData.tiles = tiles;
-
-            saveData.tilesLoc = null;
-            saveData.tilesType = null;
-
-            saveData.tilesLoc = tilesLoc;
-            saveData.tilesType = tilesType;
-
-            //UpdateTiles();
-
             MakeSave();
 
             Debug.Log("Data Saved");         
@@ -477,6 +457,7 @@ namespace Tiago_GeoMine
 
         public void MakeSave()
         {
+            UpdateProgress();
             LOLSDK.Instance.SaveState(saveData);
         }
 

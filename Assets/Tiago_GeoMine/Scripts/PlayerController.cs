@@ -56,7 +56,6 @@ namespace Tiago_GeoMine
         // Tilemap and Navigation Variables     
         public NavMeshAgent agent;
         [HideInInspector] public Tilemap tilemap;
-        [HideInInspector] public TileBase[] tiles;
         private NavMeshSurface surface2D;
 
         // Inventory Variables
@@ -84,24 +83,17 @@ namespace Tiago_GeoMine
         public int sedimentary; // Value to Save
         public int metamorphic; // Value to Save
 
+        private GameManager gameManager;
+        [HideInInspector] public bool hasTalked;
+
         #endregion
-
-        private List<Vector3Int> tileWorldLocations;
-        private List<TileBase> tileBases;
-
-        public Vector3Int[] tilesLoc;
-        public TileBase[] tilesType;
-        public BoundsInt tileBounds;
-
-        private SaveGame saveScript;
-        private List<string> tilesNames;
-        public string[] tilesNames_;
 
         void Start()
         {
             #region Components and GameObjects
 
-            saveScript = GameObject.FindGameObjectWithTag("Save").GetComponent<SaveGame>();
+            // GameManager
+            gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
             // NavMeshAgent (Player)
             agent = gameObject.GetComponent<NavMeshAgent>();
@@ -109,7 +101,7 @@ namespace Tiago_GeoMine
             agent.updateUpAxis = false;
 
             // Tilemap
-            //tilemap = GameObject.FindGameObjectWithTag("CanMine").GetComponent<Tilemap>();
+            tilemap = GameObject.FindGameObjectWithTag("CanMine").GetComponent<Tilemap>();
 
             // NavMeshSurface (Walkable Area)
             surface2D = GameObject.FindGameObjectWithTag("NavMesh").GetComponent<NavMeshSurface>();
@@ -154,10 +146,6 @@ namespace Tiago_GeoMine
             }
 
             #endregion                
-
-            // Grab tiles
-            GetTiles();
-            StartCoroutine(SaveTile());
         }
 
         void Update()
@@ -214,7 +202,11 @@ namespace Tiago_GeoMine
                             shop.SetActive(true);
                             agent.isStopped = true;
 
-                            LOLSDK.Instance.SpeakText("Shop_TextBubble");
+                            if (hasTalked == false)
+                            {
+                                LOLSDK.Instance.SpeakText("Shop_TextBubble");
+                                hasTalked = true;
+                            }
                         }
                     }
                     if (hit.transform.tag == "Mine")
@@ -336,7 +328,11 @@ namespace Tiago_GeoMine
                             shop.SetActive(true);
                             agent.isStopped = true;
 
-                            LOLSDK.Instance.SpeakText("Shop_TextBubble");
+                            if (hasTalked == false)
+                            {
+                                LOLSDK.Instance.SpeakText("Shop_TextBubble");
+                                hasTalked = true;
+                            }
                         }
                     }
                     if (hit.transform.tag == "Mine")
@@ -454,111 +450,6 @@ namespace Tiago_GeoMine
             #endregion
         }
 
-        #region Get Tiles
-
-        private IEnumerator SaveTile()
-        {
-            while(true)
-            {
-                yield return new WaitForSeconds(30);
-                GetTiles();
-
-                GameManager gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-                Lab labScript = lab.GetComponent<Lab>();
-
-                gameManager.Save(
-
-                labScript.currentRock,
-                labScript.hasDiscoveredIron,
-                labScript.hasDiscoveredSilicon,
-                labScript.hasDiscoveredAluminium,
-                labScript.hasDiscoveredCalcium,
-                labScript.hasDiscoveredIgneous,
-                labScript.hasDiscoveredSedimentary,
-                labScript.hasDiscoveredMetamorphic,
-                labScript.igneousQuestions,
-                labScript.sedimentaryQuestions,
-                labScript.metamorphicQuestions,
-                labScript.otherRocksQuestions,
-                labScript.igneousAnswers,
-                labScript.sedimentaryAnswers,
-                labScript.metamorphicAnswers,
-                labScript.otherRocksAnswers,
-                labScript.igneousHint,
-                labScript.sedimentaryHint,
-                labScript.metamorphicHint,
-                labScript.otherRocksHint,
-
-                money,
-                pickaxeLvl,
-                lanternLvl,
-                armourLvl,
-                totalRocks,
-                silicon,
-                iron,
-                aluminium,
-                calcium,
-                igneous,
-                sedimentary,
-                metamorphic,
-                tilesLoc,
-                tilesNames_
-
-                );
-
-                    /*
-                saveScript.money = money;
-                saveScript.pickaxeLvl = pickaxeLvl;
-                saveScript.lanternLvl = lanternLvl;
-                saveScript.armourLvl = armourLvl;
-                saveScript.totalRocks = totalRocks;
-                saveScript.silicon = silicon;
-                saveScript.iron = iron;
-                saveScript.aluminium = aluminium;
-                saveScript.calcium = calcium;
-                saveScript.igneous = igneous;
-                saveScript.sedimentary = sedimentary;
-                saveScript.metamorphic = metamorphic;
-
-                saveScript.tilesLoc = null;
-                saveScript.tilesType = null;
-
-                saveScript.tilesLoc = tilesLoc;
-                saveScript.tilesType = tilesType;
-                    */
-            }
-        }
-
-
-        public void GetTiles()
-        {
-            tilesNames = new List<string>();
-
-            tileWorldLocations = new List<Vector3Int>();
-            tileBases = new List<TileBase>();
-
-            foreach (var pos in tileBounds.allPositionsWithin)
-            {
-                Vector3Int localPlace = new Vector3Int(pos.x, pos.y, pos.z);
-                if (tilemap.HasTile(localPlace))
-                {
-                    tileWorldLocations.Add(localPlace);
-                    tileBases.Add(tilemap.GetTile(localPlace));
-                    tilesNames.Add(tilemap.GetTile(localPlace).name.ToString());
-                }
-            }
-
-            //tilesNames = null;
-            tilesLoc = null;
-            tilesType = null;
-
-            tilesLoc = tileWorldLocations.ToArray();
-            tilesType = tileBases.ToArray();
-            tilesNames_ = tilesNames.ToArray();
-        }
-
-        #endregion
-
         #region Death Screen
 
         public void CloseDeathScreen()
@@ -583,19 +474,75 @@ namespace Tiago_GeoMine
             totalRocks++;
 
             if (rockName.Contains("Silicon"))
+            {
+                if (silicon <= 0)
+                {
+                    gameManager.currentProgress++;
+                    gameManager.UpdateProgress();
+                }
+
                 silicon++;
+            }
             if (rockName.Contains("Iron"))
+            {
+                if (iron <= 0)
+                {
+                    gameManager.currentProgress++;
+                    gameManager.UpdateProgress();
+                }
+
                 iron++;
+            }
             if (rockName.Contains("Aluminium"))
+            {
+                if (aluminium <= 0)
+                {
+                    gameManager.currentProgress++;
+                    gameManager.UpdateProgress();
+                }
+
                 aluminium++;
+            }
             if (rockName.Contains("Calcium"))
+            {
+                if (calcium <= 0)
+                {
+                    gameManager.currentProgress++;
+                    gameManager.UpdateProgress();
+                }
+
                 calcium++;
+            }
             if (rockName.Contains("Igneous"))
+            {
+                if (igneous <= 0)
+                {
+                    gameManager.currentProgress++;
+                    gameManager.UpdateProgress();
+                }
+
                 igneous++;
+            }
             if (rockName.Contains("Sedimentary"))
+            {
+                if (sedimentary <= 0)
+                {
+                    gameManager.currentProgress++;
+                    gameManager.UpdateProgress();
+                }
+
                 sedimentary++;
+            }
             if (rockName.Contains("Metamorphic"))
+            {
+                if (metamorphic <= 0)
+                {
+                    gameManager.currentProgress++;
+                    gameManager.UpdateProgress();
+                }
+
                 metamorphic++;
+            }
         }
 
         #endregion

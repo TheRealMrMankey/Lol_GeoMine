@@ -17,6 +17,7 @@ namespace Tiago_GeoMine
         public TextMeshProUGUI scientistSpeech;
         private PlayerController player;
         public GetInventoryValues backpack;
+        private GameManager gameManager;
        
         public string currentRock = ""; // Value to Save
         public string Speech01;
@@ -32,13 +33,13 @@ namespace Tiago_GeoMine
         [Space(10)]
         [Header("Discovered Rocks")]
 
-        public bool hasDiscoveredIron = false; // Value to Save
-        public bool hasDiscoveredSilicon = false; // Value to Save
-        public bool hasDiscoveredAluminium = false; // Value to Save
-        public bool hasDiscoveredCalcium = false; // Value to Save
-        public bool hasDiscoveredIgneous = false; // Value to Save
-        public bool hasDiscoveredSedimentary = false; // Value to Save
-        public bool hasDiscoveredMetamorphic = false; // Value to Save
+        public bool hasDiscoveredIron; // Value to Save
+        public bool hasDiscoveredSilicon; // Value to Save
+        public bool hasDiscoveredAluminium; // Value to Save
+        public bool hasDiscoveredCalcium; // Value to Save
+        public bool hasDiscoveredIgneous; // Value to Save
+        public bool hasDiscoveredSedimentary; // Value to Save
+        public bool hasDiscoveredMetamorphic; // Value to Save
 
         // Rocks
         [Space(10)]
@@ -92,30 +93,21 @@ namespace Tiago_GeoMine
         public GameObject congratsMessage;
         public GameObject failMessage;
 
-        #endregion
-
         public SetText setText;
+        private SaveGame save;
 
-        private SaveGame saveScript;
-
-        private void Awake()
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                silicon[i].text = "????";
-                iron[i].text = "????";
-                aluminium[i].text = "????";
-                calcium[i].text = "????";
-                igneous[i].text = "????";
-                sedimentary[i].text = "????";
-                metamorphic[i].text = "????";
-            }         
-        }
+        #endregion     
 
         void Start()
         {
-            saveScript = GameObject.FindGameObjectWithTag("Save").GetComponent<SaveGame>();
-            //StartCoroutine(SaveProgress());
+            // Text
+            setText = GameObject.FindGameObjectWithTag("Text").GetComponent<SetText>();
+
+            // Save
+            save = GameObject.FindGameObjectWithTag("Save").GetComponent<SaveGame>();
+
+            // GameManager
+            gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
             // Get Player
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -130,6 +122,8 @@ namespace Tiago_GeoMine
             failMessage.SetActive(false);
         }
 
+        
+
         #region Open and Close
 
         public void OpenLabUI()
@@ -137,6 +131,7 @@ namespace Tiago_GeoMine
             congratsMessage.SetActive(false);
             failMessage.SetActive(false);
             playerResponse.text = "";
+            hintGO.SetActive(false);
 
             // If the player has discovered all the rocks
             if (hasDiscoveredIron == true
@@ -224,39 +219,6 @@ namespace Tiago_GeoMine
 
         #endregion
 
-        #region Save
-
-        private IEnumerator SaveProgress()
-        {
-            while(true)
-            {
-                yield return new WaitForSeconds(30);
-
-                saveScript.currentRock = currentRock;
-                saveScript.hasDiscoveredIron = hasDiscoveredIron;
-                saveScript.hasDiscoveredSilicon = hasDiscoveredSilicon;
-                saveScript.hasDiscoveredAluminium = hasDiscoveredAluminium;
-                saveScript.hasDiscoveredCalcium = hasDiscoveredCalcium;
-                saveScript.hasDiscoveredIgneous = hasDiscoveredIgneous;
-                saveScript.hasDiscoveredSedimentary = hasDiscoveredSedimentary;
-                saveScript.hasDiscoveredMetamorphic = hasDiscoveredMetamorphic;
-                saveScript.igneousQuestions = igneousQuestions;
-                saveScript.sedimentaryQuestions = sedimentaryQuestions;
-                saveScript.metamorphicQuestions = metamorphicQuestions;
-                saveScript.otherRocksQuestions = otherRocksQuestions;
-                saveScript.igneousAnswers = igneousAnswers;
-                saveScript.sedimentaryAnswers = sedimentaryAnswers;
-                saveScript.metamorphicAnswers = metamorphicAnswers;
-                saveScript.otherRocksAnswers = otherRocksAnswers;
-                saveScript.igneousHint = igneousHint;
-                saveScript.sedimentaryHint = sedimentaryHint;
-                saveScript.metamorphicHint = metamorphicHint;
-                saveScript.otherRocksHint = otherRocksHint;
-            }
-        }
-
-        #endregion
-
         public void Submit()
         {
             #region Other Rocks
@@ -269,6 +231,9 @@ namespace Tiago_GeoMine
                     if (currentRock == "silicon")
                     {
                         hasDiscoveredSilicon = true;
+                        gameManager.currentProgress++;
+                        gameManager.UpdateProgress();
+                        save.ForceSave();
 
                         for (int i = 0; i < silicon.Length; i++)
                             silicon[i].text = setText.currentLanguage.Silicon;
@@ -276,6 +241,9 @@ namespace Tiago_GeoMine
                     if (currentRock == "iron")
                     {
                         hasDiscoveredIron = true;
+                        gameManager.currentProgress++;
+                        gameManager.UpdateProgress();
+                        save.ForceSave();
 
                         for (int i = 0; i < iron.Length; i++)
                             iron[i].text = setText.currentLanguage.Iron;
@@ -283,6 +251,9 @@ namespace Tiago_GeoMine
                     if (currentRock == "aluminium")
                     {
                         hasDiscoveredAluminium = true;
+                        gameManager.currentProgress++;
+                        gameManager.UpdateProgress();
+                        save.ForceSave();
 
                         for (int i = 0; i < aluminium.Length; i++)
                             aluminium[i].text = setText.currentLanguage.Aluminium;
@@ -290,6 +261,9 @@ namespace Tiago_GeoMine
                     if (currentRock == "calcium")
                     {
                         hasDiscoveredCalcium = true;
+                        gameManager.currentProgress++;
+                        gameManager.UpdateProgress();
+                        save.ForceSave();
 
                         for (int i = 0; i < calcium.Length; i++)
                             calcium[i].text = setText.currentLanguage.Calcium;
@@ -337,6 +311,9 @@ namespace Tiago_GeoMine
                 {
                     // Mark rock as discovered
                     hasDiscoveredIgneous = true;
+                    gameManager.currentProgress++;
+                    gameManager.UpdateProgress();
+                    save.ForceSave();
 
                     for (int i = 0; i < igneous.Length; i++)
                         igneous[i].text = setText.currentLanguage.Igneous;
@@ -383,6 +360,9 @@ namespace Tiago_GeoMine
                 {
                     // Mark rock as discovered
                     hasDiscoveredSedimentary = true;
+                    gameManager.currentProgress++;
+                    gameManager.UpdateProgress();
+                    save.ForceSave();
 
                     for (int i = 0; i < sedimentary.Length; i++)
                         sedimentary[i].text = setText.currentLanguage.Sedimentary;
@@ -429,6 +409,9 @@ namespace Tiago_GeoMine
                 {
                     // Mark rock as discovered
                     hasDiscoveredMetamorphic = true;
+                    gameManager.currentProgress++;
+                    gameManager.UpdateProgress();
+                    save.ForceSave();
 
                     for (int i = 0; i < metamorphic.Length; i++)
                         metamorphic[i].text = setText.currentLanguage.Metamorphic;
