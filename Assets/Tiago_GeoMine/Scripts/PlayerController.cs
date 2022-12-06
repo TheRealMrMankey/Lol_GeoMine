@@ -15,6 +15,10 @@ namespace Tiago_GeoMine
     {
         #region Variables
 
+        [Space(10)]
+        [Header("Game Objects")]
+        public GameObject rope;
+
         // UI Variables
         [Space(10)]
         [Header("UI")]
@@ -91,6 +95,9 @@ namespace Tiago_GeoMine
         void Start()
         {
             #region Components and GameObjects
+
+            // Rope
+            rope.SetActive(false);
 
             // GameManager
             gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -434,14 +441,13 @@ namespace Tiago_GeoMine
 
             // Death
             if (healthPoints <= 0)
-            {
-                //Regain all health
-                healthPoints = maxHp;
-
+            {             
                 // Respawn
                 /// Teleport to starting position
                 agent.Warp(new Vector2(-2.9f, 0.57f));
 
+                helmetLight.gameObject.SetActive(false);
+                rope.SetActive(false);
                 agent.isStopped = true;
                 agent.destination = agent.transform.position;
                 deathScreen.SetActive(true);
@@ -457,6 +463,9 @@ namespace Tiago_GeoMine
             deathScreen.SetActive(false);
             agent.isStopped = false;
             agent.destination = agent.transform.position;
+
+            //Regain all health
+            UpdateMaxHealth();
         }
 
         #endregion
@@ -571,13 +580,13 @@ namespace Tiago_GeoMine
         public void UpdateMaxHealth()
         {
             if (armourLvl == 1)
-                healthPoints = 100;
+                maxHp = 100;
             else if (armourLvl == 2)
-                healthPoints = 150;
+                maxHp = 150;
             else if (armourLvl == 3)
-                healthPoints = 200;
+                maxHp = 200;
 
-            maxHp = healthPoints;
+            healthPoints = maxHp;
             healthText.text = healthPoints.ToString();
         }
 
@@ -644,9 +653,15 @@ namespace Tiago_GeoMine
                 Debug.Log("trigger");
 
                 if (helmetLight.gameObject.activeSelf == false)
+                {
                     helmetLight.gameObject.SetActive(true);
+                    rope.SetActive(true);
+                }
                 else
+                {
                     helmetLight.gameObject.SetActive(false);
+                    rope.SetActive(false);
+                }
             }
         }
 
