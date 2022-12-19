@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using LoLSDK;
+using UnityEngine.UI;
 
 namespace Tiago_GeoMine
 {
@@ -23,11 +24,6 @@ namespace Tiago_GeoMine
         public string Speech01;
         public string Speech02;
         public string Speech03;
-
-        //Player Input
-        [Space(10)]
-
-        public TMP_InputField playerResponse;
 
         // Rocks discovered
         [Space(10)]
@@ -53,45 +49,31 @@ namespace Tiago_GeoMine
         public TextMeshProUGUI[] sedimentary;
         public TextMeshProUGUI[] metamorphic;
 
-        // Quiz
+        // Text and Images
         [Space(10)]
-        [Header("Quiz")]
+        [Header("Text and Images")]
 
-        public TextMeshProUGUI question;
-        public TextMeshProUGUI hint;
-        public GameObject hintGO;
+        public TextMeshProUGUI subjectText;
+        public GameObject subjectImg;
 
         // All Questions
         [Space(10)]
-        [Header("Questions")]
+        [Header("Teach Subjects")]
 
-        public string[] igneousQuestions; // Value to Save
-        public string[] sedimentaryQuestions; // Value to Save
-        public string[] metamorphicQuestions; // Value to Save
-        public string[] otherRocksQuestions; // Value to Save
-        private int questionNr; 
+        public string igneousText; // Value to Save
+        public string sedimentaryText; // Value to Save
+        public string metamorphicText; // Value to Save
+        public string[] otherRocksText; // Value to Save
+        private int textNr; 
 
         // All Answers
         [Space(10)]
-        [Header("Answers")]
-        public string[] igneousAnswers; // Value to Save
-        public string[] sedimentaryAnswers; // Value to Save
-        public string[] metamorphicAnswers; // Value to Save
-        public string[] otherRocksAnswers; // Value to Save
+        [Header("Pictures")]
 
-        // All Hints
-        [Space(10)]
-        [Header("Hints")]
-        public string[] igneousHint; // Value to Save
-        public string[] sedimentaryHint; // Value to Save
-        public string[] metamorphicHint; // Value to Save
-        public string[] otherRocksHint; // Value to Save
-
-        // Result
-        [Space(10)]
-        [Header("Result")]
-        public GameObject congratsMessage;
-        public GameObject failMessage;
+        public Sprite igneousPic; // Value to Save
+        public Sprite sedimentaryPic; // Value to Save
+        public Sprite metamorphicPic; // Value to Save
+        public Sprite[] otherRocksPics; // Value to Save
 
         public SetText setText;
         private SaveGame save;
@@ -117,9 +99,6 @@ namespace Tiago_GeoMine
 
             // All GameObjects
             labUI.SetActive(false);
-            hintGO.SetActive(false);
-            congratsMessage.SetActive(false);
-            failMessage.SetActive(false);
         }
 
         
@@ -128,11 +107,6 @@ namespace Tiago_GeoMine
 
         public void OpenLabUI()
         {
-            congratsMessage.SetActive(false);
-            failMessage.SetActive(false);
-            playerResponse.text = "";
-            hintGO.SetActive(false);
-
             // If the player has discovered all the rocks
             if (hasDiscoveredIron == true
             && hasDiscoveredSilicon == true
@@ -156,37 +130,37 @@ namespace Tiago_GeoMine
                     if (player.silicon > 0 && silicon[0].text == "????")
                     {
                         labUI.SetActive(true);
-                        ChooseQuestion("silicon");
+                        ChooseSubject("silicon");
                     }
                     else if (player.iron > 0 && iron[0].text == "????")
                     {
                         labUI.SetActive(true);
-                        ChooseQuestion("iron");
+                        ChooseSubject("iron");
                     }
                     else if (player.aluminium > 0 && aluminium[0].text == "????")
                     {
                         labUI.SetActive(true);
-                        ChooseQuestion("aluminium");
+                        ChooseSubject("aluminium");
                     }
                     else if (player.calcium > 0 && calcium[0].text == "????")
                     {
                         labUI.SetActive(true);
-                        ChooseQuestion("calcium");
+                        ChooseSubject("calcium");
                     }
                     else if (player.igneous > 0 && igneous[0].text == "????")
                     {
                         labUI.SetActive(true);
-                        ChooseQuestion("igneous");
+                        ChooseSubject("igneous");
                     }
                     else if (player.sedimentary > 0 && sedimentary[0].text == "????")
                     {
                         labUI.SetActive(true);
-                        ChooseQuestion("sedimentary");
+                        ChooseSubject("sedimentary");
                     }
                     else if (player.metamorphic > 0 && metamorphic[0].text == "????")
                     {
                         labUI.SetActive(true);
-                        ChooseQuestion("metamorphic");
+                        ChooseSubject("metamorphic");
                     }
                     else
                     {
@@ -207,6 +181,8 @@ namespace Tiago_GeoMine
         public void CloseLabUI()
         {
             labUI.SetActive(false);
+
+            Submit();
         }
 
         public void ExitLab()
@@ -225,80 +201,57 @@ namespace Tiago_GeoMine
 
             if (currentRock == "silicon" || currentRock == "iron" || currentRock == "aluminium" || currentRock == "calcium")
             {
-                if (playerResponse.text.Contains(otherRocksAnswers[questionNr].ToString()))
+                // Mark rock as discovered
+                if (currentRock == "silicon")
                 {
-                    // Mark rock as discovered
-                    if (currentRock == "silicon")
-                    {
-                        hasDiscoveredSilicon = true;
-                        gameManager.currentProgress++;
-                        gameManager.UpdateProgress();
-                        save.ForceSave();
+                    hasDiscoveredSilicon = true;
+                    gameManager.currentProgress++;
+                    gameManager.UpdateProgress();
+                    save.ForceSave();
 
-                        for (int i = 0; i < silicon.Length; i++)
-                            silicon[i].text = setText.currentLanguage.Silicon;
-                    }
-                    if (currentRock == "iron")
-                    {
-                        hasDiscoveredIron = true;
-                        gameManager.currentProgress++;
-                        gameManager.UpdateProgress();
-                        save.ForceSave();
-
-                        for (int i = 0; i < iron.Length; i++)
-                            iron[i].text = setText.currentLanguage.Iron;
-                    }
-                    if (currentRock == "aluminium")
-                    {
-                        hasDiscoveredAluminium = true;
-                        gameManager.currentProgress++;
-                        gameManager.UpdateProgress();
-                        save.ForceSave();
-
-                        for (int i = 0; i < aluminium.Length; i++)
-                            aluminium[i].text = setText.currentLanguage.Aluminium;
-                    }
-                    if (currentRock == "calcium")
-                    {
-                        hasDiscoveredCalcium = true;
-                        gameManager.currentProgress++;
-                        gameManager.UpdateProgress();
-                        save.ForceSave();
-
-                        for (int i = 0; i < calcium.Length; i++)
-                            calcium[i].text = setText.currentLanguage.Calcium;
-                    }
-
-                    // Remove solved question from the pool
-                    List<string> q = new List<string>(otherRocksQuestions);
-                    q.RemoveAt(q.IndexOf(otherRocksQuestions[questionNr]));
-                    otherRocksQuestions = q.ToArray();
-
-                    // Remove solved question answer from the pool
-                    List<string> a = new List<string>(otherRocksAnswers);
-                    a.RemoveAt(a.IndexOf(otherRocksAnswers[questionNr]));
-                    otherRocksAnswers = a.ToArray();
-
-                    // Remove solved question hint from the pool
-                    List<string> h = new List<string>(otherRocksHint);
-                    h.RemoveAt(h.IndexOf(otherRocksHint[questionNr]));
-                    otherRocksHint = h.ToArray();
-
-                    // Display Message
-                    congratsMessage.SetActive(true);
-                    failMessage.SetActive(false);
+                    for (int i = 0; i < silicon.Length; i++)
+                        silicon[i].text = setText.currentLanguage.Silicon;
                 }
-                else
+                if (currentRock == "iron")
                 {
-                    playerResponse.text = "";
+                    hasDiscoveredIron = true;
+                    gameManager.currentProgress++;
+                    gameManager.UpdateProgress();
+                    save.ForceSave();
 
-                    // Enable the hint
-                    ShowHint();
-
-                    // Display Message
-                    congratsMessage.SetActive(false);
-                    failMessage.SetActive(true);
+                    for (int i = 0; i < iron.Length; i++)
+                        iron[i].text = setText.currentLanguage.Iron;
                 }
+                if (currentRock == "aluminium")
+                {
+                    hasDiscoveredAluminium = true;
+                    gameManager.currentProgress++;
+                    gameManager.UpdateProgress();
+                    save.ForceSave();
+
+                    for (int i = 0; i < aluminium.Length; i++)
+                        aluminium[i].text = setText.currentLanguage.Aluminium;
+                }
+                if (currentRock == "calcium")
+                {
+                    hasDiscoveredCalcium = true;
+                    gameManager.currentProgress++;
+                    gameManager.UpdateProgress();
+                    save.ForceSave();
+
+                    for (int i = 0; i < calcium.Length; i++)
+                        calcium[i].text = setText.currentLanguage.Calcium;
+                }
+
+                // Remove solved question from the pool
+                List<string> q = new List<string>(otherRocksText);
+                q.RemoveAt(q.IndexOf(otherRocksText[textNr]));
+                otherRocksText = q.ToArray();
+
+                // Remove solved question hint from the pool
+                List<Sprite> h = new List<Sprite>(otherRocksPics);
+                h.RemoveAt(h.IndexOf(otherRocksPics[textNr]));
+                otherRocksPics = h.ToArray();
             }
 
             #endregion
@@ -307,47 +260,14 @@ namespace Tiago_GeoMine
 
             if (currentRock == "igneous")
             {
-                if (playerResponse.text.Contains(igneousAnswers[questionNr]))
-                {
-                    // Mark rock as discovered
-                    hasDiscoveredIgneous = true;
-                    gameManager.currentProgress++;
-                    gameManager.UpdateProgress();
-                    save.ForceSave();
+                // Mark rock as discovered
+                hasDiscoveredIgneous = true;
+                gameManager.currentProgress++;
+                gameManager.UpdateProgress();
+                save.ForceSave();
 
-                    for (int i = 0; i < igneous.Length; i++)
-                        igneous[i].text = setText.currentLanguage.Igneous;
-
-                    // Remove solved question from the pool
-                    List<string> q = new List<string>(igneousQuestions);
-                    q.RemoveAt(q.IndexOf(igneousQuestions[questionNr]));
-                    igneousQuestions = q.ToArray();
-
-                    // Remove solved question answer from the pool
-                    List<string> a = new List<string>(igneousAnswers);
-                    a.RemoveAt(a.IndexOf(igneousAnswers[questionNr]));
-                    igneousAnswers = a.ToArray();
-
-                    // Remove solved question hint from the pool
-                    List<string> h = new List<string>(igneousHint);
-                    h.RemoveAt(h.IndexOf(igneousHint[questionNr]));
-                    igneousHint = h.ToArray();
-
-                    // Display Message
-                    congratsMessage.SetActive(true);
-                    failMessage.SetActive(false);
-                }
-                else
-                {
-                    playerResponse.text = "";
-
-                    // Enable the hint
-                    ShowHint();
-
-                    // Display Message
-                    congratsMessage.SetActive(false);
-                    failMessage.SetActive(true);
-                }
+                for (int i = 0; i < igneous.Length; i++)
+                    igneous[i].text = setText.currentLanguage.Igneous;
             }
 
             #endregion
@@ -356,47 +276,14 @@ namespace Tiago_GeoMine
 
             if (currentRock == "sedimentary")
             {
-                if (playerResponse.text.Contains(sedimentaryAnswers[questionNr]))
-                {
-                    // Mark rock as discovered
-                    hasDiscoveredSedimentary = true;
-                    gameManager.currentProgress++;
-                    gameManager.UpdateProgress();
-                    save.ForceSave();
+                // Mark rock as discovered
+                hasDiscoveredSedimentary = true;
+                gameManager.currentProgress++;
+                gameManager.UpdateProgress();
+                save.ForceSave();
 
-                    for (int i = 0; i < sedimentary.Length; i++)
-                        sedimentary[i].text = setText.currentLanguage.Sedimentary;
-
-                    // Remove solved question from the pool
-                    List<string> q = new List<string>(sedimentaryQuestions);
-                    q.RemoveAt(q.IndexOf(sedimentaryQuestions[questionNr]));
-                    sedimentaryQuestions = q.ToArray();
-
-                    // Remove solved question answer from the pool
-                    List<string> a = new List<string>(sedimentaryAnswers);
-                    a.RemoveAt(a.IndexOf(sedimentaryAnswers[questionNr]));
-                    sedimentaryAnswers = a.ToArray();
-
-                    // Remove solved question hint from the pool
-                    List<string> h = new List<string>(sedimentaryHint);
-                    h.RemoveAt(h.IndexOf(sedimentaryHint[questionNr]));
-                    sedimentaryHint = h.ToArray();
-
-                    // Display Message
-                    congratsMessage.SetActive(true);
-                    failMessage.SetActive(false);
-                }
-                else
-                {
-                    playerResponse.text = "";
-
-                    // Enable the hint
-                    ShowHint();
-
-                    // Display Message
-                    congratsMessage.SetActive(false);
-                    failMessage.SetActive(true);
-                }
+                for (int i = 0; i < sedimentary.Length; i++)
+                    sedimentary[i].text = setText.currentLanguage.Sedimentary;
             }
 
             #endregion
@@ -405,172 +292,96 @@ namespace Tiago_GeoMine
 
             if (currentRock == "metamorphic")
             {
-                if (playerResponse.text.Contains(metamorphicAnswers[questionNr]))
-                {
-                    // Mark rock as discovered
-                    hasDiscoveredMetamorphic = true;
-                    gameManager.currentProgress++;
-                    gameManager.UpdateProgress();
-                    save.ForceSave();
+                // Mark rock as discovered
+                hasDiscoveredMetamorphic = true;
+                gameManager.currentProgress++;
+                gameManager.UpdateProgress();
+                save.ForceSave();
 
-                    for (int i = 0; i < metamorphic.Length; i++)
-                        metamorphic[i].text = setText.currentLanguage.Metamorphic;
-
-                    // Remove solved question from the pool
-                    List<string> q = new List<string>(metamorphicQuestions);
-                    q.RemoveAt(q.IndexOf(metamorphicQuestions[questionNr]));
-                    metamorphicQuestions = q.ToArray();
-
-                    // Remove solved question answer from the pool
-                    List<string> a = new List<string>(metamorphicAnswers);
-                    a.RemoveAt(a.IndexOf(metamorphicAnswers[questionNr]));
-                    metamorphicAnswers = a.ToArray();
-
-                    // Remove solved question hint from the pool
-                    List<string> h = new List<string>(metamorphicHint);
-                    h.RemoveAt(h.IndexOf(metamorphicHint[questionNr]));
-                    metamorphicHint = h.ToArray();
-
-                    // Display Message
-                    congratsMessage.SetActive(true);
-                    failMessage.SetActive(false);
-                }
-                else
-                {
-                    playerResponse.text = "";
-
-                    // Enable the hint
-                    ShowHint();
-
-                    // Display Message
-                    congratsMessage.SetActive(false);
-                    failMessage.SetActive(true);
-                }
+                for (int i = 0; i < metamorphic.Length; i++)
+                    metamorphic[i].text = setText.currentLanguage.Metamorphic;
             }
 
             #endregion
         }
 
-        #region Questions and Hints
+        #region Subjects
 
-        void ChooseQuestion(string rock)
+        void ChooseSubject(string rock)
         {          
             if(rock == "silicon")
             {
-                int randomNr = Random.Range(0, otherRocksQuestions.Length);
+                int randomNr = Random.Range(0, otherRocksText.Length);
 
-                question.text = otherRocksQuestions[randomNr];
-                Hint(otherRocksHint[randomNr]);
+                subjectText.text = otherRocksText[randomNr];
+                subjectImg.GetComponent<Image>().sprite = (otherRocksPics[randomNr]);
                 currentRock = "silicon";
-                questionNr = randomNr;
+                textNr = randomNr;
             }
             if (rock == "iron")
             {
-                int randomNr = Random.Range(0, otherRocksQuestions.Length);
+                int randomNr = Random.Range(0, otherRocksText.Length);
 
-                question.text = otherRocksQuestions[randomNr];
-                Hint(otherRocksHint[randomNr]);
+                subjectText.text = otherRocksText[randomNr];
+                subjectImg.GetComponent<Image>().sprite = (otherRocksPics[randomNr]);
                 currentRock = "iron";
-                questionNr = randomNr;
+                textNr = randomNr;
             }
             if (rock == "aluminium")
             {
-                int randomNr = Random.Range(0, otherRocksQuestions.Length);
+                int randomNr = Random.Range(0, otherRocksText.Length);
 
-                question.text = otherRocksQuestions[randomNr];
-                Hint(otherRocksHint[randomNr]);
+                subjectText.text = otherRocksText[randomNr];
+                subjectImg.GetComponent<Image>().sprite = (otherRocksPics[randomNr]);
                 currentRock = "aluminium";
-                questionNr = randomNr;
+                textNr = randomNr;
             }
             if (rock == "calcium")
             {
-                int randomNr = Random.Range(0, otherRocksQuestions.Length);
+                int randomNr = Random.Range(0, otherRocksText.Length);
 
-                question.text = otherRocksQuestions[randomNr];
-                Hint(otherRocksHint[randomNr]);
+                subjectText.text = otherRocksText[randomNr];
+                subjectImg.GetComponent<Image>().sprite = (otherRocksPics[randomNr]);
                 currentRock = "calcium";
-                questionNr = randomNr;
+                textNr = randomNr;
             }
             if (rock == "igneous")
             {
-                int randomNr = Random.Range(0, igneousQuestions.Length);
-
-                question.text = igneousQuestions[randomNr];
-                Hint(igneousHint[randomNr]);
+                subjectText.text = igneousText;
+                subjectImg.GetComponent<Image>().sprite = igneousPic;
                 currentRock = "igneous";
-                questionNr = randomNr;
-
             }
             if (rock == "sedimentary")
             {
-                int randomNr = Random.Range(0, sedimentaryQuestions.Length);
-
-                question.text = sedimentaryQuestions[randomNr];
-                Hint(sedimentaryHint[randomNr]);
+                subjectText.text = sedimentaryText;
+                subjectImg.GetComponent<Image>().sprite = sedimentaryPic;
                 currentRock = "sedimentary";
-                questionNr = randomNr;
 
             }
             if (rock == "metamorphic")
             {
-                int randomNr = Random.Range(0, metamorphicQuestions.Length);
-
-                question.text = metamorphicQuestions[randomNr];
-                Hint(metamorphicHint[randomNr]);
+                subjectText.text = metamorphicText;
+                subjectImg.GetComponent<Image>().sprite = metamorphicPic;
                 currentRock = "metamorphic";
-                questionNr = randomNr;
             }
 
             // Text-to-speech
-            if(question.text == otherRocksQuestions[0])
+            if(subjectText.text == otherRocksText[0])
                 LOLSDK.Instance.SpeakText("Other_Question_01");
-            if (question.text == otherRocksQuestions[1])
+            if (subjectText.text == otherRocksText[1])
                 LOLSDK.Instance.SpeakText("Other_Question_02");
-            if (question.text == otherRocksQuestions[2])
+            if (subjectText.text == otherRocksText[2])
                 LOLSDK.Instance.SpeakText("Other_Question_03");
-            if (question.text == otherRocksQuestions[3])
+            if (subjectText.text == otherRocksText[3])
                 LOLSDK.Instance.SpeakText("Other_Question_04");
-            if (question.text == otherRocksQuestions[4])
+            if (subjectText.text == otherRocksText[4])
                 LOLSDK.Instance.SpeakText("Other_Question_05");
-            if (question.text == igneousQuestions[0])
+            if (subjectText.text == igneousText)
                 LOLSDK.Instance.SpeakText("Igneous_Question");
-            if (question.text == sedimentaryQuestions[0])
+            if (subjectText.text == sedimentaryText)
                 LOLSDK.Instance.SpeakText("Sedimentary_Question");
-            if (question.text == metamorphicQuestions[0])
+            if (subjectText.text == metamorphicText)
                 LOLSDK.Instance.SpeakText("Metamorphic_Question_01");
-            if (question.text == metamorphicQuestions[1])
-                LOLSDK.Instance.SpeakText("Metamorphic_Question_02");
-        }
-
-        void Hint(string hint_)
-        {
-            hint.text = hint_;
-        }
-
-        void ShowHint()
-        {
-            // Enable the hint
-            hintGO.SetActive(true);
-
-            // Text-to-speech
-            if (hint.text == otherRocksHint[0])
-                LOLSDK.Instance.SpeakText("Other_Hint_01");
-            if (hint.text == otherRocksHint[1])
-                LOLSDK.Instance.SpeakText("Other_Hint_02");
-            if (hint.text == otherRocksHint[2])
-                LOLSDK.Instance.SpeakText("Other_Hint_03");
-            if (hint.text == otherRocksHint[3])
-                LOLSDK.Instance.SpeakText("Other_Hint_04");
-            if (hint.text == otherRocksHint[4])
-                LOLSDK.Instance.SpeakText("Other_Hint_05");
-            if (hint.text == igneousHint[0])
-                LOLSDK.Instance.SpeakText("Igneous_Hint");
-            if (hint.text == sedimentaryHint[0])
-                LOLSDK.Instance.SpeakText("Sedimentary_Hint");
-            if (hint.text == metamorphicHint[0])
-                LOLSDK.Instance.SpeakText("Metamorphic_Hint_01");
-            if (hint.text == metamorphicHint[1])
-                LOLSDK.Instance.SpeakText("Metamorphic_Hint_02");
         }
 
         #endregion

@@ -36,10 +36,9 @@ namespace Tiago_GeoMine
                     lab.currentRock,
                     lab.hasDiscoveredIron, lab.hasDiscoveredSilicon, lab.hasDiscoveredAluminium, lab.hasDiscoveredCalcium,
                     lab.hasDiscoveredIgneous, lab.hasDiscoveredSedimentary, lab.hasDiscoveredMetamorphic,
-                    lab.igneousQuestions, lab.sedimentaryQuestions, lab.metamorphicQuestions,
-                    lab.otherRocksQuestions, lab.igneousAnswers, lab.sedimentaryAnswers,
-                    lab.metamorphicAnswers, lab.otherRocksAnswers, lab.igneousHint,
-                    lab.sedimentaryHint, lab.metamorphicHint, lab.otherRocksHint,
+                    lab.igneousText, lab.sedimentaryText, lab.metamorphicText,
+                    lab.otherRocksText,
+
                     // Player
                     player.money, player.pickaxeLvl, player.lanternLvl, player.armourLvl,
                     player.totalRocks, player.silicon, player.iron, player.aluminium,
