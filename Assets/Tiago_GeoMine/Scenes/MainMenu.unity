@@ -909,45 +909,14 @@ MonoBehaviour:
     hasDiscoveredIgneous: 0
     hasDiscoveredSedimentary: 0
     hasDiscoveredMetamorphic: 0
-    igneousQuestions:
-    - How are igneous rocks formed?
-    sedimentaryQuestions:
-    - How are sedimentary rocks formed?
-    metamorphicQuestions:
-    - How are metamorphic rocks formed?
-    - From what rock groups can metamorphic rocks form?
-    otherRocksQuestions:
-    - What does the rock cycle involve?
-    - What are the processes of the rock cycle?
-    - What is the rock cycle dependent on?
-    - What is a change of state?
-    - Why are folding, faulting, and breaking geologic processes?
-    igneousAnswers:
-    - cooled magma lava
-    sedimentaryAnswers:
-    - sediments are compressed and cemented together
-    metamorphicAnswers:
-    - heat pressure
-    - all
-    otherRocksAnswers:
-    - cycling of matter and energy
-    - uplift weathering erosion deposition melting crystallization metamorphism
-    - flow of energy from Earth's interior
-    - physical change occur geologic processes
-    - tectonic plate movement cause physical changes in rocks
-    igneousHint:
-    - What was near this rock when you found it?
-    sedimentaryHint:
-    - When two or more materials are interacting with one another.
-    metamorphicHint:
-    - It is formed from other rocks.
-    - It's not just one.
-    otherRocksHint:
-    - What are rocks made of? And what is necessary for something to begin a transformation?
-    - There are 7 processes.
-    - What is in the center of the Earth?
-    - What type of change is it? Why does it occur?
-    - Why are there earthquakes?
+    igneousText: 
+    sedimentaryText: 
+    metamorphicText: 
+    otherRocksText:
+    - 
+    - 
+    - 
+    - 
     money: 0
     pickaxeLvl: 1
     lanternLvl: 1
@@ -969,45 +938,14 @@ MonoBehaviour:
     hasDiscoveredIgneous: 0
     hasDiscoveredSedimentary: 0
     hasDiscoveredMetamorphic: 0
-    igneousQuestions:
-    - How are igneous rocks formed?
-    sedimentaryQuestions:
-    - How are sedimentary rocks formed?
-    metamorphicQuestions:
-    - How are metamorphic rocks formed?
-    - From what rock groups can metamorphic rocks form?
-    otherRocksQuestions:
-    - What does the rock cycle involve?
-    - What are the processes of the rock cycle?
-    - What is the rock cycle dependent on?
-    - What is a change of state?
-    - Why are folding, faulting, and breaking geologic processes?
-    igneousAnswers:
-    - cooled magma lava
-    sedimentaryAnswers:
-    - sediments are compressed and cemented together
-    metamorphicAnswers:
-    - heat pressure
-    - all
-    otherRocksAnswers:
-    - cycling of matter and energy
-    - uplift weathering erosion deposition melting crystallization metamorphism
-    - flow of energy from Earth's interior
-    - physical change occur geologic processes
-    - tectonic plate movement cause physical changes in rocks
-    igneousHint:
-    - What was near this rock when you found it?
-    sedimentaryHint:
-    - When two or more materials are interacting with one another.
-    metamorphicHint:
-    - It is formed from other rocks.
-    - It's not just one.
-    otherRocksHint:
-    - What are rocks made of? And what is necessary for something to begin a transformation?
-    - There are 7 processes.
-    - What is in the center of the Earth?
-    - What type of change is it? Why does it occur?
-    - Why are there earthquakes?
+    igneousText: 
+    sedimentaryText: 
+    metamorphicText: 
+    otherRocksText:
+    - 
+    - 
+    - 
+    - 
     money: 0
     pickaxeLvl: 1
     lanternLvl: 1

@@ -64,7 +64,6 @@ namespace Tiago_GeoMine
         public string sedimentaryText; // Value to Save
         public string metamorphicText; // Value to Save
         public string[] otherRocksText; // Value to Save
-        private int textNr; 
 
         // All Answers
         [Space(10)]
@@ -100,9 +99,7 @@ namespace Tiago_GeoMine
             // All GameObjects
             labUI.SetActive(false);
         }
-
-        
-
+      
         #region Open and Close
 
         public void OpenLabUI()
@@ -164,8 +161,8 @@ namespace Tiago_GeoMine
                     }
                     else
                     {
-                        scientistSpeech.text = Speech01;
-                        LOLSDK.Instance.SpeakText("Lab_TextBubble_01");
+                        scientistSpeech.text = Speech02;
+                        LOLSDK.Instance.SpeakText("Lab_TextBubble_02");
                     }
 
                         #endregion
@@ -242,16 +239,6 @@ namespace Tiago_GeoMine
                     for (int i = 0; i < calcium.Length; i++)
                         calcium[i].text = setText.currentLanguage.Calcium;
                 }
-
-                // Remove solved question from the pool
-                List<string> q = new List<string>(otherRocksText);
-                q.RemoveAt(q.IndexOf(otherRocksText[textNr]));
-                otherRocksText = q.ToArray();
-
-                // Remove solved question hint from the pool
-                List<Sprite> h = new List<Sprite>(otherRocksPics);
-                h.RemoveAt(h.IndexOf(otherRocksPics[textNr]));
-                otherRocksPics = h.ToArray();
             }
 
             #endregion
@@ -311,39 +298,27 @@ namespace Tiago_GeoMine
         {          
             if(rock == "silicon")
             {
-                int randomNr = Random.Range(0, otherRocksText.Length);
-
-                subjectText.text = otherRocksText[randomNr];
-                subjectImg.GetComponent<Image>().sprite = (otherRocksPics[randomNr]);
+                subjectText.text = otherRocksText[2];
+                subjectImg.GetComponent<Image>().sprite = (otherRocksPics[2]);
                 currentRock = "silicon";
-                textNr = randomNr;
             }
             if (rock == "iron")
             {
-                int randomNr = Random.Range(0, otherRocksText.Length);
-
-                subjectText.text = otherRocksText[randomNr];
-                subjectImg.GetComponent<Image>().sprite = (otherRocksPics[randomNr]);
+                subjectText.text = otherRocksText[1];
+                subjectImg.GetComponent<Image>().sprite = (otherRocksPics[1]);
                 currentRock = "iron";
-                textNr = randomNr;
             }
             if (rock == "aluminium")
             {
-                int randomNr = Random.Range(0, otherRocksText.Length);
-
-                subjectText.text = otherRocksText[randomNr];
-                subjectImg.GetComponent<Image>().sprite = (otherRocksPics[randomNr]);
+                subjectText.text = otherRocksText[0];
+                subjectImg.GetComponent<Image>().sprite = (otherRocksPics[0]);
                 currentRock = "aluminium";
-                textNr = randomNr;
             }
             if (rock == "calcium")
             {
-                int randomNr = Random.Range(0, otherRocksText.Length);
-
-                subjectText.text = otherRocksText[randomNr];
-                subjectImg.GetComponent<Image>().sprite = (otherRocksPics[randomNr]);
+                subjectText.text = otherRocksText[3];
+                subjectImg.GetComponent<Image>().sprite = (otherRocksPics[3]);
                 currentRock = "calcium";
-                textNr = randomNr;
             }
             if (rock == "igneous")
             {
@@ -356,7 +331,6 @@ namespace Tiago_GeoMine
                 subjectText.text = sedimentaryText;
                 subjectImg.GetComponent<Image>().sprite = sedimentaryPic;
                 currentRock = "sedimentary";
-
             }
             if (rock == "metamorphic")
             {
@@ -367,21 +341,19 @@ namespace Tiago_GeoMine
 
             // Text-to-speech
             if(subjectText.text == otherRocksText[0])
-                LOLSDK.Instance.SpeakText("Other_Question_01");
+                LOLSDK.Instance.SpeakText("Other_Text_01");
             if (subjectText.text == otherRocksText[1])
-                LOLSDK.Instance.SpeakText("Other_Question_02");
+                LOLSDK.Instance.SpeakText("Other_Text_02");
             if (subjectText.text == otherRocksText[2])
-                LOLSDK.Instance.SpeakText("Other_Question_03");
+                LOLSDK.Instance.SpeakText("Other_Text_03");
             if (subjectText.text == otherRocksText[3])
-                LOLSDK.Instance.SpeakText("Other_Question_04");
-            if (subjectText.text == otherRocksText[4])
-                LOLSDK.Instance.SpeakText("Other_Question_05");
+                LOLSDK.Instance.SpeakText("Other_Text_04");
             if (subjectText.text == igneousText)
-                LOLSDK.Instance.SpeakText("Igneous_Question");
+                LOLSDK.Instance.SpeakText("Igneous_Text");
             if (subjectText.text == sedimentaryText)
-                LOLSDK.Instance.SpeakText("Sedimentary_Question");
+                LOLSDK.Instance.SpeakText("Sedimentary_Text");
             if (subjectText.text == metamorphicText)
-                LOLSDK.Instance.SpeakText("Metamorphic_Question_01");
+                LOLSDK.Instance.SpeakText("Metamorphic_Text");
         }
 
         #endregion

@@ -16,10 +16,9 @@
         "Button_OpenShop": "Click to continue...",
         "Button_CloseShop": "Close Shop",
         "Button_LeaveShop": "Leave",
-        "Button_OpenQuestions": "Click to continue...",
-        "Button_CloseQuestions": "Close",
+        "Button_OpenSubject": "Click to continue...",
+        "Button_CloseSubject": "Close",
         "Button_LeaveLab": "Leave",
-        "Button_Submit": "Submit Answer",
         "Button_WakeUp": "Wake Up",
 
         "Tutorial_Title": "Tutorial",
@@ -28,11 +27,11 @@
         "Tutorial_Text03": "Click on any rock to mine it. (Some rocks need a better pickaxe).",
         "Tutorial_Text04": "After analyzing a rock you will now know the rock name and you can sell it at the shop for some coins, which you can use to upgrade your gear.",
         "Tutorial_Text05": "Click on an enemy to destroy it.",
-        "Tutorial_Text06": "To enter a building click the building to move to it (or use the buttons above), once your right nexto to it click again to enter.",
+        "Tutorial_Text06": "To enter a building click the building to move to it (or use the buttons above), once your right nex to to it click again to enter.",
 
         "Silicon": "Silicon",
         "Iron": "Iron",
-        "Aluminium": "Aluminium",
+        "Aluminium": "Aluminum",
         "Calcium": "Calcium",
         "Igneous": "Igneous",
         "Sedimentary": "Sedimentary",
@@ -47,43 +46,14 @@
         "Lab_TextBubble_03": "Good job! You have discovered all the rocks in the mine.",
 
         "Player_Down": "You were knocked out...",
-        
-        "Correct_Message": "That's correct!",
-        "Failed_Message": "That's incorrect! \\n Try again.",
 
-        "Question_Title": "Question",
-        "Hint_Title": "Hint",
-        "InputField_Text": "Enter your response here...",
-
-        "Igneous_Question": "How are igneous rocks formed?",
-        "Sedimentary_Question": "How are sedimentary rocks formed?",
-        "Metamorphic_Question_01": "How are metamorphic rocks formed?",
-        "Metamorphic_Question_02": "From what rock groups can metamorphic rocks form?",
-        "Other_Question_01": "What does the rock cycle involve?",
-        "Other_Question_02": "What are the processes of the rock cycle?",
-        "Other_Question_03": "What is the rock cycle dependent on?",
-        "Other_Question_04": "What is a change of state?",
-        "Other_Question_05": "Why are folding, faulting, and breaking geologic processes?",
-
-        "Igneous_Hint": "What was near this rock when you found it?",
-        "Sedimentary_Hint": "When two or more materials are interacting with one another.",
-        "Metamorphic_Hint_01": "It is formed from other rocks.",
-        "Metamorphic_Hint_02": "It's not just one.",
-        "Other_Hint_01": "What are rocks made of? And what is necessary for something to begin a transformation?",
-        "Other_Hint_02": "There are 7 processes.",
-        "Other_Hint_03": "What is in the center of the Earth?",
-        "Other_Hint_04": "What type of change is it? Why does it occur?",
-        "Other_Hint_05": "Why are there earthquakes?",
-
-        "Igneous_Answer": "cooled magma lava",
-        "Sedimentary_Answer": "sediments are compressed and cemented together",
-        "Metamorphic_Answer_01": "heat pressure",
-        "Metamorphic_Answer_02": "all",
-        "Other_Answer_01": "cycling of matter and energy",
-        "Other_Answer_02": "uplift weathering erosion deposition melting crystallization metamorphism",
-        "Other_Answer_03": "flow of energy from Earth's interior",
-        "Other_Answer_04": "physical change occur geologic processes",
-        "Other_Answer_05": "tectonic plate movement cause physical changes in rocks"
+        "Igneous_Text": "You found Obsidian!\n\nObsidian is an igneous rock, which form when hot, molten rock crystallizes and solidifies.The melt originates deep within the Earth near active plate boundaries or hot spots, then rises toward the surface.There are two types of igneous rocks, Intrusive and Extrusive.\n\nIntrusive igneous rocks forms when magma is trapped deep inside the Earth and after a long time solidify while extrusive igneous rocks are produced when magma exits and cools near or above Earth’s surface.\n\nObsidian is an extrusive rock.",
+        "Sedimentary_Text": "You found Conglomerate!\n\nConglomerate is a sedimentary rock which are formed on or near the Earth’s surface.The most important geological processes that lead to the creation of sedimentary rocks are erosion, weathering, dissolution, precipitation, and lithification.\n\nErosion and weathering include the effects of wind and rain, which slowly break down large rocks into smaller ones. Erosion and weathering transform boulders and even mountains into sediments, such as sand or mud.\n\nDissolution is a form of weathering—chemical weathering. With this process, water that is slightly acidic slowly wears away stone.\n\nPrecipitation is the formation of rocks and minerals from chemicals that precipitate from water and lithification is the process by which clay, sand, and other sediments on the bottom of the ocean or other bodies of water are slowly compacted into rocks from the weight of overlying sediments.",
+        "Metamorphic_Text": "You found Slate!\n\nSlate is a metamorphic which are rocks that started out as some other type of rock, but have been substantially changed from their original igneous, sedimentary, or earlier metamorphic form. Metamorphic rocks form when rocks are subjected to high heat, high pressure, hot mineral-rich fluids or, more commonly, some combination of these factors. Conditions like these are found deep within the Earth or where tectonic plates meet.\n\nThe process of metamorphism does not melt the rocks, but instead transforms them into denser, more compact rocks. New minerals are created either by rearrangement of mineral components or by reactions with fluids that enter the rocks. Pressure or temperature can even change previously metamorphosed rocks into new types. Metamorphic rocks are often squished, smeared out, and folded.",
+        "Other_Text_01": "You found Aluminum!\n\nAluminum is primarily sourced from the rock Bauxite which is a sedimentary rock.\n\nRocks are generally made up of two or more minerals, mixed up by geological processes, such as folding, faulting, and breaking which happen due to tectonic plate movement.",
+        "Other_Text_02": "You found Iron!\n\nThe rocky surface layer of Earth, called the crust, is made up of mostly oxygen, silicon, aluminum, iron, calcium, sodium, potassium, and magnesium. Earth's surface is mainly covered with liquid water and its atmosphere is mainly nitrogen and oxygen, with smaller amounts of carbon dioxide, water vapor and other gases.",
+        "Other_Text_03": "You found Silicon!\n\nI’m going to take this opportunity to talk about the rock cycle!\n\nThe rock cycle is dependent upon the flow of energy from Earth’s interior which involves the cycling of energy and matter from one to form another.\n\nThe rock cycle has seven processes, uplift, weathering, erosion, deposition, melting, crystallization, and metamorphism.",
+        "Other_Text_04": "You found Calcium!\n\nI’m going to take this opportunity to talk about changes of state!\n\nA change of state is a physical change in a matter. They are reversible changes and do not involve any changes in the chemical makeup of the matter. Common changes of the state include melting, freezing, sublimation, deposition, condensation, and evaporation."
     },
     "es":
     {
@@ -102,10 +72,9 @@
         "Button_OpenShop": "Hacer clic para continuar...",
         "Button_CloseShop": "Cerrar tienda",
         "Button_LeaveShop": "Dejar",
-        "Button_OpenQuestions": "Haga clic para continuar...",
-        "Button_CloseQuestions": "Cerrar",
+        "Button_OpenSubject": "Haga clic para continuar...",
+        "Button_CloseSubject": "Cerrar",
         "Button_LeaveLab": "Dejar",
-        "Button_Submit": "Enviar respuesta",
         "Button_WakeUp": "Despertar",
 
         "Tutorial_Title": "Tutorial",
@@ -114,7 +83,7 @@
         "Tutorial_Text03": "Haz clic en cualquier roca para minarla. (Algunas rocas necesitan un pico mejor).",
         "Tutorial_Text04": "Después de analizar una roca ahora sabrás el nombre de la roca y podrás venderla en la tienda por algunas monedas, que podrás usar para mejorar tu equipo.",
         "Tutorial_Text05": "Haz clic en un enemigo para destruirlo.",
-        "Tutorial_Text06": "ara entrar en un edificio haz click en el edificio para moverte hacia él (o usa los botones de arriba), una vez que estés junto a él haz click de nuevo para entrar.",
+        "Tutorial_Text06": "Para entrar en un edificio, haz clic en él para desplazarte hasta él (o utiliza los botones de arriba), una vez que estés junto a él, vuelve a hacer clic para entrar.",
 
         "Silicon": "Silicio",
         "Iron": "Hierro",
@@ -133,42 +102,13 @@
         "Lab_TextBubble_03": "¡Buen trabajo! Has descubierto todas las rocas de la mina",
 
         "Player_Down": "e han dejado fuera de combate...",
-        
-        "Correct_Message": "¡Eso es correcto!",
-        "Failed_Message": "¡Eso es incorrecto! \\n Inténtalo de nuevo",
 
-        "Question_Title": "Pregunta",
-        "Hint_Title": "Pista",
-        "InputField_Text": "Introduzca su respuesta aquí...",
-
-        "Igneous_Question": "¿Cómo se forman las rocas ígneas?",
-        "Sedimentary_Question": "¿Cómo se forman las rocas sedimentarias?",
-        "Metamorphic_Question_01": "¿Cómo se forman las rocas metamórficas?",
-        "Metamorphic_Question_02": "¿A partir de qué grupos de rocas pueden formarse rocas metamórficas?",
-        "Other_Question_01": "¿En qué consiste el ciclo de las rocas?",
-        "Other_Question_02": "¿Cuáles son los procesos del ciclo de las rocas?",
-        "Other_Question_03": "¿De qué depende el ciclo de las rocas?",
-        "Other_Question_04": "¿Qué es un cambio de estado?",
-        "Other_Question_05": "¿Por qué son procesos geológicos el plegamiento, la falla y la rotura?",
-
-        "Igneous_Hint": "¿Qué había cerca de esta roca cuando la encontraste?",
-        "Sedimentary_Hint": "Cuando dos o más materiales interactúan entre sí",
-        "Metamorphic_Hint_01": "Se forma a partir de otras rocas",
-        "Metamorphic_Hint_02": "No es una sola",
-        "Other_Hint_01": "¿De qué están hechas las rocas? ¿Y qué es necesario para que algo inicie una transformación?",
-        "Other_Hint_02": "Hay 7 procesos",
-        "Other_Hint_03": "¿Qué hay en el centro de la Tierra?",
-        "Other_Hint_04": "¿Qué tipo de cambio es? ¿Por qué se produce?",
-        "Other_Hint_05": "¿Por qué hay terremotos?",
-
-        "Igneous_Answer": "lava magmática enfriada",
-        "Sedimentary_Answer": "los sedimentos se comprimen y cementan entre sí",
-        "Metamorphic_Answer_01": "la presión del calor",
-        "Metamorphic_Answer_02": "todo",
-        "Other_Answer_01": "ciclo de materia y energía",
-        "Other_Answer_02": "elevación meteorización erosión deposición fusión cristalización metamorfismo",
-        "Other_Answer_03": "flujo de energía desde el interior de la Tierra",
-        "Other_Answer_04": "cambio físico ocurren procesos geológicos",
-        "Other_Answer_05": "el movimiento de las placas tectónicas provoca cambios físicos en las rocas"
+        "Igneous_Text": "¡Has encontrado Obsidiana!\n\nLa obsidiana es una roca ígnea, que se forma cuando la roca fundida y caliente cristaliza y se solidifica. El fundido se origina en las profundidades de la Tierra, cerca de los límites activos de las placas o puntos calientes, y luego asciende hacia la superficie.\n\nExisten dos tipos de rocas ígneas: intrusivas y extrusivas.\n\n Las rocas ígneas intrusivas se forman cuando el magma queda atrapado en las profundidades de la Tierra y tras un largo tiempo se solidifica, mientras que las rocas ígneas extrusivas se producen cuando el magma sale y se enfría cerca o por encima de la superficie terrestre.\n\nLa obsidiana es una roca extrusiva.",
+        "Sedimentary_Text": "¡Has encontrado Conglomerado!\n\nEl conglomerado es una roca sedimentaria que se forma en la superficie terrestre o cerca de ella.\n\nLos procesos geológicos más importantes que conducen a la creación de rocas sedimentarias son la erosión, la meteorización, la disolución, la precipitación y la litificación.\n\nLa erosión y la meteorización incluyen los efectos del viento y la lluvia, que lentamente descomponen grandes rocas en otras más pequeñas. La erosión y la meteorización transforman cantos rodados e incluso montañas en sedimentos, como arena o lodo. La disolución es una forma de meteorización química. En este proceso, el agua ligeramente ácida desgasta lentamente la piedra. La precipitación es la formación de rocas y minerales a partir de sustancias químicas que precipitan del agua y la litificación es el proceso por el cual la arcilla, la arena y otros sedimentos del fondo del océano u otras masas de agua se compactan lentamente hasta convertirse en rocas por el peso de los sedimentos suprayacentes.",
+        "Metamorphic_Text": "¡Has encontrado Pizarra!\n\nLas pizarras son rocas metamórficas, es decir, rocas que empezaron siendo otro tipo de roca, pero que han cambiado sustancialmente desde su forma ígnea, sedimentaria o metamórfica original. Las rocas metamórficas se forman cuando están sometidas a altas temperaturas, altas presiones, fluidos calientes ricos en minerales o, lo que es más común, a una combinación de estos factores. Estas condiciones se dan en las profundidades de la Tierra o en los puntos de encuentro de las placas tectónicas.\n\nEl proceso de metamorfismo no funde las rocas, sino que las transforma en rocas más densas y compactas. Se crean nuevos minerales mediante la reorganización de los componentes minerales o por reacciones con fluidos que penetran en las rocas. La presión o la temperatura pueden incluso transformar rocas previamente metamorfoseadas en nuevos tipos. Las rocas metamórficas suelen estar aplastadas, esparcidas y plegadas.",
+        "Other_Text_01": "¡Has encontrado Aluminio!\n\nEl aluminio procede principalmente de la bauxita, una roca sedimentaria.\n\nLas rocas suelen estar formadas por dos o más minerales, mezclados por procesos geológicos, como plegamientos, fallas y roturas que se producen debido al movimiento de las placas tectónicas.",
+        "Other_Text_02": "¡Has encontrado hierro!\n\nLa capa rocosa de la superficie de la Tierra, llamada corteza, está formada principalmente por oxígeno, silicio, aluminio, hierro, calcio, sodio, potasio y magnesio. La superficie de la Tierra está cubierta principalmente por agua líquida y su atmósfera está formada principalmente por nitrógeno y oxígeno, con cantidades menores de dióxido de carbono, vapor de agua y otros gases.",
+        "Other_Text_03": "¡Has encontrado Silicio!\n\nVoy a aprovechar esta oportunidad para hablar del ciclo de las rocas.\n\nEl ciclo de las rocas depende del flujo de energía del interior de la Tierra, que implica el ciclo de energía y materia de una para formar otra.\n\nEl ciclo de las rocas consta de siete procesos: levantamiento, meteorización, erosión, deposición, fusión, cristalización y metamorfismo.",
+        "Other_Text_04": "¡Has encontrado Calcio!\n\nVoy a aprovechar esta oportunidad para hablar de los cambios de estado.\n\nUn cambio de estado es un cambio físico en una materia. Son cambios reversibles y no implican ningún cambio en la composición química de la materia. Los cambios de estado más comunes son la fusión, la congelación, la sublimación, la deposición, la condensación y la evaporación."
     }
 }
