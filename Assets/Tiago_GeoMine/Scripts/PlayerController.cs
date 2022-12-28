@@ -277,29 +277,38 @@ namespace Tiago_GeoMine
                         // Check if it is in range
                         float distance = Vector3.Distance(transform.position, tilemap.WorldToCell(mousePos));
 
-                        if (distance < 1.8f)
-                        {
-                            // Get Tile Name
-                            TileBase tileBase = tilemap.GetTile(tilemap.WorldToCell(mousePos));
-                            string tileName = tileBase.ToString();
+                        // Get direction
+                        Vector2 direction = (transform.position - mousePos).normalized;
 
-                            // If pickaxe is at least level 1, mine
-                            if (tileName.Contains("Calcium") | tileName.Contains("Silicon") | tileName.Contains("Aluminium") | tileName.Contains("Iron") && pickaxeLvl >= 1)
+                        if ((direction.x.ToString("f1") == "0.0" && direction.y.ToString("f1") == "0.1") //Down
+                            || (direction.x.ToString("f1") == "0.0" && direction.y.ToString("f1") == "-0.1") //Up
+                            || (direction.x.ToString("f1") == "0.1" && direction.y.ToString("f1") == "0.0") //Left
+                            || (direction.x.ToString("f1") == "-0.1" && direction.y.ToString("f1") == "0.0")) //Right
+                        { 
+                            if (distance < 1.8f)
                             {
-                                // Find out which rock was destroyed
-                                Destroy(tileName);
+                                // Get Tile Name
+                                TileBase tileBase = tilemap.GetTile(tilemap.WorldToCell(mousePos));
+                                string tileName = tileBase.ToString();
 
-                                // Destroy Tile
-                                tilemap.SetTile(tilemap.WorldToCell(mousePos), null);
-                            }
-                            // If pickaxe if level 2, mine
-                            else if (tileName.Contains("Sedimentary") | tileName.Contains("Igneous") | tileName.Contains("Metamorphic") && pickaxeLvl == 2)
-                            {
-                                // Find out which rock was destroyed
-                                Destroy(tileName);
+                                // If pickaxe is at least level 1, mine
+                                if (tileName.Contains("Calcium") | tileName.Contains("Silicon") | tileName.Contains("Aluminium") | tileName.Contains("Iron") && pickaxeLvl >= 1)
+                                {
+                                    // Find out which rock was destroyed
+                                    Destroy(tileName);
 
-                                // Destroy Tile
-                                tilemap.SetTile(tilemap.WorldToCell(mousePos), null);
+                                    // Destroy Tile
+                                    tilemap.SetTile(tilemap.WorldToCell(mousePos), null);
+                                }
+                                // If pickaxe if level 2, mine
+                                else if (tileName.Contains("Sedimentary") | tileName.Contains("Igneous") | tileName.Contains("Metamorphic") && pickaxeLvl == 2)
+                                {
+                                    // Find out which rock was destroyed
+                                    Destroy(tileName);
+
+                                    // Destroy Tile
+                                    tilemap.SetTile(tilemap.WorldToCell(mousePos), null);
+                                }
                             }
 
                             // Update Walkable Area
@@ -403,29 +412,38 @@ namespace Tiago_GeoMine
                         // Check if it is in range
                         float distance = Vector3.Distance(transform.position, tilemap.WorldToCell(touchPos));
 
-                        if (distance < 1.8f)
+                        // Get direction
+                        Vector2 direction = (transform.position - touchPos).normalized;
+
+                        if ((direction.x.ToString("f1") == "0.0" && direction.y.ToString("f1") == "0.1") //Down
+                            || (direction.x.ToString("f1") == "0.0" && direction.y.ToString("f1") == "-0.1") //Up
+                            || (direction.x.ToString("f1") == "0.1" && direction.y.ToString("f1") == "0.0") //Left
+                            || (direction.x.ToString("f1") == "-0.1" && direction.y.ToString("f1") == "0.0")) //Right
                         {
-                            // Get Tile Name
-                            TileBase tileBase = tilemap.GetTile(tilemap.WorldToCell(touchPos));
-                            string tileName = tileBase.ToString();
-
-                            // If pickaxe is at least level 1, mine
-                            if (tileName.Contains("Calcium") | tileName.Contains("Silicon") | tileName.Contains("Aluminium") | tileName.Contains("Iron") && pickaxeLvl >= 1)
+                            if (distance < 1.8f)
                             {
-                                // Find out which rock was destroyed
-                                Destroy(tileName);
+                                // Get Tile Name
+                                TileBase tileBase = tilemap.GetTile(tilemap.WorldToCell(touchPos));
+                                string tileName = tileBase.ToString();
 
-                                // Destroy Tile
-                                tilemap.SetTile(tilemap.WorldToCell(touchPos), null);
-                            }
-                            // If pickaxe if level 2, mine
-                            else if (tileName.Contains("Sedimentary") | tileName.Contains("Igneous") | tileName.Contains("Metamorphic") && pickaxeLvl == 2)
-                            {
-                                // Find out which rock was destroyed
-                                Destroy(tileName);
+                                // If pickaxe is at least level 1, mine
+                                if (tileName.Contains("Calcium") | tileName.Contains("Silicon") | tileName.Contains("Aluminium") | tileName.Contains("Iron") && pickaxeLvl >= 1)
+                                {
+                                    // Find out which rock was destroyed
+                                    Destroy(tileName);
 
-                                // Destroy Tile
-                                tilemap.SetTile(tilemap.WorldToCell(touchPos), null);
+                                    // Destroy Tile
+                                    tilemap.SetTile(tilemap.WorldToCell(touchPos), null);
+                                }
+                                // If pickaxe if level 2, mine
+                                else if (tileName.Contains("Sedimentary") | tileName.Contains("Igneous") | tileName.Contains("Metamorphic") && pickaxeLvl == 2)
+                                {
+                                    // Find out which rock was destroyed
+                                    Destroy(tileName);
+
+                                    // Destroy Tile
+                                    tilemap.SetTile(tilemap.WorldToCell(touchPos), null);
+                                }
                             }
 
                             // Update Walkable Area

@@ -19,6 +19,7 @@ namespace Tiago_GeoMine
         private PlayerController player;
         public GetInventoryValues backpack;
         private GameManager gameManager;
+        public GameObject gameOverScreen;
        
         public string currentRock = ""; // Value to Save
         public string Speech01;
@@ -290,6 +291,17 @@ namespace Tiago_GeoMine
             }
 
             #endregion
+
+            if (hasDiscoveredIron == true
+            && hasDiscoveredSilicon == true
+            && hasDiscoveredAluminium == true
+            && hasDiscoveredCalcium == true
+            && hasDiscoveredIgneous == true
+            && hasDiscoveredSedimentary == true
+            && hasDiscoveredMetamorphic == true)
+            {
+                gameOverScreen.SetActive(true);
+            }
         }
 
         #region Subjects
