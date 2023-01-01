@@ -21,6 +21,14 @@
         "Button_LeaveLab": "Leave",
         "Button_WakeUp": "Wake Up",
 
+        "Tutorial_Bubble_ContinueButton": "Click to continue...",
+        "Tutorial_CloseBubble": "Click to close",
+        "Tutorial_Bubble01": "Hello! \nWelcome to GeoMine!",
+        "Tutorial_Bubble02": "Head to the mine to your left and start digging.",
+        "Tutorial_Bubble03": "Great you have found some rocks! Head to research station on the far right to research it.",
+        "Tutorial_Bubble04": "Now go to the shop in the middle to sell your discovered rocks.",
+        "Tutorial_Bubble05": "Now you have some money, keep selling discovered rocks to upgrade your gear once you've discovered all the rocks you win!",
+
         "Tutorial_Title": "Tutorial",
         "Tutorial_Text01": "Click on any tile to move to it.",
         "Tutorial_Text02": "Once you mined some rocks take it to the research lab to analyze them.",
@@ -28,6 +36,11 @@
         "Tutorial_Text04": "After analyzing a rock you will now know the rock name and you can sell it at the shop for some coins, which you can use to upgrade your gear.",
         "Tutorial_Text05": "Click on an enemy to destroy it.",
         "Tutorial_Text06": "To enter a building click the building to move to it (or use the buttons above), once your right nex to to it click again to enter.",
+
+        "GameOver_Title": "Congratulations!",
+        "GameOver_Text": "You have discovered all the rocks!",
+        "KeepPlaying": "Keep Playing",
+        "BackToMenu": "Menu",
 
         "Silicon": "Silicon",
         "Iron": "Iron",
@@ -47,9 +60,9 @@
 
         "Player_Down": "You were knocked out...",
 
-        "Igneous_Text": "You found Obsidian!\n\nObsidian is an igneous rock, which form when hot, molten rock crystallizes and solidifies.The melt originates deep within the Earth near active plate boundaries or hot spots, then rises toward the surface.There are two types of igneous rocks, Intrusive and Extrusive.\n\nIntrusive igneous rocks forms when magma is trapped deep inside the Earth and after a long time solidify while extrusive igneous rocks are produced when magma exits and cools near or above Earth’s surface.\n\nObsidian is an extrusive rock.",
-        "Sedimentary_Text": "You found Conglomerate!\n\nConglomerate is a sedimentary rock which are formed on or near the Earth’s surface.The most important geological processes that lead to the creation of sedimentary rocks are erosion, weathering, dissolution, precipitation, and lithification.\n\nErosion and weathering include the effects of wind and rain, which slowly break down large rocks into smaller ones. Erosion and weathering transform boulders and even mountains into sediments, such as sand or mud.\n\nDissolution is a form of weathering—chemical weathering. With this process, water that is slightly acidic slowly wears away stone.\n\nPrecipitation is the formation of rocks and minerals from chemicals that precipitate from water and lithification is the process by which clay, sand, and other sediments on the bottom of the ocean or other bodies of water are slowly compacted into rocks from the weight of overlying sediments.",
-        "Metamorphic_Text": "You found Slate!\n\nSlate is a metamorphic which are rocks that started out as some other type of rock, but have been substantially changed from their original igneous, sedimentary, or earlier metamorphic form. Metamorphic rocks form when rocks are subjected to high heat, high pressure, hot mineral-rich fluids or, more commonly, some combination of these factors. Conditions like these are found deep within the Earth or where tectonic plates meet.\n\nThe process of metamorphism does not melt the rocks, but instead transforms them into denser, more compact rocks. New minerals are created either by rearrangement of mineral components or by reactions with fluids that enter the rocks. Pressure or temperature can even change previously metamorphosed rocks into new types. Metamorphic rocks are often squished, smeared out, and folded.",
+        "Igneous_Text": "You found Obsidian!\n\nObsidian is an igneous rock, which form when hot, molten rock crystallizes and solidifies.",
+        "Sedimentary_Text": "You found Conglomerate!\n\nConglomerate is a sedimentary rock which are formed on or near the Earth’s surface. \n\nThe most important geological processes that lead to the creation of sedimentary rocks are erosion, weathering, dissolution, precipitation, and lithification.",
+        "Metamorphic_Text": "You found Slate!\n\nSlate is a metamorphic which are rocks that started out as some other type of rock, but have been substantially changed from their original igneous, sedimentary, or earlier metamorphic form. \n\nMetamorphic rocks form when rocks are subjected to high heat, high pressure, hot mineral-rich fluids or some combination of these factors.",
         "Other_Text_01": "You found Aluminum!\n\nAluminum is primarily sourced from the rock Bauxite which is a sedimentary rock.\n\nRocks are generally made up of two or more minerals, mixed up by geological processes, such as folding, faulting, and breaking which happen due to tectonic plate movement.",
         "Other_Text_02": "You found Iron!\n\nThe rocky surface layer of Earth, called the crust, is made up of mostly oxygen, silicon, aluminum, iron, calcium, sodium, potassium, and magnesium. Earth's surface is mainly covered with liquid water and its atmosphere is mainly nitrogen and oxygen, with smaller amounts of carbon dioxide, water vapor and other gases.",
         "Other_Text_03": "You found Silicon!\n\nI’m going to take this opportunity to talk about the rock cycle!\n\nThe rock cycle is dependent upon the flow of energy from Earth’s interior which involves the cycling of energy and matter from one to form another.\n\nThe rock cycle has seven processes, uplift, weathering, erosion, deposition, melting, crystallization, and metamorphism.",
@@ -69,13 +82,21 @@
         "Button_CloseTutorial": "Cerrar",
         "Button_Buy": "Comprar",
         "Button_Sell": "Vender",
-        "Button_OpenShop": "Hacer clic para continuar...",
+        "Button_OpenShop": "Pulse para continuar...",
         "Button_CloseShop": "Cerrar tienda",
         "Button_LeaveShop": "Dejar",
-        "Button_OpenSubject": "Haga clic para continuar...",
+        "Button_OpenSubject": "Pulse para continuar...",
         "Button_CloseSubject": "Cerrar",
         "Button_LeaveLab": "Dejar",
         "Button_WakeUp": "Despertar",
+
+        "Tutorial_Bubble_ContinueButton": "Pulse para continuar...",
+        "Tutorial_CloseBubble": "Pulse para cerrar",
+        "Tutorial_Bubble01": "¡Hola! \n¡Bienvenido a GeoMine!",
+        "Tutorial_Bubble02": "Dirígete a la mina de tu izquierda y empieza a cavar.",
+        "Tutorial_Bubble03": "Genial, ¡has encontrado rocas! Dirígete a la estación de investigación en el extremo derecho para investigarlo.",
+        "Tutorial_Bubble04": "Ahora ve a la tienda del centro para vender las rocas que has descubierto.",
+        "Tutorial_Bubble05": "Ahora que tienes algo de dinero, sigue vendiendo rocas descubiertas para mejorar tu equipo una vez que hayas descubierto todas las rocas que ganes.",
 
         "Tutorial_Title": "Tutorial",
         "Tutorial_Text01": "Haz clic en cualquier baldosa para ir a ella.",
@@ -84,6 +105,11 @@
         "Tutorial_Text04": "Después de analizar una roca ahora sabrás el nombre de la roca y podrás venderla en la tienda por algunas monedas, que podrás usar para mejorar tu equipo.",
         "Tutorial_Text05": "Haz clic en un enemigo para destruirlo.",
         "Tutorial_Text06": "Para entrar en un edificio, haz clic en él para desplazarte hasta él (o utiliza los botones de arriba), una vez que estés junto a él, vuelve a hacer clic para entrar.",
+
+        "GameOver_Title": "¡Felicidades!",
+        "GameOver_Text": "¡Has descubierto todas las rocas!",
+        "KeepPlaying": "Seguir jugando",
+        "BackToMenu": "Menú",
 
         "Silicon": "Silicio",
         "Iron": "Hierro",
@@ -103,9 +129,9 @@
 
         "Player_Down": "e han dejado fuera de combate...",
 
-        "Igneous_Text": "¡Has encontrado Obsidiana!\n\nLa obsidiana es una roca ígnea, que se forma cuando la roca fundida y caliente cristaliza y se solidifica. El fundido se origina en las profundidades de la Tierra, cerca de los límites activos de las placas o puntos calientes, y luego asciende hacia la superficie.\n\nExisten dos tipos de rocas ígneas: intrusivas y extrusivas.\n\n Las rocas ígneas intrusivas se forman cuando el magma queda atrapado en las profundidades de la Tierra y tras un largo tiempo se solidifica, mientras que las rocas ígneas extrusivas se producen cuando el magma sale y se enfría cerca o por encima de la superficie terrestre.\n\nLa obsidiana es una roca extrusiva.",
-        "Sedimentary_Text": "¡Has encontrado Conglomerado!\n\nEl conglomerado es una roca sedimentaria que se forma en la superficie terrestre o cerca de ella.\n\nLos procesos geológicos más importantes que conducen a la creación de rocas sedimentarias son la erosión, la meteorización, la disolución, la precipitación y la litificación.\n\nLa erosión y la meteorización incluyen los efectos del viento y la lluvia, que lentamente descomponen grandes rocas en otras más pequeñas. La erosión y la meteorización transforman cantos rodados e incluso montañas en sedimentos, como arena o lodo. La disolución es una forma de meteorización química. En este proceso, el agua ligeramente ácida desgasta lentamente la piedra. La precipitación es la formación de rocas y minerales a partir de sustancias químicas que precipitan del agua y la litificación es el proceso por el cual la arcilla, la arena y otros sedimentos del fondo del océano u otras masas de agua se compactan lentamente hasta convertirse en rocas por el peso de los sedimentos suprayacentes.",
-        "Metamorphic_Text": "¡Has encontrado Pizarra!\n\nLas pizarras son rocas metamórficas, es decir, rocas que empezaron siendo otro tipo de roca, pero que han cambiado sustancialmente desde su forma ígnea, sedimentaria o metamórfica original. Las rocas metamórficas se forman cuando están sometidas a altas temperaturas, altas presiones, fluidos calientes ricos en minerales o, lo que es más común, a una combinación de estos factores. Estas condiciones se dan en las profundidades de la Tierra o en los puntos de encuentro de las placas tectónicas.\n\nEl proceso de metamorfismo no funde las rocas, sino que las transforma en rocas más densas y compactas. Se crean nuevos minerales mediante la reorganización de los componentes minerales o por reacciones con fluidos que penetran en las rocas. La presión o la temperatura pueden incluso transformar rocas previamente metamorfoseadas en nuevos tipos. Las rocas metamórficas suelen estar aplastadas, esparcidas y plegadas.",
+        "Igneous_Text": "¡Has encontrado Obsidiana! \n\nLa obsidiana es una roca ígnea que se forma cuando una roca fundida y caliente cristaliza y se solidifica.",
+        "Sedimentary_Text": "¡Ha encontrado un Conglomerado! \n\nEl conglomerado es una roca sedimentaria que se forma en la superficie terrestre o cerca de ella. \n\nLos procesos geológicos más importantes que conducen a la creación de rocas sedimentarias son la erosión, la meteorización, la disolución, la precipitación y la litificación.",
+        "Metamorphic_Text": "¡Ha encontrado una Pizarra! \n\nLa pizarra es una roca metamórfica, es decir, una roca que empezó siendo otro tipo de roca, pero que ha cambiado sustancialmente desde su forma ígnea, sedimentaria o metamórfica original. \n\nLas rocas metamórficas se forman cuando están sometidas a altas temperaturas, altas presiones, fluidos calientes ricos en minerales o una combinación de estos factores.",
         "Other_Text_01": "¡Has encontrado Aluminio!\n\nEl aluminio procede principalmente de la bauxita, una roca sedimentaria.\n\nLas rocas suelen estar formadas por dos o más minerales, mezclados por procesos geológicos, como plegamientos, fallas y roturas que se producen debido al movimiento de las placas tectónicas.",
         "Other_Text_02": "¡Has encontrado hierro!\n\nLa capa rocosa de la superficie de la Tierra, llamada corteza, está formada principalmente por oxígeno, silicio, aluminio, hierro, calcio, sodio, potasio y magnesio. La superficie de la Tierra está cubierta principalmente por agua líquida y su atmósfera está formada principalmente por nitrógeno y oxígeno, con cantidades menores de dióxido de carbono, vapor de agua y otros gases.",
         "Other_Text_03": "¡Has encontrado Silicio!\n\nVoy a aprovechar esta oportunidad para hablar del ciclo de las rocas.\n\nEl ciclo de las rocas depende del flujo de energía del interior de la Tierra, que implica el ciclo de energía y materia de una para formar otra.\n\nEl ciclo de las rocas consta de siete procesos: levantamiento, meteorización, erosión, deposición, fusión, cristalización y metamorfismo.",

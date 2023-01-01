@@ -48,6 +48,7 @@ namespace Tiago_GeoMine
             SceneManager.LoadScene(1);
 
             gameManager.ResetGameData();
+            gameManager.isNewGame = true;
         }
 
         public void Continue()
@@ -55,6 +56,7 @@ namespace Tiago_GeoMine
             SceneManager.LoadScene(1);
 
             gameManager.StartLoading();
+            gameManager.isNewGame = false;
         }
     }
 }

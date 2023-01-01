@@ -810,7 +810,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d0926372d60f9d94f80bdd9378952c41, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 5dedfc77a9d0fde49a74994f85282385, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.05
   m_Pitch: 1
@@ -1104,6 +1104,7 @@ MonoBehaviour:
     Continue: 
   maxProgress: 14
   currentProgress: 0
+  isNewGame: 0
 --- !u!1 &1123220268
 GameObject:
   m_ObjectHideFlags: 0

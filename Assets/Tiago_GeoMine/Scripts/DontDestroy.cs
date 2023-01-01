@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DontDestroy : MonoBehaviour
+namespace Tiago_GeoMine
 {
-    void Start()
+    public class DontDestroy : MonoBehaviour
     {
-        DontDestroyOnLoad(this.gameObject);
+        void Start()
+        {
+            DontDestroyOnLoad(this.gameObject);
+        }
     }
 }

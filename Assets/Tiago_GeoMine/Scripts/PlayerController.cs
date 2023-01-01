@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.Experimental.Rendering.Universal;
 using TMPro;
 using LoLSDK;
+using UnityEngine.EventSystems;
 
 namespace Tiago_GeoMine
 {
@@ -189,6 +190,9 @@ namespace Tiago_GeoMine
 
             if (Input.GetMouseButtonDown(0))
             {
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
+
                 // Get mouse position in a 2D environment
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
@@ -324,6 +328,9 @@ namespace Tiago_GeoMine
 
             if (Input.touchCount > 1)
             {
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
+
                 // Get touch position in a 2D environment
                 Vector3 touchPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
                 Vector2 touch2D = new Vector2(touchPos.x, touchPos.y);

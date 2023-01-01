@@ -17,6 +17,8 @@ TagManager:
   - Lab
   - Save
   - Text
+  - TutorialHelper
+  - InsideShop
   layers:
   - Default
   - TransparentFX

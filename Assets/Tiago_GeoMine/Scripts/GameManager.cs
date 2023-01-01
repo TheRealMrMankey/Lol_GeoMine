@@ -119,14 +119,24 @@ namespace Tiago_GeoMine
         public int maxProgress;
         public int currentProgress;
 
+        private GameObject tutorialHelper;
+        public bool isNewGame;
+
         private void OnLevelWasLoaded(int level)
         {
             if (level == 1)
             {
                 player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
                 lab = GameObject.FindGameObjectWithTag("Lab").GetComponent<Lab>();
-                text = GameObject.FindGameObjectWithTag("Text").GetComponent<SetText>();     
+                text = GameObject.FindGameObjectWithTag("Text").GetComponent<SetText>();   
                 
+                tutorialHelper = GameObject.FindGameObjectWithTag("TutorialHelper");
+
+                if (isNewGame == true)
+                    tutorialHelper.SetActive(true);
+                else
+                    tutorialHelper.SetActive(false);
+
                 SetValues();
             }
         }
@@ -411,6 +421,6 @@ namespace Tiago_GeoMine
             LOLSDK.Instance.SaveState(saveData);
         }
 
-#endregion
+        #endregion
     }
 }
