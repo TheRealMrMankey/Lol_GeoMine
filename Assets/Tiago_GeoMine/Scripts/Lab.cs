@@ -20,11 +20,14 @@ namespace Tiago_GeoMine
         public GetInventoryValues backpack;
         private GameManager gameManager;
         public GameObject gameOverScreen;
-       
+
+        public TextMeshProUGUI subjectBtn;
         public string currentRock = ""; // Value to Save
         public string Speech01;
         public string Speech02;
         public string Speech03;
+
+        public int queue;
 
         // Rocks discovered
         [Space(10)]
@@ -105,6 +108,40 @@ namespace Tiago_GeoMine
 
         public void OpenLabUI()
         {
+            
+            if (queue == 0)
+            {
+                if (player.silicon > 0 && silicon[0].text == "????")
+                {
+                    queue++;
+                }
+                if (player.iron > 0 && iron[0].text == "????")
+                {
+                    queue++;
+                }
+                if (player.aluminium > 0 && aluminium[0].text == "????")
+                {
+                    queue++;
+                }
+                if (player.calcium > 0 && calcium[0].text == "????")
+                {
+                    queue++;
+                }
+                if (player.igneous > 0 && igneous[0].text == "????")
+                {
+                    queue++;
+                }
+                if (player.sedimentary > 0 && sedimentary[0].text == "????")
+                {
+                    queue++;
+                }
+                if (player.metamorphic > 0 && metamorphic[0].text == "????")
+                {
+                    queue++;
+                }            
+            }
+
+
             // If the player has discovered all the rocks
             if (hasDiscoveredIron == true
             && hasDiscoveredSilicon == true
@@ -129,57 +166,96 @@ namespace Tiago_GeoMine
                     {
                         labUI.SetActive(true);
                         ChooseSubject("silicon");
+
+                        subjectBtn.text = gameManager.langDefs["Button_NextSubject"];
+
+                        queue--;
                     }
                     else if (player.iron > 0 && iron[0].text == "????")
                     {
                         labUI.SetActive(true);
                         ChooseSubject("iron");
+
+                        subjectBtn.text = gameManager.langDefs["Button_NextSubject"];
+
+                        queue--;
                     }
                     else if (player.aluminium > 0 && aluminium[0].text == "????")
                     {
                         labUI.SetActive(true);
                         ChooseSubject("aluminium");
+
+                        subjectBtn.text = gameManager.langDefs["Button_NextSubject"];
+
+                        queue--;
                     }
                     else if (player.calcium > 0 && calcium[0].text == "????")
                     {
                         labUI.SetActive(true);
                         ChooseSubject("calcium");
+
+                        subjectBtn.text = gameManager.langDefs["Button_NextSubject"];
+
+                        queue--;
                     }
                     else if (player.igneous > 0 && igneous[0].text == "????")
                     {
                         labUI.SetActive(true);
                         ChooseSubject("igneous");
+
+                        subjectBtn.text = gameManager.langDefs["Button_NextSubject"];
+
+                        queue--;
                     }
                     else if (player.sedimentary > 0 && sedimentary[0].text == "????")
                     {
                         labUI.SetActive(true);
                         ChooseSubject("sedimentary");
+
+                        subjectBtn.text = gameManager.langDefs["Button_NextSubject"];
+
+                        queue--;
                     }
                     else if (player.metamorphic > 0 && metamorphic[0].text == "????")
                     {
                         labUI.SetActive(true);
                         ChooseSubject("metamorphic");
+
+                        subjectBtn.text = gameManager.langDefs["Button_NextSubject"];
+
+                        queue--;
                     }
                     else
                     {
                         scientistSpeech.text = Speech02;
                         LOLSDK.Instance.SpeakText("Lab_TextBubble_02");
+
+                        CloseLabUI();
                     }
 
-                        #endregion
+                    #endregion
                 }
                 else
                 {
                     scientistSpeech.text = Speech02;
                     LOLSDK.Instance.SpeakText("Lab_TextBubble_02");
+
+                    CloseLabUI();
                 }
             }
+
+            if (queue == 0)
+            {
+                subjectBtn.text = gameManager.langDefs["Button_CloseSubject"];
+            }
+
+            Submit();
         }
 
         public void CloseLabUI()
         {
             labUI.SetActive(false);
-
+            queue = 0;
             Submit();
         }
 
@@ -191,11 +267,11 @@ namespace Tiago_GeoMine
             player.agent.SetDestination(player.transform.position);
         }
 
-        #endregion
+#endregion
 
         public void Submit()
         {
-            #region Other Rocks
+#region Other Rocks
 
             if (currentRock == "silicon" || currentRock == "iron" || currentRock == "aluminium" || currentRock == "calcium")
             {
@@ -242,9 +318,9 @@ namespace Tiago_GeoMine
                 }
             }
 
-            #endregion
+#endregion
 
-            #region Igneous
+#region Igneous
 
             if (currentRock == "igneous")
             {
@@ -258,9 +334,9 @@ namespace Tiago_GeoMine
                     igneous[i].text = setText.currentLanguage.Igneous;
             }
 
-            #endregion
+#endregion
 
-            #region Sedimentary
+#region Sedimentary
 
             if (currentRock == "sedimentary")
             {
@@ -274,9 +350,9 @@ namespace Tiago_GeoMine
                     sedimentary[i].text = setText.currentLanguage.Sedimentary;
             }
 
-            #endregion
+#endregion
 
-            #region Metamorphic
+#region Metamorphic
 
             if (currentRock == "metamorphic")
             {
@@ -290,7 +366,7 @@ namespace Tiago_GeoMine
                     metamorphic[i].text = setText.currentLanguage.Metamorphic;
             }
 
-            #endregion
+#endregion
 
             if (hasDiscoveredIron == true
             && hasDiscoveredSilicon == true
@@ -304,7 +380,7 @@ namespace Tiago_GeoMine
             }
         }
 
-        #region Subjects
+#region Subjects
 
         void ChooseSubject(string rock)
         {          
@@ -368,6 +444,6 @@ namespace Tiago_GeoMine
                 LOLSDK.Instance.SpeakText("Metamorphic_Text");
         }
 
-        #endregion
+#endregion
     }
 }

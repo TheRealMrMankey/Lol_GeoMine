@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using LoLSDK;
 using TMPro;
+using UnityEngine.UI;
 
 namespace Tiago_GeoMine
 {
@@ -14,6 +15,10 @@ namespace Tiago_GeoMine
         private GameObject research;
         private GameObject shop;
 
+        public Button entranceBtn;
+        public Button shopBtn;
+        public Button researchBtn;
+
         public TextMeshProUGUI continueText;
         public TextMeshProUGUI mainText;
 
@@ -21,6 +26,8 @@ namespace Tiago_GeoMine
         private bool hasMined;
         private bool hasResearched;
         private bool hasShoped;
+
+        private int stage = 0;
 
         void Start()
         {
@@ -40,10 +47,20 @@ namespace Tiago_GeoMine
             continueText.text = gameManager.langDefs["Tutorial_Bubble_ContinueButton"];
 #endif
             LOLSDK.Instance.SpeakText("Tutorial_Bubble01");
+            stage ++;
         }
 
         void Update()
         {
+            if(stage == 2)
+                entranceBtn.Select();
+
+            if(stage == 3)
+                researchBtn.Select();
+
+            if(stage == 4)
+                shopBtn.Select();
+
             if (hasMoved == true && hasMined == false && player.totalRocks > 0)
             {
 #if UNITY_EDITOR
@@ -53,6 +70,8 @@ namespace Tiago_GeoMine
 #endif
                 LOLSDK.Instance.SpeakText("Tutorial_Bubble03");
                 hasMined = true;
+
+                stage ++;
             }
 
             if(hasMined == true && (lab.hasDiscoveredAluminium == true || lab.hasDiscoveredCalcium == true || lab.hasDiscoveredIron == true || lab.hasDiscoveredSilicon == true))
@@ -66,6 +85,8 @@ namespace Tiago_GeoMine
                 {
                     LOLSDK.Instance.SpeakText("Tutorial_Bubble04");
                     hasResearched = true;
+
+                    stage++;
                 }
             }
 
@@ -84,6 +105,8 @@ namespace Tiago_GeoMine
                 {
                     LOLSDK.Instance.SpeakText("Tutorial_Bubble05");
                     hasShoped = true;
+
+                    stage++;
                 }
             }
         }
@@ -101,6 +124,8 @@ namespace Tiago_GeoMine
                 continueText.gameObject.SetActive(false);
 
                 hasMoved = true;
+
+                stage++;
             }
 
             if (hasMoved == true && hasMined == true && hasResearched == true && player.money > 0)

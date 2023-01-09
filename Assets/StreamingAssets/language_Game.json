@@ -18,6 +18,7 @@
         "Button_LeaveShop": "Leave",
         "Button_OpenSubject": "Click to continue...",
         "Button_CloseSubject": "Close",
+        "Button_NextSubject": "Next",
         "Button_LeaveLab": "Leave",
         "Button_WakeUp": "Wake Up",
 
@@ -27,7 +28,7 @@
         "Tutorial_Bubble02": "Head to the mine to your left and start digging.",
         "Tutorial_Bubble03": "Great you have found some rocks! Head to research station on the far right to research it.",
         "Tutorial_Bubble04": "Now go to the shop in the middle to sell your discovered rocks.",
-        "Tutorial_Bubble05": "Now you have some money, keep selling discovered rocks to upgrade your gear once you've discovered all the rocks you win!",
+        "Tutorial_Bubble05": "Now you have some money, keep selling discovered rocks to upgrade your gear, once you've discovered all the rocks you win!",
 
         "Tutorial_Title": "Tutorial",
         "Tutorial_Text01": "Click on any tile to move to it.",
@@ -35,7 +36,7 @@
         "Tutorial_Text03": "Click on any rock to mine it. (Some rocks need a better pickaxe).",
         "Tutorial_Text04": "After analyzing a rock you will now know the rock name and you can sell it at the shop for some coins, which you can use to upgrade your gear.",
         "Tutorial_Text05": "Click on an enemy to destroy it.",
-        "Tutorial_Text06": "To enter a building click the building to move to it (or use the buttons above), once your right nex to to it click again to enter.",
+        "Tutorial_Text06": "To enter a building click the building to move to it (or use the buttons above), once your right next to it click again to enter.",
 
         "GameOver_Title": "Congratulations!",
         "GameOver_Text": "You have discovered all the rocks!",
@@ -54,19 +55,19 @@
         "RocksAndMinerals": "Rocks and Minerals",
 
         "Shop_TextBubble": "How can i help you today?",
-        "Lab_TextBubble_01": "Great you're here let's see what you have brought me.",
+        "Lab_TextBubble_01": "Great, you're here! Let's see what you have brought me.",
         "Lab_TextBubble_02": "You have no rocks for me to analyze, come back later when you do.",
         "Lab_TextBubble_03": "Good job! You have discovered all the rocks in the mine.",
 
         "Player_Down": "You were knocked out...",
 
-        "Igneous_Text": "You found Obsidian!\n\nObsidian is an igneous rock, which form when hot, molten rock crystallizes and solidifies.",
-        "Sedimentary_Text": "You found Conglomerate!\n\nConglomerate is a sedimentary rock which are formed on or near the Earth’s surface. \n\nThe most important geological processes that lead to the creation of sedimentary rocks are erosion, weathering, dissolution, precipitation, and lithification.",
-        "Metamorphic_Text": "You found Slate!\n\nSlate is a metamorphic which are rocks that started out as some other type of rock, but have been substantially changed from their original igneous, sedimentary, or earlier metamorphic form. \n\nMetamorphic rocks form when rocks are subjected to high heat, high pressure, hot mineral-rich fluids or some combination of these factors.",
+        "Igneous_Text": "You found Obsidian!\n\nObsidian is an igneous rock, igneous rocks form when hot, molten rock crystallizes and solidifies.",
+        "Sedimentary_Text": "You found Conglomerate!\n\nConglomerate is a sedimentary rock, sedimentary rocks are formed on or near the Earth’s surface.\n\nThe most important geological processes that lead to the creation of sedimentary rocks are erosion, weathering, dissolution, precipitation, and lithification.",
+        "Metamorphic_Text": "You found Slate!\n\nSlate is a metamorphic, metamorphic rocks start out as some other type of rock, but have been substantially changed from their original igneous, sedimentary, or earlier metamorphic form.\n\nMetamorphic rocks form when rocks are subjected to high heat, high pressure, hot mineral-rich fluids or some combination of these factors.",
         "Other_Text_01": "You found Aluminum!\n\nAluminum is primarily sourced from the rock Bauxite which is a sedimentary rock.\n\nRocks are generally made up of two or more minerals, mixed up by geological processes, such as folding, faulting, and breaking which happen due to tectonic plate movement.",
         "Other_Text_02": "You found Iron!\n\nThe rocky surface layer of Earth, called the crust, is made up of mostly oxygen, silicon, aluminum, iron, calcium, sodium, potassium, and magnesium. Earth's surface is mainly covered with liquid water and its atmosphere is mainly nitrogen and oxygen, with smaller amounts of carbon dioxide, water vapor and other gases.",
         "Other_Text_03": "You found Silicon!\n\nI’m going to take this opportunity to talk about the rock cycle!\n\nThe rock cycle is dependent upon the flow of energy from Earth’s interior which involves the cycling of energy and matter from one to form another.\n\nThe rock cycle has seven processes, uplift, weathering, erosion, deposition, melting, crystallization, and metamorphism.",
-        "Other_Text_04": "You found Calcium!\n\nI’m going to take this opportunity to talk about changes of state!\n\nA change of state is a physical change in a matter. They are reversible changes and do not involve any changes in the chemical makeup of the matter. Common changes of the state include melting, freezing, sublimation, deposition, condensation, and evaporation."
+        "Other_Text_04": "You found Calcium!\n\nI’m going to take this opportunity to talk about changes of state!\n\nA change of state is a physical change in a matter. They are reversible changes and do not involve any changes in the chemical makeup of the matter. Common changes of state include melting, freezing, sublimation, deposition, condensation, and evaporation."
     },
     "es":
     {
@@ -87,6 +88,7 @@
         "Button_LeaveShop": "Dejar",
         "Button_OpenSubject": "Pulse para continuar...",
         "Button_CloseSubject": "Cerrar",
+        "Button_NextSubject": "Siguiente",
         "Button_LeaveLab": "Dejar",
         "Button_WakeUp": "Despertar",
 
@@ -123,15 +125,15 @@
         "RocksAndMinerals": "Rocas y Minerales",
 
         "Shop_TextBubble": "¿En qué puedo ayudarle hoy?",
-        "Lab_TextBubble_01": "Genial que estés aquí, veamos lo que me has traído",
+        "Lab_TextBubble_01": "¡Genial, estás aquí! Veamos lo que me has traído.",
         "Lab_TextBubble_02": "No tienes rocas para que las analice, vuelve más tarde cuando las tengas",
         "Lab_TextBubble_03": "¡Buen trabajo! Has descubierto todas las rocas de la mina",
 
         "Player_Down": "e han dejado fuera de combate...",
 
-        "Igneous_Text": "¡Has encontrado Obsidiana! \n\nLa obsidiana es una roca ígnea que se forma cuando una roca fundida y caliente cristaliza y se solidifica.",
-        "Sedimentary_Text": "¡Ha encontrado un Conglomerado! \n\nEl conglomerado es una roca sedimentaria que se forma en la superficie terrestre o cerca de ella. \n\nLos procesos geológicos más importantes que conducen a la creación de rocas sedimentarias son la erosión, la meteorización, la disolución, la precipitación y la litificación.",
-        "Metamorphic_Text": "¡Ha encontrado una Pizarra! \n\nLa pizarra es una roca metamórfica, es decir, una roca que empezó siendo otro tipo de roca, pero que ha cambiado sustancialmente desde su forma ígnea, sedimentaria o metamórfica original. \n\nLas rocas metamórficas se forman cuando están sometidas a altas temperaturas, altas presiones, fluidos calientes ricos en minerales o una combinación de estos factores.",
+        "Igneous_Text": "¡Has encontrado Obsidiana! \n\nLa obsidiana es una roca ígnea, las rocas ígneas se forman cuando la roca fundida y caliente cristaliza y se solidifica.",
+        "Sedimentary_Text": "¡Ha encontrado un Conglomerado! \n\nEl conglomerado es una roca sedimentaria, las rocas sedimentarias se forman en la superficie terrestre o cerca de ella.\n\nLos procesos geológicos más importantes que conducen a la creación de rocas sedimentarias son la erosión, la meteorización, la disolución, la precipitación y la litificación.",
+        "Metamorphic_Text": "¡Ha encontrado una Pizarra! \n\nLa pizarra es una roca metamórfica, las rocas metamórficas empiezan siendo otro tipo de roca, pero han sufrido cambios sustanciales respecto a su forma original ígnea, sedimentaria o metamórfica anterior. \n\nLas rocas metamórficas se forman cuando están sometidas a altas temperaturas, altas presiones, fluidos calientes ricos en minerales o una combinación de estos factores.",
         "Other_Text_01": "¡Has encontrado Aluminio!\n\nEl aluminio procede principalmente de la bauxita, una roca sedimentaria.\n\nLas rocas suelen estar formadas por dos o más minerales, mezclados por procesos geológicos, como plegamientos, fallas y roturas que se producen debido al movimiento de las placas tectónicas.",
         "Other_Text_02": "¡Has encontrado hierro!\n\nLa capa rocosa de la superficie de la Tierra, llamada corteza, está formada principalmente por oxígeno, silicio, aluminio, hierro, calcio, sodio, potasio y magnesio. La superficie de la Tierra está cubierta principalmente por agua líquida y su atmósfera está formada principalmente por nitrógeno y oxígeno, con cantidades menores de dióxido de carbono, vapor de agua y otros gases.",
         "Other_Text_03": "¡Has encontrado Silicio!\n\nVoy a aprovechar esta oportunidad para hablar del ciclo de las rocas.\n\nEl ciclo de las rocas depende del flujo de energía del interior de la Tierra, que implica el ciclo de energía y materia de una para formar otra.\n\nEl ciclo de las rocas consta de siete procesos: levantamiento, meteorización, erosión, deposición, fusión, cristalización y metamorfismo.",

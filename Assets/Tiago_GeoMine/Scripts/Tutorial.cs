@@ -14,8 +14,6 @@ namespace Tiago_GeoMine
 
         void Start()
         {
-            tutorialScreen.SetActive(false);
-
             // Get Player
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         }

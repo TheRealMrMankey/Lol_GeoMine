@@ -11,6 +11,8 @@ namespace Tiago_GeoMine
     {
         private GameManager gameManager;
 
+        public GameObject playerUI;
+
         public TextMeshProUGUI title;
         public TextMeshProUGUI mainText;
         public TextMeshProUGUI menuBtn;
@@ -19,6 +21,7 @@ namespace Tiago_GeoMine
         public void Start()
         {
             gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+            playerUI.SetActive(false);
 
 #if UNITY_EDITOR
             title.text = gameManager.langDefs[gameManager.langCode]["GameOver_Title"];
@@ -43,6 +46,7 @@ namespace Tiago_GeoMine
         public void KeepPlaying()
         {
             this.gameObject.SetActive(false);
+            playerUI.SetActive(true);
         }
     }
 }

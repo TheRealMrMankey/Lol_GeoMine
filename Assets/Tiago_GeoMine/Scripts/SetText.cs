@@ -288,7 +288,7 @@ namespace Tiago_GeoMine
             currentLanguage.Button_CloseShop = gameManager.langDefs[gameManager.langCode]["Button_CloseShop"];
             currentLanguage.Button_LeaveShop = gameManager.langDefs[gameManager.langCode]["Button_LeaveShop"];
             currentLanguage.Button_OpenSubject = gameManager.langDefs[gameManager.langCode]["Button_OpenSubject"];
-            currentLanguage.Button_CloseSubject = gameManager.langDefs[gameManager.langCode]["Button_CloseSubject"];
+            //currentLanguage.Button_CloseSubject = gameManager.langDefs[gameManager.langCode]["Button_CloseSubject"];
             currentLanguage.Button_LeaveLab = gameManager.langDefs[gameManager.langCode]["Button_LeaveLab"];
             currentLanguage.Button_WakeUp = gameManager.langDefs[gameManager.langCode]["Button_WakeUp"];
 
@@ -341,7 +341,7 @@ namespace Tiago_GeoMine
             currentLanguage.Button_CloseShop = gameManager.langDefs["Button_CloseShop"];
             currentLanguage.Button_LeaveShop = gameManager.langDefs["Button_LeaveShop"];
             currentLanguage.Button_OpenSubject = gameManager.langDefs["Button_OpenSubject"];
-            currentLanguage.Button_CloseSubject = gameManager.langDefs["Button_CloseSubject"];
+            //currentLanguage.Button_CloseSubject = gameManager.langDefs["Button_CloseSubject"];
             currentLanguage.Button_LeaveLab = gameManager.langDefs["Button_LeaveLab"];
             currentLanguage.Button_WakeUp = gameManager.langDefs["Button_WakeUp"];
 
