@@ -43,6 +43,9 @@ namespace Tiago_GeoMine
         public int igneous;
         public int sedimentary;
         public int metamorphic;
+
+        // Game
+        public int progress;
     }
 
     [System.Serializable]
@@ -77,6 +80,9 @@ namespace Tiago_GeoMine
         public int igneous;
         public int sedimentary;
         public int metamorphic;
+
+        // Game
+        public int progress;
     }
 
 #endregion
@@ -118,6 +124,7 @@ namespace Tiago_GeoMine
 
         public int maxProgress;
         public int currentProgress;
+        private GameObject gameOverScreen;
 
         private GameObject tutorialHelper;
         public bool isNewGame;
@@ -129,7 +136,9 @@ namespace Tiago_GeoMine
                 player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
                 lab = GameObject.FindGameObjectWithTag("Lab").GetComponent<Lab>();
                 text = GameObject.FindGameObjectWithTag("Text").GetComponent<SetText>();   
-                
+                gameOverScreen = GameObject.FindGameObjectWithTag("GameOver");
+                gameOverScreen.SetActive(false);
+
                 tutorialHelper = GameObject.FindGameObjectWithTag("TutorialHelper");
 
                 if (isNewGame == true)
@@ -175,8 +184,11 @@ namespace Tiago_GeoMine
             LOLSDK.Instance.SubmitProgress(currentProgress, currentProgress, maxProgress);
 
             // Complete the game
-            if (currentProgress >= maxProgress)
+            if (currentProgress >= maxProgress && player.agent.isStopped == false)
+            {
+                gameOverScreen.SetActive(true);
                 LOLSDK.Instance.CompleteGame();
+            }
         }
 
         // Start the game here
@@ -250,7 +262,7 @@ namespace Tiago_GeoMine
             saveData.sedimentary = defaultData.sedimentary;
             saveData.metamorphic = defaultData.metamorphic;
             
-            currentProgress = 0;
+            currentProgress = defaultData.progress;
             UpdateProgress();
 
             Debug.Log("Data reverted to default");
@@ -321,9 +333,12 @@ namespace Tiago_GeoMine
 
             // Player
             player.money = saveData.money;
+
             player.pickaxeLvl = saveData.pickaxeLvl;
             player.lanternLvl = saveData.lanternLvl;
+            player.UpdateLantern();
             player.armourLvl = saveData.armourLvl;
+            player.UpdateMaxHealth();
             player.totalRocks = saveData.totalRocks;
             player.silicon = saveData.silicon;
             player.iron = saveData.iron;
@@ -332,6 +347,8 @@ namespace Tiago_GeoMine
             player.igneous = saveData.igneous;
             player.sedimentary = saveData.sedimentary;
             player.metamorphic = saveData.metamorphic;
+
+            currentProgress = saveData.progress;
 
             #endregion
         }
@@ -373,7 +390,10 @@ namespace Tiago_GeoMine
 
             // Player
             int money, int pickaxeLvl, int lanternLvl, int armourLvl,
-            int totalRocks, int silicon, int iron, int aluminium, int calcium, int igneous, int sedimentary, int metamorphic
+            int totalRocks, int silicon, int iron, int aluminium, int calcium, int igneous, int sedimentary, int metamorphic,
+
+            // Game
+            int progress
             )
             ///
         {          
@@ -406,6 +426,9 @@ namespace Tiago_GeoMine
             saveData.igneous = igneous;
             saveData.sedimentary = sedimentary;
             saveData.metamorphic = metamorphic;
+
+            // Game
+            saveData.progress = progress;
 
             MakeSave();
 

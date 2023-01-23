@@ -42,7 +42,10 @@ namespace Tiago_GeoMine
                     // Player
                     player.money, player.pickaxeLvl, player.lanternLvl, player.armourLvl,
                     player.totalRocks, player.silicon, player.iron, player.aluminium,
-                    player.calcium, player.igneous, player.sedimentary, player.metamorphic
+                    player.calcium, player.igneous, player.sedimentary, player.metamorphic,
+
+                    // Game
+                    gameManager.currentProgress
                 );
         }
     }

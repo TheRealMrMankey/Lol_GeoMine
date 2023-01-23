@@ -19,6 +19,7 @@ TagManager:
   - Text
   - TutorialHelper
   - InsideShop
+  - GameOver
   layers:
   - Default
   - TransparentFX

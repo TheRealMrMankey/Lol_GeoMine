@@ -24,6 +24,8 @@ namespace Tiago_GeoMine
         [Space(10)]
         [Header("UI")]
 
+        public Lab research;
+
         public GameObject inventory;
         public GameObject deathScreen;
 
@@ -70,10 +72,10 @@ namespace Tiago_GeoMine
         public int money; // Value to Save
 
         /// Upgradable      
-        public int pickaxeLvl = 1; // Value to Save
-        public int lanternLvl = 1; // Value to Save
+        public int pickaxeLvl; // Value to Save
+        public int lanternLvl; // Value to Save
         public Light2D helmetLight;
-        public int armourLvl = 1; // Value to Save
+        public int armourLvl; // Value to Save
 
         [Space(10)]
         [Header("Rocks and Minerals")]
@@ -96,6 +98,8 @@ namespace Tiago_GeoMine
         void Start()
         {
             #region Components and GameObjects
+
+            research = GameObject.FindGameObjectWithTag("Lab").GetComponent<Lab>();
 
             // Rope
             rope.SetActive(false);
@@ -140,9 +144,7 @@ namespace Tiago_GeoMine
 
             #region Upgrades
 
-            // Helmet Light Radius
-            helmetLight.pointLightOuterRadius = lanternLvl * 2;
-            helmetLight.gameObject.SetActive(false);
+            UpdateLantern();
 
             // Health
             UpdateMaxHealth();
@@ -232,6 +234,19 @@ namespace Tiago_GeoMine
                             agent.isStopped = true;
 
                             LOLSDK.Instance.SpeakText("Lab_TextBubble_01");
+                            research.scientistSpeech.text = research.Speech01;
+
+                            if (research.hasDiscoveredIron == true
+                            && research.hasDiscoveredSilicon == true
+                            && research.hasDiscoveredAluminium == true
+                            && research.hasDiscoveredCalcium == true
+                            && research.hasDiscoveredIgneous == true
+                            && research.hasDiscoveredSedimentary == true
+                            && research.hasDiscoveredMetamorphic == true)
+                            {
+                                research.scientistSpeech.text = research.Speech03;
+                                LOLSDK.Instance.SpeakText("Lab_TextBubble_03");
+                            }
                         }
                     }
 
@@ -370,6 +385,19 @@ namespace Tiago_GeoMine
                             agent.isStopped = true;
 
                             LOLSDK.Instance.SpeakText("Lab_TextBubble_01");
+                            research.scientistSpeech.text = research.Speech01;
+
+                            if (research.hasDiscoveredIron == true
+                            && research.hasDiscoveredSilicon == true
+                            && research.hasDiscoveredAluminium == true
+                            && research.hasDiscoveredCalcium == true
+                            && research.hasDiscoveredIgneous == true
+                            && research.hasDiscoveredSedimentary == true
+                            && research.hasDiscoveredMetamorphic == true)
+                            {
+                                research.scientistSpeech.text = research.Speech03;
+                                LOLSDK.Instance.SpeakText("Lab_TextBubble_03");
+                            }
                         }
                     }
 
@@ -509,7 +537,7 @@ namespace Tiago_GeoMine
 
             if (rockName.Contains("Silicon"))
             {
-                if (silicon <= 0)
+                if (silicon <= 0 && research.hasDiscoveredSilicon == false)
                 {
                     gameManager.currentProgress++;
                     gameManager.UpdateProgress();
@@ -519,7 +547,7 @@ namespace Tiago_GeoMine
             }
             if (rockName.Contains("Iron"))
             {
-                if (iron <= 0)
+                if (iron <= 0 && research.hasDiscoveredIron == false)
                 {
                     gameManager.currentProgress++;
                     gameManager.UpdateProgress();
@@ -529,7 +557,7 @@ namespace Tiago_GeoMine
             }
             if (rockName.Contains("Aluminium"))
             {
-                if (aluminium <= 0)
+                if (aluminium <= 0 && research.hasDiscoveredAluminium == false)
                 {
                     gameManager.currentProgress++;
                     gameManager.UpdateProgress();
@@ -539,7 +567,7 @@ namespace Tiago_GeoMine
             }
             if (rockName.Contains("Calcium"))
             {
-                if (calcium <= 0)
+                if (calcium <= 0 && research.hasDiscoveredCalcium == false)
                 {
                     gameManager.currentProgress++;
                     gameManager.UpdateProgress();
@@ -549,7 +577,7 @@ namespace Tiago_GeoMine
             }
             if (rockName.Contains("Igneous"))
             {
-                if (igneous <= 0)
+                if (igneous <= 0 && research.hasDiscoveredIgneous == false)
                 {
                     gameManager.currentProgress++;
                     gameManager.UpdateProgress();
@@ -559,7 +587,7 @@ namespace Tiago_GeoMine
             }
             if (rockName.Contains("Sedimentary"))
             {
-                if (sedimentary <= 0)
+                if (sedimentary <= 0 && research.hasDiscoveredSedimentary == false)
                 {
                     gameManager.currentProgress++;
                     gameManager.UpdateProgress();
@@ -569,7 +597,7 @@ namespace Tiago_GeoMine
             }
             if (rockName.Contains("Metamorphic"))
             {
-                if (metamorphic <= 0)
+                if (metamorphic <= 0 && research.hasDiscoveredMetamorphic == false)
                 {
                     gameManager.currentProgress++;
                     gameManager.UpdateProgress();
@@ -585,20 +613,27 @@ namespace Tiago_GeoMine
 
         public void GoToEntrance()
         {
-            agent.SetDestination(new Vector2(-7.448f, 0.34f));
+            agent.SetDestination(new Vector2(-7.448f, 0 /*0.34f*/));
         }
 
         public void GoToShop()
         {
-            agent.SetDestination(new Vector2(-.159f, 0.534f));
+            agent.SetDestination(new Vector2(-.159f, 0 /*0.534f*/));
         }
 
         public void GoToResearch()
         {
-            agent.SetDestination(new Vector2(3.73f, 0.534f));
+            agent.SetDestination(new Vector2(3.73f, 0 /*0.534f*/));
         }
 
         #endregion
+
+        public void UpdateLantern()
+        {
+            // Helmet Light Radius
+            helmetLight.pointLightOuterRadius = lanternLvl * 2;
+            helmetLight.gameObject.SetActive(false);
+        }
 
         #region Update Healthpoints
 

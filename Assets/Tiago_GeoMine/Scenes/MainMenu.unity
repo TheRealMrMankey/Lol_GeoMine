@@ -1069,6 +1069,7 @@ MonoBehaviour:
     igneous: 0
     sedimentary: 0
     metamorphic: 0
+    progress: 0
   saveData:
     currentRock: 
     hasDiscoveredIron: 0
@@ -1089,7 +1090,7 @@ MonoBehaviour:
     money: 0
     pickaxeLvl: 1
     lanternLvl: 1
-    armourLvl: 1
+    armourLvl: 2
     totalRocks: 0
     silicon: 0
     iron: 0
@@ -1098,6 +1099,7 @@ MonoBehaviour:
     igneous: 0
     sedimentary: 0
     metamorphic: 0
+    progress: 0
   langCode: en
   currentLanguage:
     NewGame: 
